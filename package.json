@@ -33,7 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "if [ $(git rev-parse --abbrev-ref HEAD) = 'main' ] || [ $(git rev-parse --abbrev-ref HEAD) = 'develop' ]; then echo 'Commit not allowed'; exit 1; fi"
+      "pre-commit": "sh hooks/pre-commit"
     }
   },
   "browserslist": {
