@@ -26,6 +26,7 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "ignorePatterns": ["jest.config.js", "*.css", "*.svg"],
   "rules": {
     "no-use-before-define": "off",
     "@typescript-eslint/no-explicit-any": ["error"],
