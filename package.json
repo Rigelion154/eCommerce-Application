@@ -17,8 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "bin/react-scripts build",
-    "test": "react-scripts test",
-    "jest": "jest",
+    "test": "jest",
     "eject": "react-scripts eject",
     "lint": "eslint --fix --color .",
     "format": "prettier --write .",
