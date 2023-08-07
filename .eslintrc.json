@@ -31,10 +31,10 @@
       "error",
       "ignorePackages",
       {
-      "ts": "never",
-      "tsx": "never"
+        "ts": "never",
+        "tsx": "never"
       }
-      ],
+    ],
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "react-hooks/rules-of-hooks": "error",
