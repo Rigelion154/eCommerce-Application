@@ -1,0 +1,28 @@
+.container {
+    background-color: var(--color-primary);
+}
+.items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 15px 0;
+}
+
+.item__wrapper {
+    flex: 1 0 0;
+    border-right: 1px solid #0077E4;
+}
+
+.item__wrapper:last-child {
+    border-right: none;
+}
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    width: 100%;
+}
+

@@ -1,0 +1,50 @@
+.button {
+    min-width: 70px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.button__fill {
+    background-color: var(--color-primary);
+}
+
+.button__fill:hover {
+    background-color: #0077E4;
+    transition: all .5s;
+}
+
+.button__border {
+    border: 1px solid var(--color-text-primary);
+    background-color: transparent;
+    color: var(--color-button-primary);
+}
+
+.button__border:hover {
+    background-color: #EEF0F4;
+    color: var(--color-text-primary);
+    transition: all .5s;
+}
+
+.button__category {
+    display: block;
+    height: 80%;
+    border-radius: 5px;
+}
+
+.button__search {
+    border-radius: 0;
+    color: var(--color-button-primary);
+    background-color: #EEF0F4;
+}
+
+.button__search:hover {
+    color: #0077E4;
+    transition: color .5s;
+}
+
+.button__magnifier {
+    border-radius: 0;
+}

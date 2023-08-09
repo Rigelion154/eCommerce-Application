@@ -1,0 +1,41 @@
+@import "styles/buttons.css";
+:root {
+    --color-primary: #319DFF;
+    --color-text-primary: #1D232C;
+    --color-button-primary: #586A84;
+}
+
+html {
+    font-size: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul{
+    list-style: none;
+}
+
+body {
+    color: var(--color-text-primary);
+    font-size: 2rem;
+}
+
+.container {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--color-primary);
+}
