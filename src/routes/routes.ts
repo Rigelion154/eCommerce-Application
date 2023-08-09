@@ -1,7 +1,8 @@
 const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
-  FAVORITES: '/favorites',
+  REGISTRATION: '/registration',
+  PROFILE: '/profile',
   CART: '/cart',
 };
 

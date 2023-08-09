@@ -1,14 +1,14 @@
 import React from 'react';
 import Container from '../components/layout/container/Container';
 
-function Cart() {
+function NotFound() {
   return (
-    <section>
+    <div>
       <Container>
-        <h2>Здесь будет корзина</h2>
+        <h2>Page not found</h2>
       </Container>
-    </section>
+    </div>
   );
 }
 
-export default Cart;
+export default NotFound;

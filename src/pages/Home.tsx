@@ -1,7 +1,7 @@
 import React from 'react';
-import Container from '../components/layout/Container';
+import Container from '../components/layout/container/Container';
 
-const Home = () => {
+function Home() {
   return (
     <section>
       <Container>
@@ -9,6 +9,6 @@ const Home = () => {
       </Container>
     </section>
   );
-};
+}
 
 export default Home;

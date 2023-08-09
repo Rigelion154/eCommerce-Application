@@ -2,8 +2,8 @@ import './index.css';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import Header from './components/layout/Header';
-import AppRouter from './routes/AppRouter';
+import Header from './components/ui/header/Header';
+import AppRouter from './routes/appRouter/AppRouter';
 
 function App() {
   return (

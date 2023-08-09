@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import Container from '../components/layout/container/Container';
 import ROUTES from '../routes/routes';
 
-function Login() {
+function Registration() {
   return (
     <section>
       <Container>
-        <h2>Здесь будет логин</h2>
+        <h2>Здесь будет регистрация</h2>
         <p>
-          Нет аккаунта?
-          <Link className='button' to={ROUTES.REGISTRATION}>
-            Register
+          Есть аккаунт?{' '}
+          <Link className='button' to={ROUTES.LOGIN}>
+            Login
           </Link>
         </p>
       </Container>
@@ -19,4 +19,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Registration;

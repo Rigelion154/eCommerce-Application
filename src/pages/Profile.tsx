@@ -1,14 +1,14 @@
 import React from 'react';
 import Container from '../components/layout/container/Container';
 
-function Cart() {
+function Profile() {
   return (
-    <section>
+    <div>
       <Container>
-        <h2>Здесь будет корзина</h2>
+        <h2>Здесь будет профиль</h2>
       </Container>
-    </section>
+    </div>
   );
 }
 
-export default Cart;
+export default Profile;

@@ -5,17 +5,17 @@ import { MdOutlinePhotoCamera } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 import styles from './CategoryBar.module.css';
-import Container from '../../layout/Container';
+import Container from '../../layout/container/Container';
 
 const links = [
   { id: 1, name: 'TV', icon: <GiTv /> },
   { id: 2, name: 'Smartphones', icon: <GiSmartphone /> },
   { id: 3, name: 'Laptops', icon: <AiOutlineLaptop /> },
   { id: 4, name: 'Photo & Video', icon: <MdOutlinePhotoCamera /> },
-  { id: 4, name: 'Gadgets', icon: <AiFillApi /> },
+  { id: 5, name: 'Gadgets', icon: <AiFillApi /> },
 ];
 
-const CategoryBar = () => {
+function CategoryBar() {
   return (
     <div className={styles.container}>
       <Container>
@@ -32,6 +32,6 @@ const CategoryBar = () => {
       </Container>
     </div>
   );
-};
+}
 
 export default CategoryBar;
