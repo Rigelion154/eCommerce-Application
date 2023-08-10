@@ -17,5 +17,5 @@
     "noImplicitAny": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "typings.d.ts"] // добавление css модуля
 }
