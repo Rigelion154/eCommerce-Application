@@ -25,33 +25,16 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "react-hooks"
-  ],
-  "ignorePatterns": [
-    "jest.config.js",
-    "*.css",
-    "*.svg"
-  ],
+  "plugins": ["react", "@typescript-eslint", "react-hooks"],
+  "ignorePatterns": ["jest.config.js", "*.css", "*.svg"],
   "rules": {
     "no-use-before-define": "off",
-    "@typescript-eslint/no-explicit-any": [
-      "error"
-    ],
-    "@typescript-eslint/no-use-before-define": [
-      "error"
-    ],
+    "@typescript-eslint/no-explicit-any": ["error"],
+    "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     ],
     "import/extensions": [
@@ -63,9 +46,7 @@
       }
     ],
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": [
-      "error"
-    ],
+    "@typescript-eslint/no-shadow": ["error"],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
