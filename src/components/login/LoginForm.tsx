@@ -1,14 +1,14 @@
 import React from 'react';
-import EmailInput from './EmailInput';
-import PasswordInput from './PasswordInput';
 import LoginButton from './LoginButton';
 import classes from './LoginForm.module.css';
+import EmailWrapper from './EmailWrapper';
+import PasswordWrapper from './PasswordWrapper';
 
 function LoginForm() {
   return (
     <form className={classes.form}>
-      <EmailInput placeholder='Your Email' />
-      <PasswordInput placeholder='Your Password' />
+      <EmailWrapper />
+      <PasswordWrapper />
       <LoginButton />
     </form>
   );
