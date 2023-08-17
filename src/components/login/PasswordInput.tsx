@@ -4,7 +4,7 @@ import classes from './LoginInputs.module.css';
 function PasswordInput({ ...props }: ComponentPropsWithoutRef<'input'>) {
   return (
     <input
-      type='password'
+      type={props.type}
       placeholder={props.placeholder}
       className={classes.input}
       onChange={props.onChange}

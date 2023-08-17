@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import PasswordInput from './PasswordInput';
 import InvalidPassword from './InvalidPassword';
+import PasswordHideButton from './PasswordBtn';
 
 function PasswordWrapper() {
   const [hidden, setHidden] = useState(true);
+  const [passwordHiddden, setPasswordHide] = useState('password');
+
+  function hideToggle() {
+    if (passwordHiddden === 'password') {
+      setPasswordHide('text');
+    } else {
+      setPasswordHide('password');
+    }
+  }
 
   function checkPassword(e: React.FormEvent<HTMLInputElement>) {
     if (e.target) {
@@ -18,8 +28,13 @@ function PasswordWrapper() {
   }
   return (
     <div>
-      <PasswordInput placeholder='Your Password' onChange={(e) => checkPassword(e)} />
+      <PasswordInput
+        type={passwordHiddden}
+        placeholder='Your Password'
+        onChange={(e) => checkPassword(e)}
+      />
       <InvalidPassword hidden={hidden} />
+      <PasswordHideButton onClick={() => hideToggle()} />
     </div>
   );
 }
