@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+// import { ApiRoot } from '@commercetools/platform-sdk';
+// import { getApiRoot } from '../../../../BuildClient';
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { ClientData } from '../../../types/types';
+import { ctpClient, projectKey } from '../../../BuildClient';
 
 import styles from './RegistrationForm.module.css';
+
+const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projectKey });
 
 function RegistrationForm() {
   const [email, setEmail] = useState('');
@@ -13,9 +20,51 @@ function RegistrationForm() {
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
 
+  const submitRegistrationForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newClientData: ClientData = {
+      email,
+      password: pass,
+      firstName,
+      lastName,
+      birthDay,
+      addresses: [
+        {
+          streetName: street,
+          city,
+          postalCode,
+          country,
+        },
+      ],
+    };
+
+    const createCustomer = () => {
+      return apiRoot
+        .customers()
+        .post({
+          body: newClientData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .execute();
+    };
+
+    await createCustomer();
+  };
+
   return (
     <div>
-      <form className={styles.registration__form}>
+      <form
+        className={styles.registration__form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitRegistrationForm(e).catch((error) => {
+            console.error('Error submitting form:', error);
+          });
+        }}
+      >
         <input
           type='email'
           value={email}
