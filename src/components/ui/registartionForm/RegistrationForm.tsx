@@ -92,7 +92,11 @@ function RegistrationForm() {
         <input
           type='date'
           value={birthDay}
-          onChange={(e) => setBirthDay(e.target.value)}
+          onChange={(e) => {
+            const selectedDate = new Date(e.target.value);
+            const isoDate = selectedDate.toISOString().split('T')[0];
+            setBirthDay(isoDate);
+          }}
           placeholder='Date of birth'
         />
         <div className={styles.address__field}>
