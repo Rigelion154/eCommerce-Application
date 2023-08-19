@@ -25,6 +25,9 @@ function RegistrationForm() {
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordError, setPasswordError] = useState('');
 
+  const [firstNameError, setFirstNameError] = useState('');
+  const [firstNameValid, setFirstNameValid] = useState(false);
+
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
@@ -56,6 +59,21 @@ function RegistrationForm() {
     } else {
       setPasswordError('');
       setPasswordValid(true);
+    }
+  };
+
+  const validateFirstName = (value: string) => {
+    const firstNamePattern = /^[a-zA-Zа-яА-Я]*$/;
+
+    if (!value) {
+      setFirstNameError('Поле должно быть заполнено');
+      setFirstNameValid(false);
+    } else if (!firstNamePattern.test(value)) {
+      setFirstNameError('Имя не должно содержать специальных символов или цифр');
+      setFirstNameValid(false);
+    } else {
+      setFirstNameError('');
+      setFirstNameValid(true);
     }
   };
 
@@ -144,9 +162,21 @@ function RegistrationForm() {
         <input
           type='text'
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => {
+            setFirstName(e.target.value);
+            if (!e.target.value) {
+              setFirstNameError('Поле должно быть заполнено');
+              setFirstNameValid(false);
+            } else {
+              validateFirstName(e.target.value);
+            }
+          }}
+          onBlur={() => validateFirstName(firstName)}
           placeholder='First name'
         />
+        {firstNameError && !firstNameValid && (
+          <p className={styles.error__message}>{firstNameError}</p>
+        )}
         <input
           type='text'
           value={lastName}
