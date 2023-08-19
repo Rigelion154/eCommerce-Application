@@ -28,6 +28,9 @@ function RegistrationForm() {
   const [firstNameError, setFirstNameError] = useState('');
   const [firstNameValid, setFirstNameValid] = useState(false);
 
+  const [lastNameError, setLastNameError] = useState('');
+  const [lastNameValid, setLastNameValid] = useState(false);
+
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
@@ -74,6 +77,20 @@ function RegistrationForm() {
     } else {
       setFirstNameError('');
       setFirstNameValid(true);
+    }
+  };
+  const validateLastName = (value: string) => {
+    const lastNamePattern = /^[a-zA-Zа-яА-Я]*$/;
+
+    if (!value) {
+      setLastNameError('Поле должно быть заполнено');
+      setLastNameValid(false);
+    } else if (!lastNamePattern.test(value)) {
+      setLastNameError('Имя не должно содержать специальных символов или цифр');
+      setLastNameValid(false);
+    } else {
+      setLastNameError('');
+      setLastNameValid(true);
     }
   };
 
@@ -180,9 +197,21 @@ function RegistrationForm() {
         <input
           type='text'
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => {
+            setLastName(e.target.value);
+            if (!e.target.value) {
+              setLastNameError('Поле должно быть заполнено');
+              setLastNameValid(false);
+            } else {
+              validateLastName(e.target.value);
+            }
+          }}
+          onBlur={() => validateLastName(lastName)}
           placeholder='Last name'
         />
+        {lastNameError && !lastNameValid && (
+          <p className={styles.error__message}>{lastNameError}</p>
+        )}
         <input
           type='date'
           value={birthDay}
