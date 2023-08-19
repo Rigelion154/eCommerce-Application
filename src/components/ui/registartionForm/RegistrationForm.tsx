@@ -19,8 +19,26 @@ function RegistrationForm() {
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
 
+  const [emailError, setEmailError] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+
+  const validateEmail = (value: string) => {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+
+    if (!value) {
+      setEmailError('Поле должно быть заполнено');
+      setEmailValid(false);
+    } else if (!emailPattern.test(value)) {
+      setEmailError('Введите правильный адрес электронной почты');
+      setEmailValid(false);
+    } else {
+      setEmailError('');
+      setEmailValid(true);
+    }
+  };
 
   const validatePassword = (value: string) => {
     const containUpperLetter = /[A-Z]/.test(value);
@@ -91,9 +109,20 @@ function RegistrationForm() {
         <input
           type='email'
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            // validateEmail(e.target.value);
+          }}
+          onBlur={() => {
+            validateEmail(email);
+            if (!email) {
+              setEmailError('Поле должно быть заполнено');
+              setEmailValid(false);
+            }
+          }}
           placeholder='email'
         />
+        {emailError && !emailValid && <p className={styles.error__message}>{emailError}</p>}
         <input
           type='password'
           value={password}
