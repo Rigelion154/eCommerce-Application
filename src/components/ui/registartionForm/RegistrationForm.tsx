@@ -37,6 +37,9 @@ function RegistrationForm() {
   const [cityError, setCityError] = useState('');
   const [cityValid, setCityValid] = useState(false);
 
+  const [birthDayError, setBirthDayError] = useState('');
+  const [birthDayValid, setBirthDayValid] = useState(false);
+
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
@@ -98,6 +101,29 @@ function RegistrationForm() {
     } else {
       setLastNameError('');
       setLastNameValid(true);
+    }
+  };
+
+  const validateBirthDay = (value: string) => {
+    if (!value) {
+      setBirthDayError('Поле должно быть заполнено');
+      setBirthDayValid(false);
+    } else {
+      const selectedDate = new Date(value);
+      const currentDate = new Date();
+      const minAge = new Date();
+      minAge.setFullYear(currentDate.getFullYear() - 12);
+
+      if (selectedDate > currentDate) {
+        setBirthDayError('Дата не может быть в будущем');
+        setBirthDayValid(false);
+      } else if (selectedDate > minAge) {
+        setBirthDayError('Пользователь должен быть старше 12 лет');
+        setBirthDayValid(false);
+      } else {
+        setBirthDayError('');
+        setBirthDayValid(true);
+      }
     }
   };
 
@@ -242,8 +268,13 @@ function RegistrationForm() {
             const isoDate = selectedDate.toISOString().split('T')[0];
             setBirthDay(isoDate);
           }}
+          onBlur={() => validateBirthDay(birthDay)}
           placeholder='Date of birth'
         />
+        {birthDayError && !birthDayValid && (
+          <p className={styles.error__message}>{birthDayError}</p>
+        )}
+
         <div className={styles.address__field}>
           <p className={styles.address__title}>Address:</p>
           <input
@@ -282,7 +313,7 @@ function RegistrationForm() {
             type='text'
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
-            placeholder='Postal code'
+            placeholder='postal code'
           />
           <input
             type='text'
