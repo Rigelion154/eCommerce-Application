@@ -34,6 +34,9 @@ function RegistrationForm() {
   const [streetError, setStreetError] = useState('');
   const [streetValid, setStreetValid] = useState(false);
 
+  const [cityError, setCityError] = useState('');
+  const [cityValid, setCityValid] = useState(false);
+
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
@@ -75,13 +78,14 @@ function RegistrationForm() {
       setFirstNameError('Поле должно быть заполнено');
       setFirstNameValid(false);
     } else if (!firstNamePattern.test(value)) {
-      setFirstNameError('Имя не должно содержать специальных символов или цифр');
+      setFirstNameError('Поле не должно содержать специальных символов или цифр');
       setFirstNameValid(false);
     } else {
       setFirstNameError('');
       setFirstNameValid(true);
     }
   };
+
   const validateLastName = (value: string) => {
     const lastNamePattern = /^[a-zA-Zа-яА-Я]*$/;
 
@@ -89,11 +93,26 @@ function RegistrationForm() {
       setLastNameError('Поле должно быть заполнено');
       setLastNameValid(false);
     } else if (!lastNamePattern.test(value)) {
-      setLastNameError('Имя не должно содержать специальных символов или цифр');
+      setLastNameError('Поле не должно содержать специальных символов или цифр');
       setLastNameValid(false);
     } else {
       setLastNameError('');
       setLastNameValid(true);
+    }
+  };
+
+  const validateCity = (value: string) => {
+    const cityPattern = /^[a-zA-Zа-яА-Я]*$/;
+
+    if (!value) {
+      setCityError('Поле должно быть заполнено');
+      setCityValid(false);
+    } else if (!cityPattern.test(value)) {
+      setCityError('Поле не должно содержать специальных символов или цифр');
+      setCityValid(false);
+    } else {
+      setCityError('');
+      setCityValid(true);
     }
   };
 
@@ -246,9 +265,19 @@ function RegistrationForm() {
           <input
             type='text'
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => {
+              setCity(e.target.value);
+              if (!e.target.value) {
+                setCityError('Поле должно быть заполнено');
+                setCityValid(false);
+              } else {
+                validateCity(e.target.value);
+              }
+            }}
+            onBlur={() => validateCity(city)}
             placeholder='City'
           />
+          {cityError && !cityValid && <p className={styles.error__message}>{cityError}</p>}
           <input
             type='text'
             value={postalCode}
