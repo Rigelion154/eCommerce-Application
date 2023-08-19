@@ -31,6 +31,9 @@ function RegistrationForm() {
   const [lastNameError, setLastNameError] = useState('');
   const [lastNameValid, setLastNameValid] = useState(false);
 
+  const [streetError, setStreetError] = useState('');
+  const [streetValid, setStreetValid] = useState(false);
+
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
@@ -228,8 +231,18 @@ function RegistrationForm() {
             type='text'
             value={street}
             onChange={(e) => setStreet(e.target.value)}
+            onBlur={() => {
+              if (!street) {
+                setStreetError('Поле должно быть заполнено');
+                setStreetValid(false);
+              } else {
+                setStreetError('');
+                setStreetValid(true);
+              }
+            }}
             placeholder='Street'
           />
+          {streetError && !streetValid && <p className={styles.error__message}>{streetError}</p>}
           <input
             type='text'
             value={city}
