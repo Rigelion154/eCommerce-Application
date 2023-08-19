@@ -19,3 +19,7 @@ export interface ClientData {
   birthDay: string;
   addresses: Address[];
 }
+
+export type CountryCodes = {
+  [countryName: string]: string;
+};

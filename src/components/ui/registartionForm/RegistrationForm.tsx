@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-// import { ApiRoot } from '@commercetools/platform-sdk';
-// import { getApiRoot } from '../../../../BuildClient';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ClientData } from '../../../types/types';
 import { ctpClient, projectKey } from '../../../BuildClient';
+import { ClientData } from '../../../types/types';
+import countryCodes from './countryCodes';
 
 import styles from './RegistrationForm.module.css';
 
@@ -23,6 +22,8 @@ function RegistrationForm() {
   const submitRegistrationForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const countryCode = countryCodes[country] || '';
+
     const newClientData: ClientData = {
       email,
       password: pass,
@@ -34,7 +35,7 @@ function RegistrationForm() {
           streetName: street,
           city,
           postalCode,
-          country,
+          country: countryCode,
         },
       ],
     };
