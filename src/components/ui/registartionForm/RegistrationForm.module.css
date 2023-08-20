@@ -27,9 +27,22 @@
 }
 
 .sign__btn {
-  width: 150px;
+  width: 130px;
   height: 31px;
   margin-top: 15px;
+  font-size: 2rem;
+  /* font-weight: 600; */
+  background-color: #319dff;
+  color: #fff;
+  border: none;
+  transition: background-color .3s;
+}
+
+.sign__btn:hover {
+  background-color: #0077e4;
+}
+
+.error__message {
   font-size: 16px;
-  font-weight: 600;
+  color: #ff0000;
 }

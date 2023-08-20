@@ -238,6 +238,7 @@ function RegistrationForm() {
           });
         }}
       >
+        {emailError && !emailValid && <p className={styles.error__message}>{emailError}</p>}
         <input
           type='email'
           value={email}
@@ -254,7 +255,9 @@ function RegistrationForm() {
           }}
           placeholder='email'
         />
-        {emailError && !emailValid && <p className={styles.error__message}>{emailError}</p>}
+        {passwordError && !passwordValid && (
+          <p className={styles.error__message}>{passwordError}</p>
+        )}
         <input
           type='password'
           value={password}
@@ -270,8 +273,8 @@ function RegistrationForm() {
           }}
           placeholder='password'
         />
-        {passwordError && !passwordValid && (
-          <p className={styles.error__message}>{passwordError}</p>
+        {firstNameError && !firstNameValid && (
+          <p className={styles.error__message}>{firstNameError}</p>
         )}
         <input
           type='text'
@@ -288,8 +291,8 @@ function RegistrationForm() {
           onBlur={() => validateFirstName(firstName)}
           placeholder='First name'
         />
-        {firstNameError && !firstNameValid && (
-          <p className={styles.error__message}>{firstNameError}</p>
+        {lastNameError && !lastNameValid && (
+          <p className={styles.error__message}>{lastNameError}</p>
         )}
         <input
           type='text'
@@ -306,8 +309,8 @@ function RegistrationForm() {
           onBlur={() => validateLastName(lastName)}
           placeholder='Last name'
         />
-        {lastNameError && !lastNameValid && (
-          <p className={styles.error__message}>{lastNameError}</p>
+        {birthDayError && !birthDayValid && (
+          <p className={styles.error__message}>{birthDayError}</p>
         )}
         <input
           type='date'
@@ -320,12 +323,10 @@ function RegistrationForm() {
           onBlur={() => validateBirthDay(birthDay)}
           placeholder='Date of birth'
         />
-        {birthDayError && !birthDayValid && (
-          <p className={styles.error__message}>{birthDayError}</p>
-        )}
 
         <div className={styles.address__field}>
           <p className={styles.address__title}>Address:</p>
+          {streetError && !streetValid && <p className={styles.error__message}>{streetError}</p>}
           <input
             type='text'
             value={street}
@@ -341,7 +342,7 @@ function RegistrationForm() {
             }}
             placeholder='Street'
           />
-          {streetError && !streetValid && <p className={styles.error__message}>{streetError}</p>}
+          {cityError && !cityValid && <p className={styles.error__message}>{cityError}</p>}
           <input
             type='text'
             value={city}
@@ -357,7 +358,7 @@ function RegistrationForm() {
             onBlur={() => validateCity(city)}
             placeholder='City'
           />
-          {cityError && !cityValid && <p className={styles.error__message}>{cityError}</p>}
+          {countryError && !countryValid && <p className={styles.error__message}>{countryError}</p>}
           <input
             type='text'
             value={country}
@@ -365,7 +366,9 @@ function RegistrationForm() {
             onBlur={() => validateCountry(country)}
             placeholder='Country'
           />
-          {countryError && !countryValid && <p className={styles.error__message}>{countryError}</p>}
+          {postalCodeError && !postalCodeValid && (
+            <p className={styles.error__message}>{postalCodeError}</p>
+          )}
           <input
             type='text'
             value={postalCode}
@@ -373,9 +376,6 @@ function RegistrationForm() {
             onBlur={() => validatePostalCode(country, postalCode)}
             placeholder='postal code'
           />
-          {postalCodeError && !postalCodeValid && (
-            <p className={styles.error__message}>{postalCodeError}</p>
-          )}
         </div>
         <button type='submit' className={styles.sign__btn}>
           Sign Up
