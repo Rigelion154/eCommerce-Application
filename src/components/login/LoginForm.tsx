@@ -36,7 +36,7 @@ function LoginForm() {
     }
   }
 
-  async function getTokenByPassword(email: string, password: string) {
+  async function getTokenByPassword(email: string, password: string): Promise<void> {
     const clientId = 'XY9PGkev5sywhdyjMj7HKjZd';
     const clientSecret = 'BnmkgevSHqy-EwuJr6WQdVSp7i_0cB7T';
     const authHost = 'us-central1.gcp.commercetools.com';
@@ -118,8 +118,11 @@ function LoginForm() {
         <button
           className={classes.btn}
           type='button'
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onClick={() => getTokenByPassword(emailValue, passwordValue)}
+          onClick={() => {
+            getTokenByPassword(emailValue, passwordValue).catch((error: string) => {
+              throw new Error(error);
+            });
+          }}
         >
           Log in
         </button>
