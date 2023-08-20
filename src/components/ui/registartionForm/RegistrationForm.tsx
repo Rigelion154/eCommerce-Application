@@ -253,6 +253,7 @@ function RegistrationForm() {
               setEmailValid(false);
             }
           }}
+          className={emailError && !emailValid ? styles.invalid : ''}
           placeholder='email'
         />
         {passwordError && !passwordValid && (
@@ -271,6 +272,7 @@ function RegistrationForm() {
               setPasswordValid(false);
             }
           }}
+          className={passwordError && !passwordValid ? styles.invalid : ''}
           placeholder='password'
         />
         {firstNameError && !firstNameValid && (
@@ -289,6 +291,7 @@ function RegistrationForm() {
             }
           }}
           onBlur={() => validateFirstName(firstName)}
+          className={firstNameError && !firstNameValid ? styles.invalid : ''}
           placeholder='First name'
         />
         {lastNameError && !lastNameValid && (
@@ -307,6 +310,7 @@ function RegistrationForm() {
             }
           }}
           onBlur={() => validateLastName(lastName)}
+          className={lastNameError && !lastNameValid ? styles.invalid : ''}
           placeholder='Last name'
         />
         {birthDayError && !birthDayValid && (
@@ -321,6 +325,7 @@ function RegistrationForm() {
             setBirthDay(isoDate);
           }}
           onBlur={() => validateBirthDay(birthDay)}
+          className={birthDayError && !birthDayValid ? styles.invalid : ''}
           placeholder='Date of birth'
         />
 
@@ -340,6 +345,7 @@ function RegistrationForm() {
                 setStreetValid(true);
               }
             }}
+            className={streetError && !streetValid ? styles.invalid : ''}
             placeholder='Street'
           />
           {cityError && !cityValid && <p className={styles.error__message}>{cityError}</p>}
@@ -356,6 +362,7 @@ function RegistrationForm() {
               }
             }}
             onBlur={() => validateCity(city)}
+            className={cityError && !cityValid ? styles.invalid : ''}
             placeholder='City'
           />
           {countryError && !countryValid && <p className={styles.error__message}>{countryError}</p>}
@@ -364,6 +371,7 @@ function RegistrationForm() {
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             onBlur={() => validateCountry(country)}
+            className={countryError && !countryValid ? styles.invalid : ''}
             placeholder='Country'
           />
           {postalCodeError && !postalCodeValid && (
@@ -374,6 +382,7 @@ function RegistrationForm() {
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
             onBlur={() => validatePostalCode(country, postalCode)}
+            className={postalCodeError && !postalCodeValid ? styles.invalid : ''}
             placeholder='postal code'
           />
         </div>
