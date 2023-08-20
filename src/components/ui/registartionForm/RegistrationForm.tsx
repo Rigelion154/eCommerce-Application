@@ -40,6 +40,9 @@ function RegistrationForm() {
   const [birthDayError, setBirthDayError] = useState('');
   const [birthDayValid, setBirthDayValid] = useState(false);
 
+  const [countryError, setCountryError] = useState('');
+  const [countryValid, setCountryValid] = useState(false);
+
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
@@ -139,6 +142,22 @@ function RegistrationForm() {
     } else {
       setCityError('');
       setCityValid(true);
+    }
+  };
+
+  const validateCountry = (value: string) => {
+    if (!value) {
+      setCountryError('Поле должно быть заполнено');
+      setCountryValid(false);
+    } else {
+      const capitalized = value[0].toUpperCase() + value.slice(1);
+      if (!Object.prototype.hasOwnProperty.call(countryCodes, capitalized)) {
+        setCountryError('Укажите страну поддерживающую услуги');
+        setCountryValid(false);
+      } else {
+        setCountryError('');
+        setCountryValid(true);
+      }
     }
   };
 
@@ -319,8 +338,10 @@ function RegistrationForm() {
             type='text'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+            onBlur={() => validateCountry(country)}
             placeholder='Country'
           />
+          {countryError && !countryValid && <p className={styles.error__message}>{countryError}</p>}
         </div>
         <button type='submit' className={styles.sign__btn}>
           Sign Up
