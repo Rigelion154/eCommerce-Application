@@ -16,8 +16,8 @@ function RegistrationForm() {
   const [birthDay, setBirthDay] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
+  const [postalCode, setPostalCode] = useState('');
 
   const [emailError, setEmailError] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -42,6 +42,9 @@ function RegistrationForm() {
 
   const [countryError, setCountryError] = useState('');
   const [countryValid, setCountryValid] = useState(false);
+
+  const [postalCodeError, setPostalCodeError] = useState('');
+  const [postalCodeValid, setPostalCodeValid] = useState(false);
 
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
@@ -157,6 +160,33 @@ function RegistrationForm() {
       } else {
         setCountryError('');
         setCountryValid(true);
+      }
+    }
+  };
+
+  const validatePostalCode = (countryValue: string, postalCodeValue: string) => {
+    const trimmedPostalCode = postalCodeValue.trim();
+    if (!trimmedPostalCode) {
+      setPostalCodeError('Поле должно быть заполнено');
+      setPostalCodeValid(false);
+    } else {
+      if (!countryValue) {
+        setCountryError('Укажите страну');
+        setCountryValid(false);
+      }
+      let postalCodePattern = /^\d{6}$/;
+      if (countryValue === 'США') {
+        postalCodePattern = /^\d{5}$|^\d{5}-\d{4}$/;
+      } else if (countryValue === 'Канада') {
+        postalCodePattern = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
+      }
+
+      if (!postalCodePattern.test(trimmedPostalCode)) {
+        setPostalCodeError('Почтовый индекс не соответствует формату');
+        setPostalCodeValid(false);
+      } else {
+        setPostalCodeError('');
+        setPostalCodeValid(true);
       }
     }
   };
@@ -330,18 +360,22 @@ function RegistrationForm() {
           {cityError && !cityValid && <p className={styles.error__message}>{cityError}</p>}
           <input
             type='text'
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-            placeholder='postal code'
-          />
-          <input
-            type='text'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             onBlur={() => validateCountry(country)}
             placeholder='Country'
           />
           {countryError && !countryValid && <p className={styles.error__message}>{countryError}</p>}
+          <input
+            type='text'
+            value={postalCode}
+            onChange={(e) => setPostalCode(e.target.value)}
+            onBlur={() => validatePostalCode(country, postalCode)}
+            placeholder='postal code'
+          />
+          {postalCodeError && !postalCodeValid && (
+            <p className={styles.error__message}>{postalCodeError}</p>
+          )}
         </div>
         <button type='submit' className={styles.sign__btn}>
           Sign Up
