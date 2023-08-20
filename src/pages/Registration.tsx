@@ -8,13 +8,13 @@ function Registration() {
   return (
     <section>
       <Container>
-        <h2>Registration</h2>
-        <p>
+        <p style={{ marginTop: '20px' }}>
           Есть аккаунт?{' '}
           <Link className='button' to={ROUTES.LOGIN}>
             Login
           </Link>
         </p>
+        <h2 style={{ display: 'inline-block', marginTop: '30px' }}>Registration</h2>
         <RegistrationForm />
       </Container>
     </section>
