@@ -8,6 +8,7 @@ function LoginForm() {
   const [emailWarning, toggleEmailWarning] = useState(true);
   const [passwordWarning, togglePasswordWarning] = useState(true);
   const [showPassword, showHidePassword] = useState('password');
+  const [failedLogin, showFailedLogin] = useState(true);
 
   function checkEmail(value: string) {
     const validRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -53,7 +54,6 @@ function LoginForm() {
       body: authData,
     });
     const token = await (response.json() as Promise<IToken>);
-    console.log(token);
     if (response.ok) {
       const loginUrl = `https://api.${authHost}/${projectKey}/login`;
       const data = {
@@ -69,8 +69,11 @@ function LoginForm() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        localStorage.setItem('isAuth', 'True');
+        localStorage.setItem('isAuth', 'true');
       }
+    }
+    if (response.status === 400) {
+      showFailedLogin(false);
     }
   }
 
@@ -121,6 +124,7 @@ function LoginForm() {
           Log in
         </button>
       </div>
+      <p hidden={failedLogin}> Wrong e-mail and/or password.</p>
     </form>
   );
 }
