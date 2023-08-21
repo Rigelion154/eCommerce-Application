@@ -2,18 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Container from '../components/layout/container/Container';
 import ROUTES from '../routes/routes';
+import LoginForm from '../components/login/LoginForm';
+import LoginSection from '../components/layout/login/LoginSection';
 
 function Login() {
   return (
     <section>
       <Container>
-        <h2>Здесь будет логин</h2>
-        <p>
-          Нет аккаунта?
-          <Link className='button' to={ROUTES.REGISTRATION}>
-            Register
-          </Link>
-        </p>
+        <LoginSection>
+          <LoginForm />
+          <span>
+            Don&apos;t have an account?
+            <Link to={ROUTES.REGISTRATION}> Register</Link>
+          </span>
+        </LoginSection>
       </Container>
     </section>
   );
