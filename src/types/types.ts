@@ -20,6 +20,8 @@ export interface ClientData {
   addresses: Address[];
   shippingAddresses: number[];
   billingAddresses: number[];
+  defaultShippingAddress: number | undefined;
+  defaultBillingAddress: number | undefined;
 }
 
 export type CountryCodes = {

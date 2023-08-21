@@ -107,6 +107,8 @@ function RegistrationForm() {
       ],
       shippingAddresses: [0],
       billingAddresses: [1],
+      defaultShippingAddress: shippingDefaultAddress ? 0 : undefined,
+      defaultBillingAddress: billingDefaultAddress ? 1 : undefined,
     };
 
     const createCustomer = () => {
