@@ -3,6 +3,7 @@
 }
 
 .registration__form,
+.personal__field,
 .address__field {
   display: flex;
   flex-direction: column;
