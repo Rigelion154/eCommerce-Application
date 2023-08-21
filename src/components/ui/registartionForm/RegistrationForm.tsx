@@ -11,16 +11,41 @@ import styles from './RegistrationForm.module.css';
 const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projectKey });
 
 function RegistrationForm() {
-  const [email] = useState('');
-  const [password] = useState('');
-  const [firstName] = useState('');
-  const [lastName] = useState('');
-  const [birthDay] = useState('');
-  const [street] = useState('');
-  const [city] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthDay, setBirthDay] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
   const [initialSelectedCountry] = useState('Belarus');
-  const [selectedCountry] = useState('');
-  const [postalCode] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+
+  const [emailError, setEmailError] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+
+  const [firstNameError, setFirstNameError] = useState('');
+  const [firstNameValid, setFirstNameValid] = useState(false);
+
+  const [lastNameError, setLastNameError] = useState('');
+  const [lastNameValid, setLastNameValid] = useState(false);
+
+  const [birthDayError, setBirthDayError] = useState('');
+  const [birthDayValid, setBirthDayValid] = useState(false);
+
+  const [streetError, setStreetError] = useState('');
+  const [streetValid, setStreetValid] = useState(false);
+
+  const [cityError, setCityError] = useState('');
+  const [cityValid, setCityValid] = useState(false);
+
+  const [postalCodeError, setPostalCodeError] = useState('');
+  const [postalCodeValid, setPostalCodeValid] = useState(false);
 
   const submitRegistrationForm = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,8 +100,63 @@ function RegistrationForm() {
           });
         }}
       >
-        <PersonalForm />
-        <AddressForm />
+        <PersonalForm
+          email={email}
+          setEmail={setEmail}
+          emailError={emailError}
+          setEmailError={setEmailError}
+          emailValid={emailValid}
+          setEmailValid={setEmailValid}
+          password={password}
+          setPassword={setPassword}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
+          passwordValid={passwordValid}
+          setPasswordValid={setPasswordValid}
+          passwordError={passwordError}
+          setPasswordError={setPasswordError}
+          firstName={firstName}
+          setFirstName={setFirstName}
+          firstNameError={firstNameError}
+          setFirstNameError={setFirstNameError}
+          firstNameValid={firstNameValid}
+          setFirstNameValid={setFirstNameValid}
+          lastName={lastName}
+          setLastName={setLastName}
+          lastNameError={lastNameError}
+          setLastNameError={setLastNameError}
+          lastNameValid={lastNameValid}
+          setLastNameValid={setLastNameValid}
+          birthDay={birthDay}
+          setBirthDay={setBirthDay}
+          birthDayError={birthDayError}
+          setBirthDayError={setBirthDayError}
+          birthDayValid={birthDayValid}
+          setBirthDayValid={setBirthDayValid}
+        />
+        <AddressForm
+          street={street}
+          setStreet={setStreet}
+          streetError={streetError}
+          setStreetError={setStreetError}
+          streetValid={streetValid}
+          setStreetValid={setStreetValid}
+          city={city}
+          setCity={setCity}
+          cityError={cityError}
+          setCityError={setCityError}
+          cityValid={cityValid}
+          setCityValid={setCityValid}
+          initialSelectedCountry={initialSelectedCountry}
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry}
+          postalCode={postalCode}
+          setPostalCode={setPostalCode}
+          postalCodeError={postalCodeError}
+          setPostalCodeError={setPostalCodeError}
+          postalCodeValid={postalCodeValid}
+          setPostalCodeValid={setPostalCodeValid}
+        />
 
         <button type='submit' className={styles.sign__btn}>
           Sign Up

@@ -1,29 +1,77 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import styles from '../RegistrationForm.module.css';
 
-function PersonalForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthDay, setBirthDay] = useState('');
+interface PersonalFormProps {
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  emailError: string;
+  setEmailError: React.Dispatch<React.SetStateAction<string>>;
+  emailValid: boolean;
+  setEmailValid: React.Dispatch<React.SetStateAction<boolean>>;
+  password: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  showPassword: boolean;
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+  passwordValid: boolean;
+  setPasswordValid: React.Dispatch<React.SetStateAction<boolean>>;
+  passwordError: string;
+  setPasswordError: React.Dispatch<React.SetStateAction<string>>;
+  firstName: string;
+  setFirstName: React.Dispatch<React.SetStateAction<string>>;
+  firstNameError: string;
+  setFirstNameError: React.Dispatch<React.SetStateAction<string>>;
+  firstNameValid: boolean;
+  setFirstNameValid: React.Dispatch<React.SetStateAction<boolean>>;
+  lastName: string;
+  setLastName: React.Dispatch<React.SetStateAction<string>>;
+  lastNameError: string;
+  setLastNameError: React.Dispatch<React.SetStateAction<string>>;
+  lastNameValid: boolean;
+  setLastNameValid: React.Dispatch<React.SetStateAction<boolean>>;
+  birthDay: string;
+  setBirthDay: React.Dispatch<React.SetStateAction<string>>;
+  birthDayError: string;
+  setBirthDayError: React.Dispatch<React.SetStateAction<string>>;
+  birthDayValid: boolean;
+  setBirthDayValid: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const [emailError, setEmailError] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
-
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [passwordError, setPasswordError] = useState('');
-
-  const [firstNameError, setFirstNameError] = useState('');
-  const [firstNameValid, setFirstNameValid] = useState(false);
-
-  const [lastNameError, setLastNameError] = useState('');
-  const [lastNameValid, setLastNameValid] = useState(false);
-
-  const [birthDayError, setBirthDayError] = useState('');
-  const [birthDayValid, setBirthDayValid] = useState(false);
+function PersonalForm(props: PersonalFormProps) {
+  const {
+    email,
+    setEmail,
+    emailError,
+    setEmailError,
+    emailValid,
+    setEmailValid,
+    password,
+    setPassword,
+    showPassword,
+    setShowPassword,
+    passwordValid,
+    setPasswordValid,
+    passwordError,
+    setPasswordError,
+    firstName,
+    setFirstName,
+    firstNameError,
+    setFirstNameError,
+    firstNameValid,
+    setFirstNameValid,
+    lastName,
+    setLastName,
+    lastNameError,
+    setLastNameError,
+    lastNameValid,
+    setLastNameValid,
+    birthDay,
+    setBirthDay,
+    birthDayError,
+    setBirthDayError,
+    birthDayValid,
+    setBirthDayValid,
+  } = props;
 
   const validateEmail = (value: string) => {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;

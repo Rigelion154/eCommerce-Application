@@ -1,21 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../RegistrationForm.module.css';
 
-function AddressForm() {
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [initialSelectedCountry] = useState('Belarus');
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [postalCode, setPostalCode] = useState('');
+interface AddressFormProps {
+  street: string;
+  setStreet: React.Dispatch<React.SetStateAction<string>>;
+  streetError: string;
+  setStreetError: React.Dispatch<React.SetStateAction<string>>;
+  streetValid: boolean;
+  setStreetValid: React.Dispatch<React.SetStateAction<boolean>>;
+  city: string;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
+  cityError: string;
+  setCityError: React.Dispatch<React.SetStateAction<string>>;
+  cityValid: boolean;
+  setCityValid: React.Dispatch<React.SetStateAction<boolean>>;
+  initialSelectedCountry: string;
+  selectedCountry: string;
+  setSelectedCountry: React.Dispatch<React.SetStateAction<string>>;
+  postalCode: string;
+  setPostalCode: React.Dispatch<React.SetStateAction<string>>;
+  postalCodeError: string;
+  setPostalCodeError: React.Dispatch<React.SetStateAction<string>>;
+  postalCodeValid: boolean;
+  setPostalCodeValid: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const [streetError, setStreetError] = useState('');
-  const [streetValid, setStreetValid] = useState(false);
-
-  const [cityError, setCityError] = useState('');
-  const [cityValid, setCityValid] = useState(false);
-
-  const [postalCodeError, setPostalCodeError] = useState('');
-  const [postalCodeValid, setPostalCodeValid] = useState(false);
+function AddressForm(props: AddressFormProps) {
+  const {
+    street,
+    setStreet,
+    streetError,
+    setStreetError,
+    streetValid,
+    setStreetValid,
+    city,
+    setCity,
+    cityError,
+    setCityError,
+    cityValid,
+    setCityValid,
+    initialSelectedCountry,
+    selectedCountry,
+    setSelectedCountry,
+    postalCode,
+    setPostalCode,
+    postalCodeError,
+    setPostalCodeError,
+    postalCodeValid,
+    setPostalCodeValid,
+  } = props;
 
   const validateCity = (value: string) => {
     const cityPattern = /^[a-zA-Zа-яА-Я]*$/;
