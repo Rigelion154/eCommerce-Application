@@ -30,9 +30,6 @@ function LoginForm() {
 
   function checkPassword(value: string) {
     togglePasswordWarning('');
-    if (value === '') {
-      togglePasswordWarning('Password is required');
-    }
     if (value.length < 8) {
       togglePasswordWarning('Password should be at least 8 characters long');
     }
@@ -50,6 +47,9 @@ function LoginForm() {
     }
     if (value.trim() !== value) {
       togglePasswordWarning('Password should not have leading or trailing spaces');
+    }
+    if (value === '') {
+      togglePasswordWarning('Password is required');
     }
   }
 
@@ -74,7 +74,7 @@ function LoginForm() {
 
   return (
     <form className={classes.form}>
-      <div>
+      <div className={classes.inputWrapper}>
         <input
           type='text'
           placeholder='Your e-mail'
@@ -87,7 +87,7 @@ function LoginForm() {
         />
         <span className={classes.invalid}>{emailWarning}</span>
       </div>
-      <div>
+      <div className={classes.inputWrapper}>
         <input
           type={showPassword}
           placeholder='Your password'
