@@ -62,8 +62,7 @@ select {
 }
 
 .eyeIcon {
-  opacity: .4;
-  /* color: rgb(124, 123, 123); */
+  opacity: 0.4;
 }
 
 .address__title {
