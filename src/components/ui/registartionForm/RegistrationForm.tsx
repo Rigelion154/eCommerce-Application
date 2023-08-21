@@ -60,8 +60,8 @@ function RegistrationForm() {
   };
 
   const validatePassword = (value: string) => {
-    const containUpperLetter = /[A-Z]/.test(value);
-    const containLowerLetter = /[a-z]/.test(value);
+    const containUpperLetter = /[A-ZА-Я]/.test(value);
+    const containLowerLetter = /[a-zа-я]/.test(value);
     const containNumber = /\d/.test(value);
 
     if (value.length < 8) {
@@ -231,7 +231,11 @@ function RegistrationForm() {
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            // validateEmail(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === ' ') {
+              e.preventDefault();
+            }
           }}
           onBlur={() => {
             validateEmail(email);
@@ -252,6 +256,11 @@ function RegistrationForm() {
           onChange={(e) => {
             setPassword(e.target.value);
             validatePassword(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === ' ') {
+              e.preventDefault();
+            }
           }}
           onBlur={() => {
             if (!password) {
