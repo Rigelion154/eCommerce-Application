@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './LoginForm.module.css';
-import { IToken } from '../../types/types';
+import logIn from './LogInFunction';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function LoginForm() {
   const [emailWarning, toggleEmailWarning] = useState(true);
   const [passwordWarning, togglePasswordWarning] = useState(true);
   const [showPassword, showHidePassword] = useState('password');
-  const [failedLogin, showFailedLogin] = useState(true);
+  const [logInError, showLogInError] = useState(true);
 
   function checkEmail(value: string) {
     const validRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -38,46 +38,15 @@ function LoginForm() {
     }
   }
 
-  async function getTokenByPassword(email: string, password: string) {
-    const clientId = 'XY9PGkev5sywhdyjMj7HKjZd';
-    const clientSecret = 'BnmkgevSHqy-EwuJr6WQdVSp7i_0cB7T';
-    const authHost = 'us-central1.gcp.commercetools.com';
-    const projectKey = 'commerce-shop';
-    const scope = 'manage_my_profile:commerce-shop manage_customers:commerce-shop';
-    const authUrl = `https://auth.${authHost}/oauth/${projectKey}/customers/token`;
-    const authHeader = `Basic ${btoa(`${clientId}:${clientSecret}`)}`;
-    const authData = `grant_type=password&username=${email}&password=${password}&scope=${scope}`;
-    const response = await fetch(authUrl, {
-      method: 'POST',
-      headers: {
-        Authorization: authHeader,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: authData,
-    });
-    const token = await (response.json() as Promise<IToken>);
-    if (response.ok) {
-      const loginUrl = `https://api.${authHost}/${projectKey}/login`;
-      const data = {
-        email,
-        password,
-      };
-      const res = await fetch(loginUrl, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token.access_token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        localStorage.setItem('isAuth', 'true');
-        navigate('/');
-      }
+  async function tryLogIn(email: string, password: string) {
+    const response = await logIn(email, password);
+    if (response === 400) {
+      showLogInError(false);
     }
-    if (response.status === 400) {
-      showFailedLogin(false);
+    if (response === 'ok') {
+      navigate('/');
     }
+    return response;
   }
 
   return (
@@ -122,7 +91,7 @@ function LoginForm() {
           className={classes.btn}
           type='button'
           onClick={() => {
-            getTokenByPassword(emailValue, passwordValue).catch((error: string) => {
+            tryLogIn(emailValue, passwordValue).catch((error: string) => {
               throw new Error(error);
             });
           }}
@@ -130,7 +99,7 @@ function LoginForm() {
           Log in
         </button>
       </div>
-      <p hidden={failedLogin}> Wrong e-mail and/or password.</p>
+      <p hidden={logInError}> Wrong e-mail and/or password.</p>
     </form>
   );
 }
