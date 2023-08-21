@@ -22,7 +22,8 @@ function RegistrationForm() {
   const [initialSelectedCountry] = useState('Belarus');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [postalCode, setPostalCode] = useState('');
-  const [defaultAddress, setDefaultAddress] = useState(false);
+  const [shippingDefaultAddress, setShippingDefaultAddress] = useState(false);
+  const [billingDefaultAddress, setBillingDefaultAddress] = useState(false);
   const [billingAddress, setBillingAddress] = useState(false);
   const [showBillingAddress, setShowBillingAddress] = useState(false);
 
@@ -160,21 +161,32 @@ function RegistrationForm() {
           setPostalCodeError={setPostalCodeError}
           postalCodeValid={postalCodeValid}
           setPostalCodeValid={setPostalCodeValid}
-          defaultAddress={defaultAddress}
-          setDefaultAddress={setDefaultAddress}
         />
-        <div className={`${styles.checkbox__block} ${styles.checkbox__block_billing}`}>
-          <label className={styles.checkbox__label} htmlFor='billingAddressCheckbox'>
-            <input
-              type='checkbox'
-              checked={billingAddress}
-              onChange={(e) => {
-                setBillingAddress(e.target.checked);
-                setShowBillingAddress(e.target.checked);
-              }}
-            />
-            <span>Add billing address</span>
-          </label>
+        <div className={styles.checkboxes__block_shipping}>
+          <div className={styles.checkbox__default_block}>
+            <label className={styles.checkbox__label} htmlFor='defaultShippingAddress'>
+              <input
+                type='checkbox'
+                checked={shippingDefaultAddress}
+                onChange={(e) => setShippingDefaultAddress(e.target.checked)}
+              />
+              <span>Default address</span>
+            </label>
+          </div>
+
+          <div className={styles.checkbox__show_billing}>
+            <label className={styles.checkbox__label} htmlFor='showBillingAddress'>
+              <input
+                type='checkbox'
+                checked={billingAddress}
+                onChange={(e) => {
+                  setBillingAddress(e.target.checked);
+                  setShowBillingAddress(e.target.checked);
+                }}
+              />
+              <span>Add billing address</span>
+            </label>
+          </div>
         </div>
 
         {showBillingAddress && (
@@ -202,9 +214,17 @@ function RegistrationForm() {
               setPostalCodeError={setPostalCodeError}
               postalCodeValid={postalCodeValid}
               setPostalCodeValid={setPostalCodeValid}
-              defaultAddress={defaultAddress}
-              setDefaultAddress={setDefaultAddress}
             />
+            <div className={styles.checkbox__default_block_shipping}>
+              <label className={styles.checkbox__label} htmlFor='defaultBillingAddress'>
+                <input
+                  type='checkbox'
+                  checked={billingDefaultAddress}
+                  onChange={(e) => setBillingDefaultAddress(e.target.checked)}
+                />
+                <span>Default address</span>
+              </label>
+            </div>
           </div>
         )}
 

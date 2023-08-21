@@ -23,8 +23,6 @@ interface AddressFormProps {
   setPostalCodeError: React.Dispatch<React.SetStateAction<string>>;
   postalCodeValid: boolean;
   setPostalCodeValid: React.Dispatch<React.SetStateAction<boolean>>;
-  defaultAddress: boolean;
-  setDefaultAddress: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function AddressForm(props: AddressFormProps) {
@@ -50,8 +48,6 @@ function AddressForm(props: AddressFormProps) {
     setPostalCodeError,
     postalCodeValid,
     setPostalCodeValid,
-    defaultAddress,
-    setDefaultAddress,
   } = props;
 
   const validateCity = (value: string) => {
@@ -168,16 +164,6 @@ function AddressForm(props: AddressFormProps) {
         className={postalCodeError && !postalCodeValid ? styles.invalid : ''}
         placeholder='postal code'
       />
-      <div className={styles.checkbox__block}>
-        <label className={styles.checkbox__label} htmlFor='defaultAddressCheckbox'>
-          <input
-            type='checkbox'
-            checked={defaultAddress}
-            onChange={(e) => setDefaultAddress(e.target.checked)}
-          />
-          <span>Default address</span>
-        </label>
-      </div>
     </div>
   );
 }

@@ -97,8 +97,9 @@ select {
   color: #ff0000;
 }
 
-.checkbox__block {
-  position: relative;
+.checkboxes__block_shipping {
+  display: flex;
+  margin-top: 15px;
 }
 
 .checkbox__label {
@@ -114,14 +115,15 @@ select {
 }
 
 .checkbox__label span {
-  position: absolute;
-  left: 40px;
   font-size: 17px;
 }
 
-.checkbox__block_billing {
+.checkbox__show_billing {
   position: absolute;
   width: 200px;
-  top: 397px;
   left: 165px;
+}
+
+.checkbox__default_block_shipping {
+  margin-top: 15px;
 }
