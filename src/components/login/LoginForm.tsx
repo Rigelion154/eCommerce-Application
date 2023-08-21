@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import classes from './LoginForm.module.css';
 import { IToken } from '../../types/types';
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [emailWarning, toggleEmailWarning] = useState(true);
@@ -36,7 +38,7 @@ function LoginForm() {
     }
   }
 
-  async function getTokenByPassword(email: string, password: string): Promise<void> {
+  async function getTokenByPassword(email: string, password: string) {
     const clientId = 'XY9PGkev5sywhdyjMj7HKjZd';
     const clientSecret = 'BnmkgevSHqy-EwuJr6WQdVSp7i_0cB7T';
     const authHost = 'us-central1.gcp.commercetools.com';
@@ -70,6 +72,7 @@ function LoginForm() {
       });
       if (res.ok) {
         localStorage.setItem('isAuth', 'true');
+        navigate('/');
       }
     }
     if (response.status === 400) {
