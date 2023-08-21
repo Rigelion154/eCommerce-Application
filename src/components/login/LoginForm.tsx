@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './LoginForm.module.css';
 import logIn from './LogInFunction';
+import AuthContext from '../../core/utils/authContext';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function LoginForm() {
   const [passwordWarning, togglePasswordWarning] = useState('');
   const [showPassword, showHidePassword] = useState('password');
   const [logInError, showLogInError] = useState(true);
+  const { setIsAuth } = useContext(AuthContext);
 
   function checkEmail(value: string) {
     toggleEmailWarning('');
@@ -107,20 +109,23 @@ function LoginForm() {
           type='button'
           onClick={() => {
             if (emailValue && passwordValue) {
-              tryLogIn(emailValue, passwordValue).catch((error: string) => {
-                throw new Error(error);
-              });
+              tryLogIn(emailValue, passwordValue)
+                .then(() => {
+                  setIsAuth(localStorage.getItem('isAuth'));
+                })
+                .catch((error: string) => {
+                  throw new Error(error);
+                });
             } else {
               if (!emailValue) toggleEmailWarning('Field is empty');
               if (!passwordValue) togglePasswordWarning('Field is empty');
             }
           }}
         >
-          Log in
+          Sign in
         </button>
       </div>
-      <p style={{ color: 'red' }} hidden={logInError}>
-        {' '}
+      <p style={{ color: 'red', fontSize: '1.5rem' }} hidden={logInError}>
         Wrong e-mail and/or password.
       </p>
     </form>
