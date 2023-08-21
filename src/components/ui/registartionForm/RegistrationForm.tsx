@@ -22,6 +22,8 @@ function RegistrationForm() {
   const [initialSelectedCountry] = useState('Belarus');
   const [selectedCountry, setSelectedCountry] = useState('');
   const [postalCode, setPostalCode] = useState('');
+  const [defaultAddress, setDefaultAddress] = useState(false);
+  const [billingAddress, setBillingAddress] = useState(false);
 
   const [emailError, setEmailError] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -90,7 +92,7 @@ function RegistrationForm() {
   };
 
   return (
-    <div>
+    <div className={styles.registration__form_block}>
       <form
         className={styles.registration__form}
         onSubmit={(e) => {
@@ -134,6 +136,7 @@ function RegistrationForm() {
           birthDayValid={birthDayValid}
           setBirthDayValid={setBirthDayValid}
         />
+        <p className={styles.address__title}>Shipping address:</p>
         <AddressForm
           street={street}
           setStreet={setStreet}
@@ -156,7 +159,19 @@ function RegistrationForm() {
           setPostalCodeError={setPostalCodeError}
           postalCodeValid={postalCodeValid}
           setPostalCodeValid={setPostalCodeValid}
+          defaultAddress={defaultAddress}
+          setDefaultAddress={setDefaultAddress}
         />
+        <div className={`${styles.checkbox__block} ${styles.checkbox__block_billing}`}>
+          <label className={styles.checkbox__label} htmlFor='billingAddressCheckbox'>
+            <input
+              type='checkbox'
+              checked={billingAddress}
+              onChange={(e) => setBillingAddress(e.target.checked)}
+            />
+            <span>Add billing address</span>
+          </label>
+        </div>
 
         <button type='submit' className={styles.sign__btn}>
           Sign Up
