@@ -98,7 +98,7 @@ function LoginForm() {
         />
         <span className={classes.invalid}>{passwordWarning}</span>
       </div>
-      <button className={classes.btn} type='button' onClick={() => toggleShowPassword()}>
+      <button className={classes.passwordbtn} type='button' onClick={() => toggleShowPassword()}>
         {showPassword === 'text' ? 'Hide password' : 'Show password'}
       </button>
       <div>

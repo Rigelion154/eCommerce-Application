@@ -29,3 +29,11 @@
   min-width: 70px;
   padding: 5px 10px;
 }
+
+.passwordbtn {
+  border: none;
+  color: var(--color-primary);
+  background-color: transparent;
+  cursor: pointer;
+  align-self: flex-end;
+}
