@@ -100,7 +100,7 @@ function RegistrationForm() {
         onSubmit={(e) => {
           e.preventDefault();
           submitRegistrationForm(e).catch((error) => {
-            console.error('Error submitting form:', error);
+            if (error instanceof Error) throw new Error('Registration error');
           });
         }}
       >
