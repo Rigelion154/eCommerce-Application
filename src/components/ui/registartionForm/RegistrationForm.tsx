@@ -24,6 +24,7 @@ function RegistrationForm() {
   const [postalCode, setPostalCode] = useState('');
   const [defaultAddress, setDefaultAddress] = useState(false);
   const [billingAddress, setBillingAddress] = useState(false);
+  const [showBillingAddress, setShowBillingAddress] = useState(false);
 
   const [emailError, setEmailError] = useState('');
   const [emailValid, setEmailValid] = useState(false);
@@ -167,11 +168,45 @@ function RegistrationForm() {
             <input
               type='checkbox'
               checked={billingAddress}
-              onChange={(e) => setBillingAddress(e.target.checked)}
+              onChange={(e) => {
+                setBillingAddress(e.target.checked);
+                setShowBillingAddress(e.target.checked);
+              }}
             />
             <span>Add billing address</span>
           </label>
         </div>
+
+        {showBillingAddress && (
+          <div>
+            <p className={styles.address__title}>Billing address:</p>
+            <AddressForm
+              street={street}
+              setStreet={setStreet}
+              streetError={streetError}
+              setStreetError={setStreetError}
+              streetValid={streetValid}
+              setStreetValid={setStreetValid}
+              city={city}
+              setCity={setCity}
+              cityError={cityError}
+              setCityError={setCityError}
+              cityValid={cityValid}
+              setCityValid={setCityValid}
+              initialSelectedCountry={initialSelectedCountry}
+              selectedCountry={selectedCountry}
+              setSelectedCountry={setSelectedCountry}
+              postalCode={postalCode}
+              setPostalCode={setPostalCode}
+              postalCodeError={postalCodeError}
+              setPostalCodeError={setPostalCodeError}
+              postalCodeValid={postalCodeValid}
+              setPostalCodeValid={setPostalCodeValid}
+              defaultAddress={defaultAddress}
+              setDefaultAddress={setDefaultAddress}
+            />
+          </div>
+        )}
 
         <button type='submit' className={styles.sign__btn}>
           Sign Up

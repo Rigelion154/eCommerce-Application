@@ -122,6 +122,6 @@ select {
 .checkbox__block_billing {
   position: absolute;
   width: 200px;
-  bottom: 46px;
+  top: 397px;
   left: 165px;
 }
