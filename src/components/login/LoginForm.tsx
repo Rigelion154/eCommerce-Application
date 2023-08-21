@@ -7,26 +7,47 @@ function LoginForm() {
   const navigate = useNavigate();
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const [emailWarning, toggleEmailWarning] = useState(true);
-  const [passwordWarning, togglePasswordWarning] = useState(true);
+  const [emailWarning, toggleEmailWarning] = useState('');
+  const [passwordWarning, togglePasswordWarning] = useState('');
   const [showPassword, showHidePassword] = useState('password');
   const [logInError, showLogInError] = useState(true);
 
   function checkEmail(value: string) {
+    toggleEmailWarning('');
     const validRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!value.match(validRegex)) {
-      toggleEmailWarning(false);
-    } else {
-      toggleEmailWarning(true);
+    if (value === '') {
+      toggleEmailWarning('E-mail is required');
+    } else if (value !== value.trim()) {
+      toggleEmailWarning('Please delete whitespaces at the beginning and/or end of e-mail');
+    } else if (!value.match(validRegex)) {
+      toggleEmailWarning(
+        `Incorrect e-mail. E-mail should have a name and domain, for example: 'test@test.com'`,
+      );
     }
   }
 
   function checkPassword(value: string) {
-    const validRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!value.match(validRegex)) {
-      togglePasswordWarning(false);
-    } else {
-      togglePasswordWarning(true);
+    togglePasswordWarning('');
+    if (value === '') {
+      togglePasswordWarning('Password is required');
+    }
+    if (value.length < 8) {
+      togglePasswordWarning('Password should be at least 8 characters long');
+    }
+    if (!/[A-Z]/.test(value)) {
+      togglePasswordWarning('Password should contain at least one uppercase letter (A-Z)');
+    }
+    if (!/[a-z]/.test(value)) {
+      togglePasswordWarning('Password should contain at least one lowercase letter (a-z)');
+    }
+    if (!/[0-9]/.test(value)) {
+      togglePasswordWarning('Password should contain at least one digit (0-9)');
+    }
+    if (!/[^a-zA-Z0-9]/.test(value)) {
+      togglePasswordWarning('Password should contain at least one special character');
+    }
+    if (value.trim() !== value) {
+      togglePasswordWarning('Password should not have leading or trailing spaces');
     }
   }
 
@@ -62,10 +83,7 @@ function LoginForm() {
             checkEmail(e.target.value);
           }}
         />
-        <span className={classes.invalid} hidden={emailWarning}>
-          Incorrect e-mail. E-mail should have a name and domain, for example
-          &quot;test@test.com&quot;.
-        </span>
+        <span className={classes.invalid}>{emailWarning}</span>
       </div>
       <div>
         <input
@@ -78,28 +96,33 @@ function LoginForm() {
             checkPassword(e.target.value);
           }}
         />
-        <span className={classes.invalid} hidden={passwordWarning}>
-          Incorrect password. Password must be at least 8 characters long, contain at least one
-          uppercase letter, one lowercase letter and one digit.
-        </span>
+        <span className={classes.invalid}>{passwordWarning}</span>
       </div>
       <button className={classes.btn} type='button' onClick={() => toggleShowPassword()}>
-        Show password
+        {showPassword === 'text' ? 'Hide password' : 'Show password'}
       </button>
       <div>
         <button
           className={classes.btn}
           type='button'
           onClick={() => {
-            tryLogIn(emailValue, passwordValue).catch((error: string) => {
-              throw new Error(error);
-            });
+            if (emailValue && passwordValue) {
+              tryLogIn(emailValue, passwordValue).catch((error: string) => {
+                throw new Error(error);
+              });
+            } else {
+              if (!emailValue) toggleEmailWarning('Field is empty');
+              if (!passwordValue) togglePasswordWarning('Field is empty');
+            }
           }}
         >
           Log in
         </button>
       </div>
-      <p hidden={logInError}> Wrong e-mail and/or password.</p>
+      <p style={{ color: 'red' }} hidden={logInError}>
+        {' '}
+        Wrong e-mail and/or password.
+      </p>
     </form>
   );
 }
