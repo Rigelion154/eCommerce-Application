@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { ctpClient, projectKey } from '../../../BuildClient';
 import { ClientData } from '../../../types/types';
 import countryCodes from './countryCodes';
@@ -11,6 +12,7 @@ const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projec
 function RegistrationForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [birthDay, setBirthDay] = useState('');
@@ -250,27 +252,36 @@ function RegistrationForm() {
         {passwordError && !passwordValid && (
           <p className={styles.error__message}>{passwordError}</p>
         )}
-        <input
-          type='password'
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            validatePassword(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === ' ') {
-              e.preventDefault();
-            }
-          }}
-          onBlur={() => {
-            if (!password) {
-              setPasswordError('This field is required');
-              setPasswordValid(false);
-            }
-          }}
-          className={passwordError && !passwordValid ? styles.invalid : ''}
-          placeholder='password'
-        />
+        <div className={styles.password__input_block}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              validatePassword(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === ' ') {
+                e.preventDefault();
+              }
+            }}
+            onBlur={() => {
+              if (!password) {
+                setPasswordError('This field is required');
+                setPasswordValid(false);
+              }
+            }}
+            className={passwordError && !passwordValid ? styles.invalid : ''}
+            placeholder='password'
+          />
+          <button
+            type='button'
+            onClick={() => setShowPassword((prev) => !prev)}
+            className={styles.show__password_btn}
+          >
+            {showPassword ? <AiFillEye /> : <AiFillEyeInvisible className={styles.eyeIcon} />}
+          </button>
+        </div>
         {firstNameError && !firstNameValid && (
           <p className={styles.error__message}>{firstNameError}</p>
         )}

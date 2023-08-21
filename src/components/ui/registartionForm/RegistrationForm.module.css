@@ -40,6 +40,32 @@ select {
   margin-bottom: 15px;
 }
 
+.password__input_block {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.show__password_btn {
+  width: 20px;
+  height: 20px;
+  margin-left: -25px;
+  margin-top: -14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.show__password_btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.eyeIcon {
+  opacity: .4;
+  /* color: rgb(124, 123, 123); */
+}
+
 .address__title {
   padding-left: 20px;
   margin: 20px 0px 10px;
