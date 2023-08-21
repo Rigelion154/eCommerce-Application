@@ -16,7 +16,8 @@ function RegistrationForm() {
   const [birthDay, setBirthDay] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
+  const [initialSelectedCountry] = useState('Belarus');
+  const [selectedCountry, setSelectedCountry] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
   const [emailError, setEmailError] = useState('');
@@ -40,9 +41,6 @@ function RegistrationForm() {
   const [birthDayError, setBirthDayError] = useState('');
   const [birthDayValid, setBirthDayValid] = useState(false);
 
-  const [countryError, setCountryError] = useState('');
-  const [countryValid, setCountryValid] = useState(false);
-
   const [postalCodeError, setPostalCodeError] = useState('');
   const [postalCodeValid, setPostalCodeValid] = useState(false);
 
@@ -50,10 +48,10 @@ function RegistrationForm() {
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 
     if (!value) {
-      setEmailError('Поле должно быть заполнено');
+      setEmailError('This field is required');
       setEmailValid(false);
     } else if (!emailPattern.test(value)) {
-      setEmailError('Введите правильный адрес электронной почты');
+      setEmailError('Please enter a valid email address');
       setEmailValid(false);
     } else {
       setEmailError('');
@@ -67,11 +65,11 @@ function RegistrationForm() {
     const containNumber = /\d/.test(value);
 
     if (value.length < 8) {
-      setPasswordError('Пароль должен содержать минимум 8 символов');
+      setPasswordError('Password must contain at least 8 characters');
       setPasswordValid(false);
     } else if (!containUpperLetter || !containLowerLetter || !containNumber) {
       setPasswordError(
-        'Пароль должен содержать минимум 1 заглавную букву, 1 строчную букву и 1 цифру',
+        'Password must contain at least 1 uppercase letter, 1 lowercase letter and 1 number',
       );
       setPasswordValid(false);
     } else {
@@ -84,10 +82,10 @@ function RegistrationForm() {
     const firstNamePattern = /^[a-zA-Zа-яА-Я]*$/;
 
     if (!value) {
-      setFirstNameError('Поле должно быть заполнено');
+      setFirstNameError('This field is required');
       setFirstNameValid(false);
     } else if (!firstNamePattern.test(value)) {
-      setFirstNameError('Поле не должно содержать специальных символов или цифр');
+      setFirstNameError('The field must not have any special characters or numbers');
       setFirstNameValid(false);
     } else {
       setFirstNameError('');
@@ -99,10 +97,10 @@ function RegistrationForm() {
     const lastNamePattern = /^[a-zA-Zа-яА-Я]*$/;
 
     if (!value) {
-      setLastNameError('Поле должно быть заполнено');
+      setLastNameError('This field is required');
       setLastNameValid(false);
     } else if (!lastNamePattern.test(value)) {
-      setLastNameError('Поле не должно содержать специальных символов или цифр');
+      setLastNameError('The field must not have any special characters or numbers');
       setLastNameValid(false);
     } else {
       setLastNameError('');
@@ -112,7 +110,7 @@ function RegistrationForm() {
 
   const validateBirthDay = (value: string) => {
     if (!value) {
-      setBirthDayError('Поле должно быть заполнено');
+      setBirthDayError('This field is required');
       setBirthDayValid(false);
     } else {
       const selectedDate = new Date(value);
@@ -121,10 +119,10 @@ function RegistrationForm() {
       minAge.setFullYear(currentDate.getFullYear() - 12);
 
       if (selectedDate > currentDate) {
-        setBirthDayError('Дата не может быть в будущем');
+        setBirthDayError('Date cannot be in the future');
         setBirthDayValid(false);
       } else if (selectedDate > minAge) {
-        setBirthDayError('Пользователь должен быть старше 12 лет');
+        setBirthDayError('User must be over 12 years old');
         setBirthDayValid(false);
       } else {
         setBirthDayError('');
@@ -137,10 +135,10 @@ function RegistrationForm() {
     const cityPattern = /^[a-zA-Zа-яА-Я]*$/;
 
     if (!value) {
-      setCityError('Поле должно быть заполнено');
+      setCityError('This field is required');
       setCityValid(false);
     } else if (!cityPattern.test(value)) {
-      setCityError('Поле не должно содержать специальных символов или цифр');
+      setCityError('The field must not have any special characters or numbers');
       setCityValid(false);
     } else {
       setCityError('');
@@ -148,41 +146,24 @@ function RegistrationForm() {
     }
   };
 
-  const validateCountry = (value: string) => {
-    if (!value) {
-      setCountryError('Поле должно быть заполнено');
-      setCountryValid(false);
-    } else {
-      const capitalized = value[0].toUpperCase() + value.slice(1);
-      if (!Object.prototype.hasOwnProperty.call(countryCodes, capitalized)) {
-        setCountryError('Укажите страну поддерживающую услуги');
-        setCountryValid(false);
-      } else {
-        setCountryError('');
-        setCountryValid(true);
-      }
-    }
-  };
-
   const validatePostalCode = (countryValue: string, postalCodeValue: string) => {
     const trimmedPostalCode = postalCodeValue.trim();
+    let postalCodePattern: RegExp = /^$/;
+
     if (!trimmedPostalCode) {
-      setPostalCodeError('Поле должно быть заполнено');
+      setPostalCodeError('This field is required');
       setPostalCodeValid(false);
     } else {
-      if (!countryValue) {
-        setCountryError('Укажите страну');
-        setCountryValid(false);
-      }
-      let postalCodePattern = /^\d{6}$/;
-      if (countryValue === 'США') {
+      if (!selectedCountry || selectedCountry === 'Belarus' || selectedCountry === 'Russia') {
+        postalCodePattern = /^\d{6}$/;
+      } else if (selectedCountry === 'USA') {
         postalCodePattern = /^\d{5}$|^\d{5}-\d{4}$/;
-      } else if (countryValue === 'Канада') {
+      } else if (selectedCountry === 'Canada') {
         postalCodePattern = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
       }
 
       if (!postalCodePattern.test(trimmedPostalCode)) {
-        setPostalCodeError('Почтовый индекс не соответствует формату');
+        setPostalCodeError('Postal code does not match the format');
         setPostalCodeValid(false);
       } else {
         setPostalCodeError('');
@@ -194,7 +175,13 @@ function RegistrationForm() {
   const submitRegistrationForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const countryCode = countryCodes[country] || '';
+    let countryCode;
+
+    if (!selectedCountry) {
+      countryCode = countryCodes[initialSelectedCountry];
+    } else {
+      countryCode = countryCodes[selectedCountry];
+    }
 
     const newClientData: ClientData = {
       email,
@@ -249,7 +236,7 @@ function RegistrationForm() {
           onBlur={() => {
             validateEmail(email);
             if (!email) {
-              setEmailError('Поле должно быть заполнено');
+              setEmailError('This field is required');
               setEmailValid(false);
             }
           }}
@@ -268,7 +255,7 @@ function RegistrationForm() {
           }}
           onBlur={() => {
             if (!password) {
-              setPasswordError('Поле должно быть заполнено');
+              setPasswordError('This field is required');
               setPasswordValid(false);
             }
           }}
@@ -284,7 +271,7 @@ function RegistrationForm() {
           onChange={(e) => {
             setFirstName(e.target.value);
             if (!e.target.value) {
-              setFirstNameError('Поле должно быть заполнено');
+              setFirstNameError('This field is required');
               setFirstNameValid(false);
             } else {
               validateFirstName(e.target.value);
@@ -303,7 +290,7 @@ function RegistrationForm() {
           onChange={(e) => {
             setLastName(e.target.value);
             if (!e.target.value) {
-              setLastNameError('Поле должно быть заполнено');
+              setLastNameError('This field is required');
               setLastNameValid(false);
             } else {
               validateLastName(e.target.value);
@@ -338,7 +325,7 @@ function RegistrationForm() {
             onChange={(e) => setStreet(e.target.value)}
             onBlur={() => {
               if (!street) {
-                setStreetError('Поле должно быть заполнено');
+                setStreetError('This field is required');
                 setStreetValid(false);
               } else {
                 setStreetError('');
@@ -355,7 +342,7 @@ function RegistrationForm() {
             onChange={(e) => {
               setCity(e.target.value);
               if (!e.target.value) {
-                setCityError('Поле должно быть заполнено');
+                setCityError('This field is required');
                 setCityValid(false);
               } else {
                 validateCity(e.target.value);
@@ -365,23 +352,40 @@ function RegistrationForm() {
             className={cityError && !cityValid ? styles.invalid : ''}
             placeholder='City'
           />
-          {countryError && !countryValid && <p className={styles.error__message}>{countryError}</p>}
-          <input
-            type='text'
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            onBlur={() => validateCountry(country)}
-            className={countryError && !countryValid ? styles.invalid : ''}
-            placeholder='Country'
-          />
+          <select
+            value={selectedCountry}
+            onChange={(e) => {
+              setSelectedCountry(e.target.value);
+              setPostalCode('');
+              setPostalCodeValid(true);
+            }}
+          >
+            <option value='Belarus'>Belarus</option>
+            <option value='USA'>USA</option>
+            <option value='Russia'>Russia</option>
+            <option value='Canada'>Canada</option>
+          </select>
           {postalCodeError && !postalCodeValid && (
             <p className={styles.error__message}>{postalCodeError}</p>
           )}
           <input
             type='text'
             value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-            onBlur={() => validatePostalCode(country, postalCode)}
+            onChange={(e) => {
+              setPostalCode(e.target.value);
+              if (!selectedCountry) {
+                validatePostalCode(initialSelectedCountry, e.target.value);
+              } else {
+                validatePostalCode(selectedCountry, e.target.value);
+              }
+            }}
+            onBlur={() => {
+              if (!selectedCountry) {
+                validatePostalCode(initialSelectedCountry, postalCode);
+              } else {
+                validatePostalCode(selectedCountry, postalCode);
+              }
+            }}
             className={postalCodeError && !postalCodeValid ? styles.invalid : ''}
             placeholder='postal code'
           />

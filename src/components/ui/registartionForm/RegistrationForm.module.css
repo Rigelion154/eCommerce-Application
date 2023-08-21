@@ -17,7 +17,16 @@
   border-radius: 7px;
 }
 
-.registration__form input:focus {
+.registration__form select {
+  width: 350px;
+  height: 25px;
+  padding-left: 8px;
+  font-size: 1.5rem;
+  border: 1.5px solid #319dff;
+  border-radius: 7px;
+}
+
+.registration__form input:focus, select:focus {
   outline: none;
 }
 
@@ -25,7 +34,7 @@
   border: 1.5px solid red;
 }
 
-.registration__form input:not(:last-child) {
+.registration__form input:not(:last-child), select {
   margin-bottom: 15px;
 }
 
