@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import Login from '../../pages/Login';
+import Login from '../../pages/login/Login';
 import Home from '../../pages/Home';
 import Cart from '../../pages/Cart';
 import Registration from '../../pages/Registration';
@@ -21,7 +21,7 @@ function AppRouter() {
         <Route path={ROUTES.LOGIN} element={isAuth ? <Navigate to='/' /> : <Login />} />
         <Route path={ROUTES.CART} element={<Cart />} />
         <Route path={ROUTES.REGISTRATION} element={<Registration />} />
-        <Route path={ROUTES.PROFILE} element={<Profile />} />
+        <Route path={ROUTES.PROFILE} element={isAuth ? <Profile /> : <Navigate to='/login' />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
