@@ -26,7 +26,8 @@
   border-radius: 7px;
 }
 
-.registration__form input:focus, select:focus {
+.registration__form input:focus,
+select:focus {
   outline: none;
 }
 
@@ -34,7 +35,8 @@
   border: 1.5px solid red;
 }
 
-.registration__form input:not(:last-child), select {
+.registration__form input:not(:last-child),
+select {
   margin-bottom: 15px;
 }
 
