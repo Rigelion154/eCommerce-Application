@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './LoginForm.module.css';
-import logIn from './LogInFunction';
 import AuthContext from '../../core/utils/authContext';
+import tryLogIn from '../../core/utils/tryLogin';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -61,17 +61,6 @@ function LoginForm() {
     }
   }
 
-  async function tryLogIn(email: string, password: string) {
-    const response = await logIn(email, password);
-    if (response === 400) {
-      showLogInError(false);
-    }
-    if (response === 'ok') {
-      navigate('/');
-    }
-    return response;
-  }
-
   return (
     <form className={classes.form}>
       <div className={classes.inputWrapper}>
@@ -109,7 +98,12 @@ function LoginForm() {
           type='button'
           onClick={() => {
             if (emailValue && passwordValue) {
-              tryLogIn(emailValue, passwordValue)
+              tryLogIn(
+                emailValue,
+                passwordValue,
+                showLogInError as Dispatch<SetStateAction<string | boolean>>,
+                navigate,
+              )
                 .then(() => {
                   setIsAuth(localStorage.getItem('isAuth'));
                 })

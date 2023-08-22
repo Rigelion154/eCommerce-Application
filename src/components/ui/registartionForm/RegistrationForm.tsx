@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
+import { useNavigate } from 'react-router-dom';
 import { ctpClient, projectKey } from '../../../BuildClient';
 import { ClientData } from '../../../types/types';
 import countryCodes from './countryCodes';
@@ -8,10 +9,14 @@ import PersonalForm from './components/personalForm';
 import BillingAddressForm from './components/billingAddressForm';
 
 import styles from './RegistrationForm.module.css';
+import tryLogIn from '../../../core/utils/tryLogin';
+import AuthContext from '../../../core/utils/authContext';
 
 const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projectKey });
 
 function RegistrationForm() {
+  const navigate = useNavigate();
+  const { setIsAuth } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -66,9 +71,7 @@ function RegistrationForm() {
   const [billingPostalCodeError, setBillingPostalCodeError] = useState('');
   const [billingPostalCodeValid, setBillingPostalCodeValid] = useState(false);
 
-  const submitRegistrationForm = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const submitRegistrationForm = async () => {
     let countryCode;
 
     if (!selectedCountry) {
@@ -128,15 +131,7 @@ function RegistrationForm() {
 
   return (
     <div className={styles.registration__form_block}>
-      <form
-        className={styles.registration__form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          submitRegistrationForm(e).catch((error) => {
-            if (error instanceof Error) throw new Error('Registration error');
-          });
-        }}
-      >
+      <form className={styles.registration__form}>
         <PersonalForm
           email={email}
           setEmail={setEmail}
@@ -261,7 +256,30 @@ function RegistrationForm() {
           </div>
         )}
 
-        <button type='submit' className={styles.sign__btn}>
+        <button
+          type='button'
+          className={styles.sign__btn}
+          onClick={() => {
+            submitRegistrationForm()
+              .then(() => {
+                tryLogIn(
+                  email,
+                  password,
+                  setEmailError as Dispatch<SetStateAction<string | boolean>>,
+                  navigate,
+                )
+                  .then(() => {
+                    setIsAuth(localStorage.getItem('isAuth'));
+                  })
+                  .catch((error) => {
+                    if (error instanceof Error) throw new Error('error');
+                  });
+              })
+              .catch((error) => {
+                if (error instanceof Error) throw new Error('Registration error');
+              });
+          }}
+        >
           Sign Up
         </button>
       </form>
