@@ -11,6 +11,14 @@ export interface Address {
   country: string;
 }
 
+export interface INavLink {
+  id: number;
+  name: string;
+  path: string;
+  icon: React.ReactElement;
+  callback?: () => void;
+}
+
 export interface ClientData {
   email: string;
   password: string;
@@ -18,6 +26,10 @@ export interface ClientData {
   lastName: string;
   birthDay: string;
   addresses: Address[];
+  shippingAddresses: number[];
+  billingAddresses: number[];
+  defaultShippingAddress: number | undefined;
+  defaultBillingAddress: number | undefined;
 }
 
 export type CountryCodes = {
