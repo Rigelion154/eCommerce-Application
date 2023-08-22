@@ -9,7 +9,7 @@ function Registration() {
     <section>
       <Container>
         <p style={{ marginTop: '20px' }}>
-          Есть аккаунт?{' '}
+          Is there an account?{' '}
           <Link className='button' to={ROUTES.LOGIN}>
             Login
           </Link>

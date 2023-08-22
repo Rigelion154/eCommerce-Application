@@ -18,6 +18,10 @@ export interface ClientData {
   lastName: string;
   birthDay: string;
   addresses: Address[];
+  shippingAddresses: number[];
+  billingAddresses: number[];
+  defaultShippingAddress: number | undefined;
+  defaultBillingAddress: number | undefined;
 }
 
 export type CountryCodes = {
