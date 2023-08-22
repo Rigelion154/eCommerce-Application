@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MdSort } from 'react-icons/md';
+import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import styles from './Header.module.css';
+import stylesCategory from '../categotyBar/CategoryBar.module.css';
 
 import NavBar from '../navBar/NavBar';
 import SearchForm from '../searchForm/SearchForm';
@@ -9,6 +10,8 @@ import Container from '../../layout/container/Container';
 import CategoryBar from '../categotyBar/CategoryBar';
 
 function Header() {
+  const [burger, setBurger] = useState(false);
+
   return (
     <header>
       <Container>
@@ -16,18 +19,28 @@ function Header() {
           <Link to='/'>
             <h1 className={styles.header__logo}>Online Store</h1>
           </Link>
-
-          <button className={`button ${styles.button__category}`} type='button'>
-            <MdSort />
-            Category
+          <div
+            className={
+              burger ? [styles.header__items, styles.open_burger].join(' ') : styles.header__items
+            }
+          >
+            <SearchForm />
+            <NavBar burger={burger} setBurger={setBurger} />
+          </div>
+          <button type='button' className={styles.header__menu} onClick={() => setBurger(!burger)}>
+            {burger ? <AiOutlineCloseCircle size={25} /> : <AiOutlineMenu size={25} />}
           </button>
-
-          <SearchForm />
-
-          <NavBar />
         </div>
       </Container>
-      <CategoryBar />
+      <CategoryBar
+        classes={
+          burger
+            ? [stylesCategory.container, stylesCategory.open_burger].join(' ')
+            : stylesCategory.container
+        }
+        burger={burger}
+        setBurger={setBurger}
+      />
     </header>
   );
 }
