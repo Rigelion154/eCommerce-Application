@@ -11,6 +11,14 @@ export interface Address {
   country: string;
 }
 
+export interface INavLink {
+  id: number;
+  name: string;
+  path: string;
+  icon: React.ReactElement;
+  callback?: () => void;
+}
+
 export interface ClientData {
   email: string;
   password: string;

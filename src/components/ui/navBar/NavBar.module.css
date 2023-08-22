@@ -1,6 +1,7 @@
 .nav {
   display: flex;
-  column-gap: 15px;
+  align-items: center;
+  column-gap: 5px;
 }
 
 .nav__item {
