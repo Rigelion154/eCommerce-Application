@@ -43,3 +43,43 @@ export interface IToken {
   scope: string;
   token_type: string;
 }
+
+export interface ICategory {
+  id: string;
+  version: number;
+  versionModifiedAt: string;
+  lastMessageSequenceNumber: number;
+  createdAt: string;
+  lastModifiedAt: string;
+  lastModifiedBy: {
+    isPlatformClient: boolean;
+    user: {
+      typeId: string;
+      id: string;
+    };
+  };
+  createdBy: {
+    isPlatformClient: boolean;
+    user: {
+      typeId: string;
+      id: string;
+    };
+  };
+  name: {
+    'en-US': string;
+  };
+  slug: {
+    'en-US': string;
+  };
+  ancestors: [];
+  orderHint: string;
+  assets: [];
+}
+
+export interface ICategoriesResponse {
+  limit: number;
+  offset: number;
+  count: number;
+  total: number;
+  results: ICategory[];
+}

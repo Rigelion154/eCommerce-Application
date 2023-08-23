@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { NavigateFunction } from 'react-router-dom';
-import logIn from '../../components/login/LogInFunction';
+import logIn from '../services/LogInFunction';
 
 export default async function tryLogIn(
   email: string,

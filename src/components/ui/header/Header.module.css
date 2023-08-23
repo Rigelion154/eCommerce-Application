@@ -35,10 +35,10 @@
 
 .header__menu:hover {
   color: var(--color-primary);
-  transition: color .5s;
+  transition: color 0.5s;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .header__items {
     position: absolute;
     left: -100%;
@@ -65,4 +65,3 @@
     left: 0;
   }
 }
-

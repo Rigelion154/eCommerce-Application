@@ -8,6 +8,7 @@ import ROUTES from '../../../routes/routes';
 import styles from './NavBar.module.css';
 import AuthContext from '../../../core/utils/authContext';
 import { INavLink } from '../../../types/types';
+import getAnonymousToken from '../../../core/services/getAnonymousToken';
 
 function NavBar({
   burger,
@@ -69,8 +70,16 @@ function NavBar({
       path: ROUTES.HOME,
       icon: <AiOutlineLogout />,
       callback: () => {
-        localStorage.setItem('isAuth', '');
-        setIsAuth(localStorage.getItem('isAuth'));
+        if (localStorage.getItem('isAuth')) {
+          localStorage.setItem('isAuth', '');
+          getAnonymousToken()
+            .then((res) => {
+              localStorage.setItem('accessToken', res.accessToken);
+              localStorage.setItem('refreshToken', res.refreshToken);
+            })
+            .catch(() => {});
+          setIsAuth(localStorage.getItem('isAuth'));
+        }
         if (isSmallScreen) setBurger(!burger);
       },
     },
