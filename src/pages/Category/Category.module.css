@@ -1,0 +1,23 @@
+.wrapper {
+    background-color: var(--color-primary);
+    color: white;
+}
+.category__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    padding: 20px 0;
+    margin: 0 auto;
+    text-transform: capitalize;
+}
+
+.category__link {
+    flex: 1 0 0;
+    text-align: center;
+    border-right: 1px solid #0077e4;
+}
+
+.category__link:last-child {
+    border-right: none;
+}
