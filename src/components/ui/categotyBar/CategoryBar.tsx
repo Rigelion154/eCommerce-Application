@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Container from '../../layout/container/Container';
 import handleResize from '../../../core/utils/handleResize';
 import styles from './CategoryBar.module.css';
-import getCategories from '../../../core/services/getCategories';
 
 const links = [
   {
@@ -41,9 +40,6 @@ function CategoryBar({
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    getCategories()
-      .then(() => {})
-      .catch(() => {});
     handleResize(setIsSmallScreen);
     window.addEventListener('resize', () => handleResize(setIsSmallScreen));
     return () => {

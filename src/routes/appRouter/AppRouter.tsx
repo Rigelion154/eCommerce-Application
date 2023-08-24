@@ -10,7 +10,8 @@ import Profile from '../../pages/Profile';
 
 import ROUTES from '../routes';
 import AuthContext from '../../core/utils/authContext';
-import Category from '../../pages/Category';
+import Category from '../../pages/Category/Category';
+import SubCategories from '../../pages/SubCategories';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
@@ -24,6 +25,7 @@ function AppRouter() {
         <Route path={ROUTES.REGISTRATION} element={<Registration />} />
         <Route path={ROUTES.PROFILE} element={isAuth ? <Profile /> : <Navigate to='/login' />} />
         <Route path={ROUTES.CATEGORIES} element={<Category />} />
+        <Route path={ROUTES.SUBCATEGORIES} element={<SubCategories />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
