@@ -26,8 +26,11 @@
   width: 100%;
 }
 
+.active {
+  background-color: var(--color-button-hover);
+}
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .container {
     position: absolute;
     width: 100%;
@@ -49,5 +52,4 @@
   .open_burger {
     left: 0;
   }
-
 }

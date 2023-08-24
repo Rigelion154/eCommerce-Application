@@ -1,11 +1,33 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { AiFillApi, AiOutlineLaptop } from 'react-icons/ai';
-import { GiSmartphone, GiTv } from 'react-icons/gi';
-import { MdOutlinePhotoCamera } from 'react-icons/md';
+import { GiSmartphone } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 
-import styles from './CategoryBar.module.css';
 import Container from '../../layout/container/Container';
+import handleResize from '../../../core/utils/handleResize';
+import styles from './CategoryBar.module.css';
+import getCategories from '../../../core/services/getCategories';
+
+const links = [
+  {
+    id: 1,
+    name: 'Smartphones',
+    path: '/categories/smartphones',
+    icon: <GiSmartphone />,
+  },
+  {
+    id: 2,
+    name: 'Laptops',
+    path: '/categories/laptops',
+    icon: <AiOutlineLaptop />,
+  },
+  {
+    id: 3,
+    name: 'Gadgets',
+    path: '/categories/gadgets',
+    icon: <AiFillApi />,
+  },
+];
 
 function CategoryBar({
   classes,
@@ -18,64 +40,16 @@ function CategoryBar({
 }) {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setIsSmallScreen(true);
-    } else {
-      setIsSmallScreen(false);
-    }
-  };
-
   useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    getCategories()
+      .then(() => {})
+      .catch(() => {});
+    handleResize(setIsSmallScreen);
+    window.addEventListener('resize', () => handleResize(setIsSmallScreen));
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', () => handleResize(setIsSmallScreen));
     };
   }, []);
-
-  const links = [
-    {
-      id: 1,
-      name: 'TV',
-      icon: <GiTv />,
-      callback: () => {
-        if (isSmallScreen) setBurger(!burger);
-      },
-    },
-    {
-      id: 2,
-      name: 'Smartphones',
-      icon: <GiSmartphone />,
-      callback: () => {
-        if (isSmallScreen) setBurger(!burger);
-      },
-    },
-    {
-      id: 3,
-      name: 'Laptops',
-      icon: <AiOutlineLaptop />,
-      callback: () => {
-        if (isSmallScreen) setBurger(!burger);
-      },
-    },
-    {
-      id: 4,
-      name: 'Photo & Video',
-      icon: <MdOutlinePhotoCamera />,
-      callback: () => {
-        if (isSmallScreen) setBurger(!burger);
-      },
-    },
-    {
-      id: 5,
-      name: 'Gadgets',
-      icon: <AiFillApi />,
-      callback: () => {
-        if (isSmallScreen) setBurger(!burger);
-      },
-    },
-  ];
 
   return (
     <div className={classes}>
@@ -83,7 +57,13 @@ function CategoryBar({
         <ul className={styles.items}>
           {links.map((link) => (
             <li key={link.id} className={styles.item__wrapper}>
-              <Link to='/' className={styles.item} onClick={link.callback}>
+              <Link
+                to={link.path}
+                className={styles.item}
+                onClick={() => {
+                  if (isSmallScreen) setBurger(!burger);
+                }}
+              >
                 {link.name}
                 {link.icon}
               </Link>
