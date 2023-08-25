@@ -93,7 +93,7 @@ function RegistrationForm() {
       password,
       firstName,
       lastName,
-      birthDay,
+      dateOfBirth: birthDay,
       addresses: [
         {
           streetName: street,

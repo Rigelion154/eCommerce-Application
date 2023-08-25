@@ -24,7 +24,7 @@ export interface ClientData {
   password: string;
   firstName: string;
   lastName: string;
-  birthDay: string;
+  dateOfBirth: string;
   addresses: Address[];
   shippingAddresses: number[];
   billingAddresses: number[];
