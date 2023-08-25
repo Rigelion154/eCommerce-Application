@@ -43,3 +43,50 @@ export interface IToken {
   scope: string;
   token_type: string;
 }
+
+export interface ICustomer {
+  customer: {
+    id: string;
+    version: number;
+    versionModifiedAt: string;
+    lastMessageSequenceNumber: number;
+    createdAt: string;
+    lastModifiedAt: string;
+    lastModifiedBy: {
+      isPlatformClient: boolean;
+      user: {
+        typeId: string;
+        id: string;
+      };
+    };
+    createdBy: {
+      isPlatformClient: boolean;
+      user: {
+        typeId: string;
+        id: string;
+      };
+    };
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    addresses: [
+      {
+        id: string;
+        firstName: string;
+        lastName: string;
+        streetName: string;
+        streetNumber: string;
+        postalCode: string;
+        city: string;
+        country: string;
+      },
+    ];
+    shippingAddressIds: string[];
+    billingAddressIds: string[];
+    isEmailVerified: boolean;
+    key: string;
+    stores: string[];
+    authenticationMode: string;
+  };
+}
