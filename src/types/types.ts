@@ -70,6 +70,7 @@ export interface ICustomer {
     firstName: string;
     lastName: string;
     password: string;
+    dateOfBirth: Date;
     addresses: [
       {
         id: string;
