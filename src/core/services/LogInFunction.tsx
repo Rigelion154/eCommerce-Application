@@ -1,4 +1,4 @@
-import { IToken } from '../../types/types';
+import { ICustomer, IToken } from '../../types/types';
 import { apiConstants, apiScopes } from './apiConstants';
 
 export default async function logIn(email: string, password: string) {
@@ -32,6 +32,8 @@ export default async function logIn(email: string, password: string) {
       body: JSON.stringify(data),
     });
     if (res.ok) {
+      const userData = await (res.json() as Promise<ICustomer>);
+      localStorage.setItem('userID', userData.customer.id);
       localStorage.setItem('isAuth', 'true');
     }
   }
