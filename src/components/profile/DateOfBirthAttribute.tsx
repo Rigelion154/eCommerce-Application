@@ -9,6 +9,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
   const [saveIsDisabled, changeSaveDisabled] = useState(true);
   const [inputValue, setValue] = useState('');
   const [dateOfBirthWarning, toggleDateOfBirthWarning] = useState('');
+  const [updateSuccess, toggleUpdateSuccess] = useState('');
 
   function enableInput() {
     changeInputDisabled(false);
@@ -43,9 +44,12 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
     });
     updateUserByID(userID, userVersion, actions).then(
       () => {
-        window.location.reload();
+        toggleUpdateSuccess('Field updated. Please wait until page reloads.');
+        setTimeout(() => window.location.reload(), 2000);
       },
-      () => {},
+      () => {
+        toggleUpdateSuccess('Error happened during update. Please reload this page and try again');
+      },
     );
     changeInputDisabled(true);
     changeUpdateDisabled(false);
@@ -70,6 +74,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
         Save
       </button>
       <p>{dateOfBirthWarning}</p>
+      <p>{updateSuccess}</p>
     </div>
   );
 }

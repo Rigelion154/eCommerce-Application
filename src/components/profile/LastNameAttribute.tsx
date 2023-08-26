@@ -9,6 +9,7 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
   const [saveIsDisabled, changeSaveDisabled] = useState(true);
   const [inputValue, setValue] = useState('');
   const [lastNameWarning, toggleLastNameWarning] = useState('');
+  const [updateSuccess, toggleUpdateSuccess] = useState('');
 
   function enableInput() {
     changeInputDisabled(false);
@@ -38,9 +39,12 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
     });
     updateUserByID(userID, userVersion, actions).then(
       () => {
-        window.location.reload();
+        toggleUpdateSuccess('Field updated. Please wait until page reloads.');
+        setTimeout(() => window.location.reload(), 2000);
       },
-      () => {},
+      () => {
+        toggleUpdateSuccess('Error happened during update. Please reload this page and try again');
+      },
     );
     changeInputDisabled(true);
     changeUpdateDisabled(false);
@@ -65,6 +69,7 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
         Save
       </button>
       <p>{lastNameWarning}</p>
+      <p>{updateSuccess}</p>
     </div>
   );
 }
