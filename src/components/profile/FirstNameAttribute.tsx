@@ -8,11 +8,27 @@ function FirstNameAttribute({ userID, userVersion, ...props }: ProfileAttributes
   const [updateIsDisabled, changeUpdateDisabled] = useState(false);
   const [saveIsDisabled, changeSaveDisabled] = useState(true);
   const [inputValue, setValue] = useState('');
+  const [firstNameWarning, toggleFirstNameWarning] = useState('');
 
   function enableInput() {
     changeInputDisabled(false);
     changeUpdateDisabled(true);
     changeSaveDisabled(false);
+  }
+  function checkFirstName(value: string) {
+    const validRegex = /^[a-zA-Zа-яА-Я]*$/;
+    changeSaveDisabled(false);
+    toggleFirstNameWarning('');
+    if (value === '') {
+      toggleFirstNameWarning('This field is required');
+      changeSaveDisabled(true);
+    } else if (value !== value.trim()) {
+      toggleFirstNameWarning('Please delete trails at the beginning and/or end');
+      changeSaveDisabled(true);
+    } else if (!value.match(validRegex)) {
+      toggleFirstNameWarning('The field must not have any special characters or numbers');
+      changeSaveDisabled(true);
+    }
   }
   function tryToUpdate() {
     const actions: Actions = [];
@@ -39,6 +55,7 @@ function FirstNameAttribute({ userID, userVersion, ...props }: ProfileAttributes
         disabled={inputIsDisabled}
         onChange={(e) => {
           setValue(e.target.value);
+          checkFirstName(e.target.value);
         }}
       />
       <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
@@ -47,6 +64,7 @@ function FirstNameAttribute({ userID, userVersion, ...props }: ProfileAttributes
       <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
         Save
       </button>
+      <p>{firstNameWarning}</p>
     </div>
   );
 }

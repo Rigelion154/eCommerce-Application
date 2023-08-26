@@ -8,11 +8,32 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
   const [updateIsDisabled, changeUpdateDisabled] = useState(false);
   const [saveIsDisabled, changeSaveDisabled] = useState(true);
   const [inputValue, setValue] = useState('');
+  const [dateOfBirthWarning, toggleDateOfBirthWarning] = useState('');
 
   function enableInput() {
     changeInputDisabled(false);
     changeUpdateDisabled(true);
     changeSaveDisabled(false);
+  }
+  function checkDateOfBirth(value: string) {
+    changeSaveDisabled(false);
+    toggleDateOfBirthWarning('');
+    if (value === '') {
+      toggleDateOfBirthWarning('This field is required');
+      changeSaveDisabled(true);
+    } else {
+      const selectedDate = new Date(value);
+      const currentDate = new Date();
+      const minAge = new Date();
+      minAge.setFullYear(currentDate.getFullYear() - 12);
+      if (selectedDate > currentDate) {
+        toggleDateOfBirthWarning('Date cannot be in the future');
+        changeSaveDisabled(true);
+      } else if (selectedDate > minAge) {
+        toggleDateOfBirthWarning('User must be over 12 years old');
+        changeSaveDisabled(true);
+      }
+    }
   }
   function tryToUpdate() {
     const actions: Actions = [];
@@ -39,6 +60,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
         disabled={inputIsDisabled}
         onChange={(e) => {
           setValue(e.target.value);
+          checkDateOfBirth(e.target.value);
         }}
       />
       <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
@@ -47,6 +69,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
       <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
         Save
       </button>
+      <p>{dateOfBirthWarning}</p>
     </div>
   );
 }
