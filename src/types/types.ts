@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 
 export interface IChildren {
   children: React.ReactNode;
@@ -42,4 +42,9 @@ export interface IToken {
   refresh_token: string;
   scope: string;
   token_type: string;
+}
+
+export interface ProfileAttributes extends ComponentPropsWithoutRef<'input'> {
+  userID: string | null;
+  userVersion: number | null;
 }

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Container from '../components/layout/container/Container';
-import ProfileAttribute from '../components/profile/ProfileAttribute';
+import EmailAttribute from '../components/profile/EmailAttribute';
 import Address from '../components/profile/Address';
 import getCustomerById from '../core/services/getCustomerById';
+import FirstNameAttribute from '../components/profile/FirstNameAttribute';
+import LastNameAttribute from '../components/profile/LastNameAttribute';
+import DateOfBirthAttribute from '../components/profile/DateOfBirthAttribute';
 
 function Profile() {
   const isAuth = localStorage.getItem('isAuth');
@@ -28,31 +31,10 @@ function Profile() {
     <div>
       <Container>
         <header>Your profile</header>
-        <ProfileAttribute
-          headerText='E-Mail'
-          value={email}
-          userID={userID}
-          userVersion={userVersion}
-        />
-        <ProfileAttribute
-          headerText='First name'
-          value={firstName}
-          userID={userID}
-          userVersion={userVersion}
-        />
-        <ProfileAttribute
-          headerText='Last name'
-          value={lastName}
-          userID={userID}
-          userVersion={userVersion}
-        />
-        <ProfileAttribute
-          headerText='Date of birth'
-          value={dateOfBirth}
-          type='date'
-          userID={userID}
-          userVersion={userVersion}
-        />
+        <EmailAttribute value={email} userID={userID} userVersion={userVersion} />
+        <FirstNameAttribute value={firstName} userID={userID} userVersion={userVersion} />
+        <LastNameAttribute value={lastName} userID={userID} userVersion={userVersion} />
+        <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
         <div>
           <header>Shipping addresses</header>
           <Address />
