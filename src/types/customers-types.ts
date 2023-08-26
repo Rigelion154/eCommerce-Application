@@ -24,7 +24,7 @@ export interface ICustomerLogIn {
     firstName: string;
     lastName: string;
     password: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     addresses: [
       {
         id: string;
@@ -71,7 +71,7 @@ export interface ICustomerGetInfo {
   firstName: string;
   lastName: string;
   password: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   addresses: [
     {
       id: string;
