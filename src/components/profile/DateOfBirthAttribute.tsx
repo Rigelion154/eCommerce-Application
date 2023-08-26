@@ -7,7 +7,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
   const [inputIsDisabled, changeInputDisabled] = useState(true);
   const [updateIsDisabled, changeUpdateDisabled] = useState(false);
   const [saveIsDisabled, changeSaveDisabled] = useState(true);
-  const [inputValue, setValue] = useState('');
+  const [inputValue, setValue] = useState(props.value as string);
   const [dateOfBirthWarning, toggleDateOfBirthWarning] = useState('');
   const [updateSuccess, toggleUpdateSuccess] = useState('');
 
