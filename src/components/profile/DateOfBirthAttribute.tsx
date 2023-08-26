@@ -21,7 +21,9 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
       dateOfBirth: inputValue,
     });
     updateUserByID(userID, userVersion, actions).then(
-      () => {},
+      () => {
+        window.location.reload();
+      },
       () => {},
     );
     changeInputDisabled(true);

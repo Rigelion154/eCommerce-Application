@@ -21,7 +21,9 @@ function FirstNameAttribute({ userID, userVersion, ...props }: ProfileAttributes
       firstName: inputValue,
     });
     updateUserByID(userID, userVersion, actions).then(
-      () => {},
+      () => {
+        window.location.reload();
+      },
       () => {},
     );
     changeInputDisabled(true);

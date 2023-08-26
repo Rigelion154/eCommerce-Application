@@ -38,7 +38,9 @@ function EmailAttribute({ userID, userVersion, ...props }: ProfileAttributes) {
       email: inputValue,
     });
     updateUserByID(userID, userVersion, actions).then(
-      () => {},
+      () => {
+        window.location.reload();
+      },
       () => {},
     );
     changeInputDisabled(true);

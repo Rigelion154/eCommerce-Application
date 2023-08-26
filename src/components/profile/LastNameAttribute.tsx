@@ -21,7 +21,9 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
       lastName: inputValue,
     });
     updateUserByID(userID, userVersion, actions).then(
-      () => {},
+      () => {
+        window.location.reload();
+      },
       () => {},
     );
     changeInputDisabled(true);
