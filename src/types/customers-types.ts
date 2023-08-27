@@ -75,10 +75,7 @@ export interface ICustomerGetInfo {
   addresses: [
     {
       id: string;
-      firstName: string;
-      lastName: string;
       streetName: string;
-      streetNumber: string;
       postalCode: string;
       city: string;
       country: string;
@@ -86,6 +83,8 @@ export interface ICustomerGetInfo {
   ];
   shippingAddressIds: string[];
   billingAddressIds: string[];
+  defaultShippingAddressId: string;
+  defaultBillingAddressId: string;
   isEmailVerified: boolean;
   key: string;
   stores: string[];

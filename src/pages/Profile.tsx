@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Container from '../components/layout/container/Container';
 import EmailAttribute from '../components/profile/EmailAttribute';
-import Address from '../components/profile/Address';
+import AddressComponent from '../components/profile/Address';
 import getCustomerById from '../core/services/getCustomerById';
 import FirstNameAttribute from '../components/profile/FirstNameAttribute';
 import LastNameAttribute from '../components/profile/LastNameAttribute';
 import DateOfBirthAttribute from '../components/profile/DateOfBirthAttribute';
+import { AddressWithID } from '../types/types';
 
 function Profile() {
   const isAuth = localStorage.getItem('isAuth');
@@ -15,6 +16,8 @@ function Profile() {
   const [lastName, setLastName] = useState('');
   const [dateOfBirth, setdateOfBirth] = useState('');
   const [userVersion, setUserVersion] = useState(0);
+  const [shippingAddresses] = useState<AddressWithID[]>([]);
+  const [billingAddresses] = useState<AddressWithID[]>([]);
   if (isAuth === 'true' && userID) {
     getCustomerById(userID).then(
       (result) => {
@@ -23,6 +26,24 @@ function Profile() {
         setLastName(result.lastName);
         setdateOfBirth(result.dateOfBirth);
         setUserVersion(result.version);
+        result.addresses.forEach((address) => {
+          if (
+            result.defaultShippingAddressId &&
+            result.defaultShippingAddressId.includes(address.id)
+          ) {
+            shippingAddresses.unshift(address);
+          } else if (result.shippingAddressIds.includes(address.id)) {
+            shippingAddresses.push(address);
+          }
+          if (
+            result.defaultBillingAddressId &&
+            result.defaultBillingAddressId.includes(address.id)
+          ) {
+            billingAddresses.unshift(address);
+          } else if (result.billingAddressIds.includes(address.id)) {
+            billingAddresses.push(address);
+          }
+        });
       },
       () => new Error(`Couldn't receive user information!`),
     );
@@ -37,11 +58,27 @@ function Profile() {
         <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
         <div>
           <header>Shipping addresses</header>
-          <Address />
+          {shippingAddresses.map((address) => (
+            <AddressComponent
+              country={address.country}
+              city={address.city}
+              postalCode={address.postalCode}
+              streetName={address.streetName}
+              key={address.id}
+            />
+          ))}
         </div>
         <div>
           <header>Billing addresses</header>
-          <Address />
+          {billingAddresses.map((address) => (
+            <AddressComponent
+              country={address.country}
+              city={address.city}
+              postalCode={address.postalCode}
+              streetName={address.streetName}
+              key={address.id}
+            />
+          ))}
         </div>
       </Container>
     </div>

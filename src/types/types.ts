@@ -48,3 +48,11 @@ export interface ProfileAttributes extends ComponentPropsWithoutRef<'input'> {
   userID: string | null;
   userVersion: number | null;
 }
+
+export interface AddressWithID {
+  streetName: string;
+  id: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
