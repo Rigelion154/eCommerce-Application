@@ -1,0 +1,25 @@
+.category__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  row-gap: 20px;
+  column-gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+
+.category__link {
+  width: 45%;
+  height: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 3px solid var(--color-primary);
+}
+
+.logo {
+  font-size: 4rem;
+}

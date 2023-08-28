@@ -13,6 +13,5 @@ export default async function getCategories() {
   });
 
   const { results } = response.data;
-
   return results;
 }
