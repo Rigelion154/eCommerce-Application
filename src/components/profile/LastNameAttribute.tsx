@@ -63,7 +63,7 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
         }}
       />
       <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
-        Update
+        Edit
       </button>
       <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
         Save

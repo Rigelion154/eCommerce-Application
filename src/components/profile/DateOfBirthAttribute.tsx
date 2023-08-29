@@ -68,7 +68,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
         }}
       />
       <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
-        Update
+        Edit
       </button>
       <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
         Save

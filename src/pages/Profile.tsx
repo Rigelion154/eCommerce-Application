@@ -65,8 +65,10 @@ function Profile() {
               postalCode={address.postalCode}
               streetName={address.streetName}
               key={address.id}
+              id={address.id}
             />
           ))}
+          <button type='button'>Add new address</button>
         </div>
         <div>
           <header>Billing addresses</header>
@@ -77,8 +79,10 @@ function Profile() {
               postalCode={address.postalCode}
               streetName={address.streetName}
               key={address.id}
+              id={address.id}
             />
           ))}
+          <button type='button'>Add new address</button>
         </div>
       </Container>
     </div>

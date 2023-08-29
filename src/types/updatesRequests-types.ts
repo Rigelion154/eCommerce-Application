@@ -1,3 +1,5 @@
+import { Address } from './types';
+
 interface EmailRequest {
   action: 'changeEmail';
   email: string;
@@ -18,4 +20,28 @@ interface setDateOfBirth {
   dateOfBirth: string;
 }
 
-export type Actions = (EmailRequest | setFirstName | setLastName | setDateOfBirth)[];
+interface updateAddress {
+  action: 'changeAddress';
+  addressId: string;
+  address: Address;
+}
+
+interface setDefaultBillingAddress {
+  action: 'setDefaultBillingAddress';
+  addressId: string;
+}
+
+interface setDefaultShippingAddress {
+  action: 'setDefaultShippingAddress';
+  addressId: string;
+}
+
+export type Actions = (
+  | EmailRequest
+  | setFirstName
+  | setLastName
+  | setDateOfBirth
+  | updateAddress
+  | setDefaultBillingAddress
+  | setDefaultShippingAddress
+)[];
