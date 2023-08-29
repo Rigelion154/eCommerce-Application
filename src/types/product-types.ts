@@ -65,6 +65,23 @@ export interface IProduct {
       };
       variants: Attributes[];
     };
+    staged: {
+      categories: {
+        id: string;
+        typeId: string;
+      }[];
+      description: {
+        en: string;
+      };
+      masterVariant: MasterVariant;
+      name: {
+        'en-US': string;
+      };
+      slug: {
+        en: string;
+      };
+      variants: Attributes[];
+    };
   };
   productType: {
     id: string;
