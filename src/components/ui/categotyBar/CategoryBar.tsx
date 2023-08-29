@@ -1,12 +1,11 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { AiFillApi, AiOutlineLaptop } from 'react-icons/ai';
 import { GiSmartphone } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import Container from '../../layout/container/Container';
 import handleResize from '../../../core/utils/handleResize';
 import styles from './CategoryBar.module.css';
-import getCategories from '../../../core/services/getCategories';
 
 const links = [
   {
@@ -41,9 +40,6 @@ function CategoryBar({
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    getCategories()
-      .then(() => {})
-      .catch(() => {});
     handleResize(setIsSmallScreen);
     window.addEventListener('resize', () => handleResize(setIsSmallScreen));
     return () => {
@@ -57,16 +53,18 @@ function CategoryBar({
         <ul className={styles.items}>
           {links.map((link) => (
             <li key={link.id} className={styles.item__wrapper}>
-              <Link
+              <NavLink
                 to={link.path}
-                className={styles.item}
+                className={({ isActive }) =>
+                  isActive ? `${styles.item} ${styles.active}` : styles.item
+                }
                 onClick={() => {
                   if (isSmallScreen) setBurger(!burger);
                 }}
               >
                 {link.name}
                 {link.icon}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>

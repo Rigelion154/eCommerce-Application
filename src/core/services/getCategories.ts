@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { apiConstants } from './apiConstants';
-import { ICategoriesResponse } from '../../types/types';
+import { ICategoriesResponse } from '../../types/category-types';
 
 export default async function getCategories() {
   const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/categories`;
@@ -13,8 +13,5 @@ export default async function getCategories() {
   });
 
   const { results } = response.data;
-
-  // const categoryNames = results.map((category) => category.name['en-US']);
-
   return results;
 }

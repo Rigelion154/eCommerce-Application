@@ -4,7 +4,9 @@ const ROUTES = {
   REGISTRATION: '/registration',
   PROFILE: '/profile',
   CART: '/cart',
-  CATEGORIES: '/categories/:id',
+  CATEGORIES: '/categories/:current',
+  SUBCATEGORIES: '/categories/:current/:brand',
+  PRODUCT: '/categories/:current/:brand/:key',
 };
 
 export default ROUTES;

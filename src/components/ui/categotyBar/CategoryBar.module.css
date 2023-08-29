@@ -1,12 +1,14 @@
 .container {
   background-color: var(--color-primary);
 }
+
 .items {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
   padding: 15px 0;
+  border-bottom: 1px solid #0077e4;
 }
 
 .item__wrapper {
