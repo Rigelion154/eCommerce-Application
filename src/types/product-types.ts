@@ -30,10 +30,7 @@ interface MasterVariant {
 
 interface Attributes {
   name: string;
-  value: {
-    key: string;
-    label: string;
-  };
+  value: string | number;
 }
 
 export interface IProductResponse {
@@ -63,7 +60,7 @@ export interface IProduct {
       slug: {
         en: string;
       };
-      variants: Attributes[];
+      variants: MasterVariant[];
     };
     staged: {
       categories: {

@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import getProductByBrand from '../../core/utils/getProductByBrand';
 import { IProduct } from '../../types/product-types';
 import styles from './SubCategories.module.css';
 import Container from '../../components/layout/container/Container';
 import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
+import FilterColorInput from '../../components/ui/FilterInput/FilterColorInput';
+import FilterSizeInput from '../../components/ui/FilterInput/FilterSizeInput';
+import handleCurrentProductsByBrand from '../../core/utils/handleCurrentProductsByBrand';
 
 function SubCategories() {
   const { current, brand } = useParams();
   const currentCategory = useCategory(current);
   const [products, setProducts] = useState<IProduct[]>([]);
-  // console.log(current, brand);
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+
   useEffect(() => {
-    getProductByBrand(brand)
-      .then((res) => setProducts(res))
-      .catch(() => {});
+    handleCurrentProductsByBrand(brand, setProducts);
+    setSelectedColor('');
+    setSelectedSize('');
   }, [brand]);
 
   return (
@@ -53,6 +57,18 @@ function SubCategories() {
             <div>Products not found</div>
           )}
         </div>
+        <FilterColorInput
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          setProducts={setProducts}
+          brand={brand}
+        />
+        <FilterSizeInput
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          setProducts={setProducts}
+          brand={brand}
+        />
       </Container>
     </div>
   );
