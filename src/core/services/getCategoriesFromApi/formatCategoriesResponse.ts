@@ -1,4 +1,4 @@
-import { ICategory, IFormatCategory } from '../../types/category-types';
+import { ICategory, IFormatCategory } from '../../../types/category-types';
 
 export default function formatCategoriesResponse(data: ICategory[]) {
   const categories: IFormatCategory[] = data

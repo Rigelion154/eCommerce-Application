@@ -6,7 +6,6 @@ import getProductByKey from '../../core/utils/getProduct/getProductByKey';
 function ProductPage() {
   const { key } = useParams();
   const [product, setProduct] = useState<IProduct[]>([]);
-  // console.log(product);
 
   useEffect(() => {
     getProductByKey(key)
