@@ -54,11 +54,11 @@ export interface IProduct {
         typeId: string;
       }[];
       description: {
-        en: string;
+        'en-US': string;
       };
       masterVariant: MasterVariant;
       name: {
-        en: string;
+        'en-US': string;
       };
       slug: {
         en: string;
