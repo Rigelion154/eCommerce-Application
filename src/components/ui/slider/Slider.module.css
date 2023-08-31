@@ -1,0 +1,17 @@
+.slider__container {
+  display: flex;
+  align-items: center;
+  background-color: blue;
+}
+
+.slider__img_block {
+  width: 100px;
+  max-height: 200px;
+}
+
+.slider__img_block img {
+  width: 100%;
+  height: auto;
+  /* margin-top: 10px; */
+  object-fit: cover;
+}
