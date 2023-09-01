@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './Slider.module.css';
 
 interface Image {
@@ -14,23 +14,40 @@ interface ImageList {
 }
 
 function Slider({ images }: ImageList) {
-  const [currentImg, setCurrentIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sliderBlockRef = useRef<HTMLDivElement | null>(null);
 
-  const goToPreviousSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  const goToPrevSlide = () => {
+    if (sliderBlockRef.current) {
+      const slideWidth = sliderBlockRef.current.clientWidth / images.length;
+      setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+      sliderBlockRef.current.scrollLeft -= slideWidth;
+    }
   };
 
   const goToNextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    if (sliderBlockRef.current) {
+      const slideWidth = sliderBlockRef.current.clientWidth / images.length;
+      setActiveIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+      sliderBlockRef.current.scrollLeft += slideWidth;
+    }
   };
 
   return (
     <div className={styles.slider__container}>
-      <button type='button' onClick={goToPreviousSlide}>
+      <button type='button' onClick={goToPrevSlide}>
         Prev
       </button>
-      <div className={styles.slider__img_block}>
-        <img src={images[currentImg].url} alt={`Изображение ${currentImg + 1}`} />
+      <div className={styles.slider__block} ref={sliderBlockRef}>
+        {images.map((image, index) => (
+          <img
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            src={image.url}
+            alt={`Slide ${index}`}
+            className={`${styles.slider__img} ${index === activeIndex ? styles.activeSlide : ''}`}
+          />
+        ))}
       </div>
       <button type='button' onClick={goToNextSlide}>
         Next
