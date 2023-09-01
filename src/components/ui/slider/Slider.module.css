@@ -36,7 +36,9 @@
   color: #0077e4;
   border: 1px solid #0077e4;
   cursor: pointer;
-  transition: background-color .3s, color .3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .slider__prev_btn:hover,
@@ -63,12 +65,14 @@
   min-width: 120px;
   background-color: #fff;
   border: none;
-  opacity: .5;
-  transition: opacity .3s, transform .3s;
+  opacity: 0.5;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 }
 
 .gallery__button:hover {
-  transform: scale(.95);
+  transform: scale(0.95);
 }
 
 .gallery__img {
