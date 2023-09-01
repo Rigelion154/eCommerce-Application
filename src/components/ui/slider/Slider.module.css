@@ -9,8 +9,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  height: 440px;
+  width: 350px;
+  height: 350px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 .main__img_block img {

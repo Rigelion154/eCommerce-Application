@@ -8,9 +8,9 @@ interface ModalProps {
 
 function Modal({ imageUrl, onClose }: ModalProps) {
   return (
-    <div className={styles.imageViewer}>
+    <div className={styles.modalWindow}>
       <div className={styles.modalContent}>
-        <img src={imageUrl} alt='Увеличенное изображение' />
+        <img src={imageUrl} alt='modal-img' />
         <button type='button' className={styles.closeButton} onClick={onClose}>
           Close
         </button>
