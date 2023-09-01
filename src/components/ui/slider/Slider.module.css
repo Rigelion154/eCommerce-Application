@@ -7,8 +7,8 @@
 
 .main__img_block {
   margin: 0 auto;
-  width: 350px;
-  height: 450px;
+  width: 400px;
+  height: 500px;
 }
 
 .main__img_block img {
@@ -24,24 +24,25 @@
   column-gap: 20px;
 }
 
-.images__block {
+.gallery__block {
   display: flex;
   align-items: center;
-  width: 330px;
+  width: 430px;
   overflow-x: scroll;
   scroll-behavior: smooth;
   column-gap: 15px;
 }
 
-.slider__img {
-  width: 100px;
-  height: 150px;
-  object-fit: contain;
-  cursor: pointer;
+.gallery__button {
+  min-width: 120px;
+  height: auto;
 }
 
-.slider__img:not(:last-child) {
-  margin-right: 15px;
+.gallery__img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .activeSlide {

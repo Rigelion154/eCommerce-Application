@@ -14,50 +14,53 @@ interface ImageList {
 }
 
 function Slider({ images }: ImageList) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const imagesBlockRef = useRef<HTMLDivElement | null>(null);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const galleryBlockRef = useRef<HTMLDivElement | null>(null);
 
-  const goToSlide = (index: number) => {
-    if (imagesBlockRef.current) {
-      const slideWidth = imagesBlockRef.current.clientWidth / images.length;
-      setActiveIndex(index);
-      imagesBlockRef.current.scrollLeft = slideWidth * index;
+  const changeSlide = (index: number) => {
+    if (galleryBlockRef.current) {
+      const galleryBtn = galleryBlockRef.current.querySelector(`.${styles.gallery__button}`);
+      const slideWidth = galleryBtn ? galleryBtn.getBoundingClientRect().width : 0;
+      setActiveSlideIndex(index);
+      galleryBlockRef.current.scrollLeft = slideWidth * index;
     }
   };
 
   return (
     <div className={styles.slider__container}>
       <div className={styles.main__img_block}>
-        <img src={images[activeIndex].url} alt='img' />
+        <img src={images[activeSlideIndex].url} alt='img' />
       </div>
       <div className={styles.slider__block}>
         <button
           type='button'
-          onClick={() => goToSlide(activeIndex === 0 ? images.length - 1 : activeIndex - 1)}
+          onClick={() =>
+            changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
+          }
         >
           Prev
         </button>
-        <div className={styles.images__block} ref={imagesBlockRef}>
+        <div className={styles.gallery__block} ref={galleryBlockRef}>
           {images.map((image, index) => (
             <button
               type='button'
               // eslint-disable-next-line react/no-array-index-key
               key={index}
-              onClick={() => goToSlide(index)}
+              onClick={() => changeSlide(index)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  goToSlide(index);
+                  changeSlide(index);
                 }
               }}
-              className={`${styles.slider__button} ${
-                index === activeIndex ? styles.activeSlide : ''
+              className={`${styles.gallery__button} ${
+                index === activeSlideIndex ? styles.activeSlide : ''
               }`}
             >
-              <img src={image.url} alt={`Slide-${index}`} className={styles.slider__img} />
+              <img src={image.url} alt={`Slide-${index}`} className={styles.gallery__img} />
             </button>
           ))}
         </div>
-        <button type='button' onClick={() => goToSlide((activeIndex + 1) % images.length)}>
+        <button type='button' onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}>
           Next
         </button>
       </div>
