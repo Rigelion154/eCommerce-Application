@@ -17,43 +17,47 @@ function Slider({ images }: ImageList) {
   const [activeIndex, setActiveIndex] = useState(0);
   const imagesBlockRef = useRef<HTMLDivElement | null>(null);
 
-  const goToPrevSlide = () => {
+  const goToSlide = (index: number) => {
     if (imagesBlockRef.current) {
       const slideWidth = imagesBlockRef.current.clientWidth / images.length;
-      setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-      imagesBlockRef.current.scrollLeft -= slideWidth;
-    }
-  };
-
-  const goToNextSlide = () => {
-    if (imagesBlockRef.current) {
-      const slideWidth = imagesBlockRef.current.clientWidth / images.length;
-      setActiveIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-      imagesBlockRef.current.scrollLeft += slideWidth;
+      setActiveIndex(index);
+      imagesBlockRef.current.scrollLeft = slideWidth * index;
     }
   };
 
   return (
     <div className={styles.slider__container}>
       <div className={styles.main__img_block}>
-        <img src={images[0].url} alt='img' />
+        <img src={images[activeIndex].url} alt='img' />
       </div>
       <div className={styles.slider__block}>
-        <button type='button' onClick={goToPrevSlide}>
+        <button
+          type='button'
+          onClick={() => goToSlide(activeIndex === 0 ? images.length - 1 : activeIndex - 1)}
+        >
           Prev
         </button>
         <div className={styles.images__block} ref={imagesBlockRef}>
           {images.map((image, index) => (
-            <img
+            <button
+              type='button'
               // eslint-disable-next-line react/no-array-index-key
               key={index}
-              src={image.url}
-              alt={`Slide-${index}`}
-              className={`${styles.slider__img} ${index === activeIndex ? styles.activeSlide : ''}`}
-            />
+              onClick={() => goToSlide(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  goToSlide(index);
+                }
+              }}
+              className={`${styles.slider__button} ${
+                index === activeIndex ? styles.activeSlide : ''
+              }`}
+            >
+              <img src={image.url} alt={`Slide-${index}`} className={styles.slider__img} />
+            </button>
           ))}
         </div>
-        <button type='button' onClick={goToNextSlide}>
+        <button type='button' onClick={() => goToSlide((activeIndex + 1) % images.length)}>
           Next
         </button>
       </div>
