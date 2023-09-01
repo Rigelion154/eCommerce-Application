@@ -1,13 +1,23 @@
 .product__container {
-  margin: 30px auto 0;
-  width: 600px;
+  display: flex;
+  margin: 10px auto 0;
+  max-width: 1000px;
   min-height: 600px;
-  background-color: brown;
+  /* background-color: brown; */
+}
+
+.product__info {
+  padding: 10px;
 }
 
 .product__title {
-  margin-top: 10px;
+  margin-top: 40px;
   text-align: center;
+}
+
+.product__price {
+  margin-top: 20px;
+  font-weight: 600;
 }
 
 .product__desc {

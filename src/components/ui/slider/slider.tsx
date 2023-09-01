@@ -33,12 +33,13 @@ function Slider({ images }: ImageList) {
       </div>
       <div className={styles.slider__block}>
         <button
+          className={styles.slider__prev_btn}
           type='button'
           onClick={() =>
             changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
           }
         >
-          Prev
+          &lt;
         </button>
         <div className={styles.gallery__block} ref={galleryBlockRef}>
           {images.map((image, index) => (
@@ -60,8 +61,12 @@ function Slider({ images }: ImageList) {
             </button>
           ))}
         </div>
-        <button type='button' onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}>
-          Next
+        <button
+          className={styles.slider__next_btn}
+          type='button'
+          onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
+        >
+          &gt;
         </button>
       </div>
     </div>

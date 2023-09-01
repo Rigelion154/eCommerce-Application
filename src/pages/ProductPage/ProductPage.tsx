@@ -14,7 +14,7 @@ function ProductPage() {
     getProductByKey(key)
       .then((res) => {
         setProduct(res);
-        console.log(res[0].masterData.current.masterVariant.images);
+        console.log(res[0].masterData.current.masterVariant.prices[0].value.centAmount);
       })
       .catch(() => {});
   }, [key]);
@@ -23,8 +23,14 @@ function ProductPage() {
       {product.map((elem) => (
         <div className={styles.product__container}>
           <Slider images={elem.masterData.current.masterVariant.images} />
-          <h2 className={styles.product__title}>{elem.masterData.current.name['en-US']}</h2>
-          <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
+          <div className={styles.product__info}>
+            <h2 className={styles.product__title}>{elem.masterData.current.name['en-US']}</h2>
+            <p className={styles.product__price}>
+              {elem.masterData.current.masterVariant.prices[0].value.centAmount}{' '}
+              {elem.masterData.current.masterVariant.prices[0].value.currencyCode}
+            </p>
+            <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
+          </div>
         </div>
       ))}
     </div>
