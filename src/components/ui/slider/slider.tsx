@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Modal from '../modal/modal';
 import styles from './Slider.module.css';
 
 interface Image {
@@ -16,6 +17,7 @@ interface ImageList {
 function Slider({ images }: ImageList) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const galleryBlockRef = useRef<HTMLDivElement | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const changeSlide = (index: number) => {
     if (galleryBlockRef.current) {
@@ -26,11 +28,20 @@ function Slider({ images }: ImageList) {
     }
   };
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className={styles.slider__container}>
-      <div className={styles.main__img_block}>
+      <button type='button' className={styles.main__img_block} onClick={openModal}>
         <img src={images[activeSlideIndex].url} alt='img' />
-      </div>
+      </button>
+      {isModalOpen && <Modal imageUrl={images[activeSlideIndex].url} onClose={closeModal} />}
       <div className={styles.slider__block}>
         <button
           className={styles.slider__prev_btn}
