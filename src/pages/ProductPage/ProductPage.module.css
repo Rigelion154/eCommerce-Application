@@ -5,19 +5,6 @@
   background-color: brown;
 }
 
-.product__img_block {
-  margin: 0 auto;
-  width: 350px;
-  max-height: 450px;
-}
-
-.product__img_block img {
-  width: 100%;
-  height: auto;
-  margin-top: 10px;
-  object-fit: cover;
-}
-
 .product__title {
   margin-top: 10px;
   text-align: center;

@@ -15,43 +15,48 @@ interface ImageList {
 
 function Slider({ images }: ImageList) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const sliderBlockRef = useRef<HTMLDivElement | null>(null);
+  const imagesBlockRef = useRef<HTMLDivElement | null>(null);
 
   const goToPrevSlide = () => {
-    if (sliderBlockRef.current) {
-      const slideWidth = sliderBlockRef.current.clientWidth / images.length;
+    if (imagesBlockRef.current) {
+      const slideWidth = imagesBlockRef.current.clientWidth / images.length;
       setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-      sliderBlockRef.current.scrollLeft -= slideWidth;
+      imagesBlockRef.current.scrollLeft -= slideWidth;
     }
   };
 
   const goToNextSlide = () => {
-    if (sliderBlockRef.current) {
-      const slideWidth = sliderBlockRef.current.clientWidth / images.length;
+    if (imagesBlockRef.current) {
+      const slideWidth = imagesBlockRef.current.clientWidth / images.length;
       setActiveIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-      sliderBlockRef.current.scrollLeft += slideWidth;
+      imagesBlockRef.current.scrollLeft += slideWidth;
     }
   };
 
   return (
     <div className={styles.slider__container}>
-      <button type='button' onClick={goToPrevSlide}>
-        Prev
-      </button>
-      <div className={styles.slider__block} ref={sliderBlockRef}>
-        {images.map((image, index) => (
-          <img
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-            src={image.url}
-            alt={`Slide ${index}`}
-            className={`${styles.slider__img} ${index === activeIndex ? styles.activeSlide : ''}`}
-          />
-        ))}
+      <div className={styles.main__img_block}>
+        <img src={images[0].url} alt='img' />
       </div>
-      <button type='button' onClick={goToNextSlide}>
-        Next
-      </button>
+      <div className={styles.slider__block}>
+        <button type='button' onClick={goToPrevSlide}>
+          Prev
+        </button>
+        <div className={styles.images__block} ref={imagesBlockRef}>
+          {images.map((image, index) => (
+            <img
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              src={image.url}
+              alt={`Slide-${index}`}
+              className={`${styles.slider__img} ${index === activeIndex ? styles.activeSlide : ''}`}
+            />
+          ))}
+        </div>
+        <button type='button' onClick={goToNextSlide}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }

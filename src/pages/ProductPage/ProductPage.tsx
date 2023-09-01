@@ -22,9 +22,6 @@ function ProductPage() {
     <div className={styles.product__page}>
       {product.map((elem) => (
         <div className={styles.product__container}>
-          <div className={styles.product__img_block}>
-            <img src={elem.masterData.current.masterVariant.images[0].url} alt='img' />
-          </div>
           <Slider images={elem.masterData.current.masterVariant.images} />
           <h2 className={styles.product__title}>{elem.masterData.current.name['en-US']}</h2>
           <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
