@@ -45,8 +45,7 @@ function Slider({ images }: ImageList) {
           {images.map((image, index) => (
             <button
               type='button'
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
+              key={image.url}
               onClick={() => changeSlide(index)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {

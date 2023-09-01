@@ -21,7 +21,7 @@ function ProductPage() {
   return (
     <div className={styles.product__page}>
       {product.map((elem) => (
-        <div className={styles.product__container}>
+        <div key={elem.id} className={styles.product__container}>
           <Slider images={elem.masterData.current.masterVariant.images} />
           <div className={styles.product__info}>
             <h2 className={styles.product__title}>{elem.masterData.current.name['en-US']}</h2>
