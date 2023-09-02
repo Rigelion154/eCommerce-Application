@@ -1,19 +1,29 @@
 import React from 'react';
+import styles from './FilterInput.module.css';
 
 function FilterColorInput({
   selectedColor,
   setSelectedColor,
+  value,
 }: {
   selectedColor: string;
   setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
+  value: string[];
 }) {
   return (
     <div>
       <p>Selected color: {selectedColor}</p>
-      <select value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}>
+      <select
+        className={styles.input}
+        value={selectedColor}
+        onChange={(e) => setSelectedColor(e.target.value)}
+      >
         <option> </option>
-        <option value='white'>White</option>
-        <option value='black'>Black</option>
+        {value.map((el) => (
+          <option key={el} value={el}>
+            {el}
+          </option>
+        ))}
       </select>
     </div>
   );

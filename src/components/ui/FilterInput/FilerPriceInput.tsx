@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './FilterInput.module.css';
 
 function FilerPriceInput({
   minValue,
@@ -14,9 +15,19 @@ function FilerPriceInput({
   return (
     <div>
       <p>Min Price:</p>
-      <input type='number' value={minValue} onChange={(e) => setMinValue(e.target.value)} />
+      <input
+        className={styles.input}
+        type='number'
+        value={minValue}
+        onChange={(e) => setMinValue(e.target.value)}
+      />
       <p>Max Price:</p>
-      <input type='number' value={maxValue} onChange={(e) => setMaxValue(e.target.value)} />
+      <input
+        className={styles.input}
+        type='number'
+        value={maxValue}
+        onChange={(e) => setMaxValue(e.target.value)}
+      />
     </div>
   );
 }

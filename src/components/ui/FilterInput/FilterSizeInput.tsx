@@ -1,19 +1,29 @@
 import React from 'react';
+import styles from './FilterInput.module.css';
 
 function FilterSizeInput({
   selectedSize,
   setSelectedSize,
+  value,
 }: {
   selectedSize: string;
   setSelectedSize: React.Dispatch<React.SetStateAction<string>>;
+  value: string[];
 }) {
   return (
     <div>
       <p>Selected size: {selectedSize}</p>
-      <select value={selectedSize} onChange={(e) => setSelectedSize(e.target.value)}>
+      <select
+        className={styles.input}
+        value={selectedSize}
+        onChange={(e) => setSelectedSize(e.target.value)}
+      >
         <option> </option>
-        <option value='6.5'>6.5&quot;</option>
-        <option value='7.2'>7.2&quot;</option>
+        {value.map((el) => (
+          <option key={el} value={el}>
+            {el}&quot;
+          </option>
+        ))}
       </select>
     </div>
   );
