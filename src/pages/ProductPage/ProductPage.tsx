@@ -12,10 +12,7 @@ function ProductPage() {
 
   useEffect(() => {
     getProductByKey(key)
-      .then((res) => {
-        setProduct(res);
-        console.log(res[0].masterData.current.masterVariant.prices[0].value.centAmount);
-      })
+      .then((res) => setProduct(res))
       .catch(() => {});
   }, [key]);
   return (
