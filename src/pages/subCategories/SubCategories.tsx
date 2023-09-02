@@ -14,11 +14,14 @@ import handleFormat from '../../core/utils/formatFunctions/handleFormat';
 import handleFormatReset from '../../core/utils/formatFunctions/handleFormatReset';
 import SortBar from '../../components/ui/SortBar/SortBar';
 import styles from './SubCategories.module.css';
+import handleResize from '../../core/utils/handleResize';
 
 function SubCategories() {
   const { current, brand } = useParams();
   const currentCategory = useCategory(current);
   const currentSubCategory = useSubCategory(brand);
+  const [burger, setBurger] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [products, setProducts] = useState<MasterData[]>([]);
   const [currentProducts, setCurrentProducts] = useState<MasterData[]>([]);
   const [selectedColor, setSelectedColor] = useState('');
@@ -48,17 +51,31 @@ function SubCategories() {
   useEffect(() => {
     handleProductsBySubCategory(currentSubCategory, setProducts);
     handleProductsBySubCategory(currentSubCategory, setCurrentProducts);
+    handleResize(setIsSmallScreen);
+    window.addEventListener('resize', () => handleResize(setIsSmallScreen));
+    return () => {
+      window.removeEventListener('resize', () => handleResize(setIsSmallScreen));
+    };
   }, [currentSubCategory]);
+
+  useEffect(() => {
+    if (burger) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [burger]);
 
   return (
     <div>
       <SubCategoryBar currentCategory={currentCategory} />
       <Container>
         <div className={styles.wrapper}>
-          <div className={styles.aside}>
+          <div className={burger ? [styles.aside, styles.open_burger].join(' ') : styles.aside}>
             <form
               className={styles.form}
-              onSubmit={(e) =>
+              onSubmit={(e) => {
+                setBurger(false);
                 handleFormat(
                   e,
                   currentSubCategory,
@@ -67,8 +84,8 @@ function SubCategories() {
                   minPrice,
                   maxPrice,
                   setProducts,
-                )
-              }
+                );
+              }}
             >
               <FilterColorInput
                 selectedColor={selectedColor}
@@ -93,7 +110,8 @@ function SubCategories() {
                 <button
                   className={styles.button}
                   type='button'
-                  onClick={() =>
+                  onClick={() => {
+                    setBurger(false);
                     handleFormatReset(
                       setSelectedColor,
                       setSelectedSize,
@@ -101,8 +119,8 @@ function SubCategories() {
                       setMaxValue,
                       setProducts,
                       currentSubCategory,
-                    )
-                  }
+                    );
+                  }}
                 >
                   Reset
                 </button>
@@ -110,6 +128,11 @@ function SubCategories() {
             </form>
           </div>
           <div className={styles.products}>
+            {isSmallScreen && (
+              <button type='button' onClick={() => setBurger(!burger)}>
+                Filters
+              </button>
+            )}
             <SortBar
               nameTitle='Sort by name'
               priceTitle='Sort by price'

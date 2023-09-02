@@ -12,7 +12,6 @@ function ProductPage() {
       .then((res) => setProduct(res))
       .catch(() => {});
   }, [key]);
-
   return (
     <div>
       {product.map((elem) => (

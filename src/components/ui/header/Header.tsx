@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import styles from './Header.module.css';
@@ -11,6 +11,14 @@ import CategoryBar from '../categotyBar/CategoryBar';
 
 function Header() {
   const [burger, setBurger] = useState(false);
+
+  useEffect(() => {
+    if (burger) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [burger]);
 
   return (
     <header>
