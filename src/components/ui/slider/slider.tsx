@@ -87,7 +87,7 @@ function Slider({ images }: ImageList) {
           ))}
         </div>
         <button
-          className={`${styles.slider__prev_btn} ${!showControls ? styles.hidden : ''}`}
+          className={`${styles.slider__next_btn} ${!showControls ? styles.hidden : ''}`}
           type='button'
           onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
         >

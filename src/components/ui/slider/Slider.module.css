@@ -149,8 +149,9 @@
     width: 280px;
     column-gap: 10px;
   }
-  .gallery__button {
-    min-width: 80px;
+  .gallery__img {
+    width: 80px;
+    height: 80px;
   }
 }
 
