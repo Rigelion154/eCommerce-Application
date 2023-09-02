@@ -1,4 +1,5 @@
 .search__form {
+  position: relative;
   width: 50%;
   display: flex;
   justify-content: space-between;
@@ -22,6 +23,19 @@
 
 .search__input:focus {
   outline: none;
+}
+
+.search_data {
+  position: absolute;
+  left: 0;
+  top: 110%;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background-color: white;
 }
 
 @media screen and (max-width: 768px) {
