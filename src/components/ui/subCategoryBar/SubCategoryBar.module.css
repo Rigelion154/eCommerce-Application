@@ -24,3 +24,9 @@
 .active {
   background-color: var(--color-button-hover);
 }
+
+@media screen and (max-width: 768px) {
+  .category__links {
+    width: 100%;
+  }
+}

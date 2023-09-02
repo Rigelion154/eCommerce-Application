@@ -37,10 +37,11 @@
     position: absolute;
     width: 100%;
     background-color: transparent;
-    left: -100%;
+    left: -110%;
     transition: left 1s;
-    z-index: 2;
+    z-index: 5;
   }
+
   .items {
     flex-direction: column;
     row-gap: 15px;

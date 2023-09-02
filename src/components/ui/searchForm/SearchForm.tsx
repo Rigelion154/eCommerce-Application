@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SlMagnifier } from 'react-icons/sl';
 
 import styles from './SearchForm.module.css';
 import searchProductsByWord from '../../../core/services/searchProductsByWord';
 import { MasterData } from '../../../types/product-types';
+import handleResize from '../../../core/utils/handleResize';
 
-function SearchForm() {
+function SearchForm({
+  burger,
+  setBurger,
+}: {
+  burger: boolean;
+  setBurger: Dispatch<SetStateAction<boolean>>;
+}) {
   const [searchedProducts, setSearchedProducts] = useState('');
   const [products, setProducts] = useState<MasterData[]>([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     searchProductsByWord(searchedProducts)
@@ -17,6 +25,14 @@ function SearchForm() {
       })
       .catch(() => {});
   }, [searchedProducts]);
+
+  useEffect(() => {
+    handleResize(setIsSmallScreen);
+    window.addEventListener('resize', () => handleResize(setIsSmallScreen));
+    return () => {
+      window.removeEventListener('resize', () => handleResize(setIsSmallScreen));
+    };
+  }, []);
 
   return (
     <form className={styles.search__form}>
@@ -46,6 +62,7 @@ function SearchForm() {
                   key={product.id}
                   to={`/categories/${productType}/${product.key.split('_')[0]}/${product.key}`}
                   onClick={() => {
+                    if (isSmallScreen) setBurger(!burger);
                     setProducts([]);
                     setSearchedProducts('');
                   }}
