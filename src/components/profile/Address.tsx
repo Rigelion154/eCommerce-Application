@@ -181,7 +181,6 @@ function AddressComponent({ ...props }: AddressWithID) {
       <p />
       <span>Postal code:</span>
       <input
-        defaultValue={props.postalCode}
         disabled={inputIsDisabled}
         value={postalCodeValue}
         onChange={(e) => {

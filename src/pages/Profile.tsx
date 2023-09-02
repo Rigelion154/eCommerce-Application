@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from '../components/layout/container/Container';
 import EmailAttribute from '../components/profile/EmailAttribute';
 import AddressComponent from '../components/profile/Address';
@@ -10,7 +10,6 @@ import { AddressWithID } from '../types/types';
 import NewAddress from '../components/profile/NewAddress';
 
 function Profile() {
-  const isAuth = localStorage.getItem('isAuth');
   const userID = localStorage.getItem('userID');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -21,36 +20,31 @@ function Profile() {
   const [billingAddresses] = useState<AddressWithID[]>([]);
   const [addNewAddress, setAddNewAddress] = useState(true);
 
-  if (isAuth === 'true' && userID) {
-    getCustomerById(userID).then(
-      (result) => {
-        setEmail(result.email);
-        setFirstName(result.firstName);
-        setLastName(result.lastName);
-        setdateOfBirth(result.dateOfBirth);
-        setUserVersion(result.version);
-        result.addresses.forEach((address) => {
-          if (
-            result.defaultShippingAddressId &&
-            result.defaultShippingAddressId.includes(address.id)
-          ) {
-            shippingAddresses.unshift(address);
-          } else if (result.shippingAddressIds.includes(address.id)) {
-            shippingAddresses.push(address);
-          }
-          if (
-            result.defaultBillingAddressId &&
-            result.defaultBillingAddressId.includes(address.id)
-          ) {
-            billingAddresses.unshift(address);
-          } else if (result.billingAddressIds.includes(address.id)) {
-            billingAddresses.push(address);
-          }
-        });
-      },
-      () => new Error(`Couldn't receive user information!`),
-    );
-  }
+  useEffect(() => {
+    if (userID) {
+      getCustomerById(userID)
+        .then((res) => {
+          setEmail(res.email);
+          setFirstName(res.firstName);
+          setLastName(res.lastName);
+          setdateOfBirth(res.dateOfBirth);
+          setUserVersion(res.version);
+          res.addresses.forEach((address) => {
+            if (res.defaultShippingAddressId && res.defaultShippingAddressId.includes(address.id)) {
+              shippingAddresses.unshift(address);
+            } else if (res.shippingAddressIds.includes(address.id)) {
+              shippingAddresses.push(address);
+            }
+            if (res.defaultBillingAddressId && res.defaultBillingAddressId.includes(address.id)) {
+              billingAddresses.unshift(address);
+            } else if (res.billingAddressIds.includes(address.id)) {
+              billingAddresses.push(address);
+            }
+          });
+        })
+        .catch(() => {});
+    }
+  }, [billingAddresses, shippingAddresses, userID]);
 
   function switchNewAddress() {
     if (addNewAddress) {

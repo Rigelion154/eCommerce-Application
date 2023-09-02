@@ -114,7 +114,7 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
             }
           }
         }
-        updateUserByID(userID, userVersion, actions).then(
+        updateUserByID(userID, (userVersion as number) + 1, actions).then(
           () => {
             toggleUpdateSuccess('Address updated. Please wait until page reloads.');
             setTimeout(() => window.location.reload(), 2000);
