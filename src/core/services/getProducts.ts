@@ -11,6 +11,8 @@ export default async function getProducts() {
       Authorization: `Bearer ${token}`,
     },
   });
+
   const { results } = response.data;
+
   return results;
 }
