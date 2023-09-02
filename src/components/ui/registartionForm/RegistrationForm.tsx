@@ -93,7 +93,7 @@ function RegistrationForm() {
       password,
       firstName,
       lastName,
-      birthDay, // меняешь на dateOfBirth и по идее всё работатет
+      dateOfBirth: birthDay,
       addresses: [
         {
           streetName: street,

@@ -1,3 +1,4 @@
+import { ICustomerLogIn } from '../../types/customers-types';
 import { IToken } from '../../types/types';
 import { apiConstants, apiScopes } from './apiConstants';
 
@@ -32,6 +33,8 @@ export default async function logIn(email: string, password: string) {
       body: JSON.stringify(data),
     });
     if (res.ok) {
+      const userData = await (res.json() as Promise<ICustomerLogIn>);
+      localStorage.setItem('userID', userData.customer.id);
       localStorage.setItem('isAuth', 'true');
     }
   }
