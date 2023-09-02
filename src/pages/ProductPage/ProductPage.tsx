@@ -31,7 +31,9 @@ function ProductPage() {
                 currency: 'USD',
               })}
             </p>
-            <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
+            {elem.masterData.current.description && (
+              <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
+            )}
           </div>
         </div>
       ))}
