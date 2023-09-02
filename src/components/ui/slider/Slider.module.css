@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   width: 430px;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   overflow-x: scroll;
   scroll-behavior: smooth;
   column-gap: 15px;
@@ -124,6 +124,11 @@
 .activeSlide {
   opacity: 1;
 }
+
+.hidden {
+  display: none;
+}
+
 
 /* media */
 @media (max-width: 900px) {

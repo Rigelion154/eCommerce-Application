@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FiZoomIn } from 'react-icons/fi';
 import Modal from '../modal/modal';
 import styles from './Slider.module.css';
@@ -19,6 +19,19 @@ function Slider({ images }: ImageList) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const galleryBlockRef = useRef<HTMLDivElement | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+
+  useEffect(() => {
+    if (galleryBlockRef.current) {
+      const galleryImages = galleryBlockRef.current.querySelectorAll(`.${styles.gallery__img}`);
+      setShowControls(galleryImages.length > 3);
+      if (!showControls) {
+        galleryBlockRef.current.style.overflowX = 'hidden';
+      } else {
+        galleryBlockRef.current.style.overflowX = 'scroll';
+      }
+    }
+  }, [activeSlideIndex, images, showControls]);
 
   const changeSlide = (index: number) => {
     if (galleryBlockRef.current) {
@@ -46,7 +59,7 @@ function Slider({ images }: ImageList) {
       {isModalOpen && <Modal imageUrl={images[activeSlideIndex].url} onClose={closeModal} />}
       <div className={styles.slider__block}>
         <button
-          className={styles.slider__prev_btn}
+          className={`${styles.slider__prev_btn} ${!showControls ? styles.hidden : ''}`}
           type='button'
           onClick={() =>
             changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
@@ -74,7 +87,7 @@ function Slider({ images }: ImageList) {
           ))}
         </div>
         <button
-          className={styles.slider__next_btn}
+          className={`${styles.slider__prev_btn} ${!showControls ? styles.hidden : ''}`}
           type='button'
           onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
         >
