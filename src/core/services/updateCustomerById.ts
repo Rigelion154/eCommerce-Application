@@ -20,5 +20,5 @@ export default async function updateUserByID(
     },
     body: JSON.stringify(bodyRequest),
   });
-  return res;
+  return res.json();
 }

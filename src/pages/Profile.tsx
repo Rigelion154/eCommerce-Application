@@ -7,6 +7,7 @@ import FirstNameAttribute from '../components/profile/FirstNameAttribute';
 import LastNameAttribute from '../components/profile/LastNameAttribute';
 import DateOfBirthAttribute from '../components/profile/DateOfBirthAttribute';
 import { AddressWithID } from '../types/types';
+import NewAddress from '../components/profile/NewAddress';
 
 function Profile() {
   const isAuth = localStorage.getItem('isAuth');
@@ -18,6 +19,8 @@ function Profile() {
   const [userVersion, setUserVersion] = useState(0);
   const [shippingAddresses] = useState<AddressWithID[]>([]);
   const [billingAddresses] = useState<AddressWithID[]>([]);
+  const [addNewAddress, setAddNewAddress] = useState(true);
+
   if (isAuth === 'true' && userID) {
     getCustomerById(userID).then(
       (result) => {
@@ -48,6 +51,14 @@ function Profile() {
       () => new Error(`Couldn't receive user information!`),
     );
   }
+
+  function switchNewAddress() {
+    if (addNewAddress) {
+      setAddNewAddress(false);
+    } else {
+      setAddNewAddress(true);
+    }
+  }
   return (
     <div>
       <Container>
@@ -57,6 +68,10 @@ function Profile() {
         <LastNameAttribute value={lastName} userID={userID} userVersion={userVersion} />
         <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
         <div>
+          <button type='button' onClick={switchNewAddress}>
+            {addNewAddress ? 'Add new address' : 'Cancel'}
+          </button>
+          <NewAddress userID={userID} userVersion={userVersion} hidden={addNewAddress} />
           <header>Shipping addresses</header>
           {shippingAddresses.map((address) => (
             <AddressComponent
@@ -68,7 +83,6 @@ function Profile() {
               id={address.id}
             />
           ))}
-          <button type='button'>Add new address</button>
         </div>
         <div>
           <header>Billing addresses</header>
@@ -82,7 +96,6 @@ function Profile() {
               id={address.id}
             />
           ))}
-          <button type='button'>Add new address</button>
         </div>
       </Container>
     </div>

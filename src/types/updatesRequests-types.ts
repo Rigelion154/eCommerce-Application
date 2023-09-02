@@ -36,6 +36,21 @@ interface setDefaultShippingAddress {
   addressId: string;
 }
 
+interface addNewAddress {
+  action: 'addAddress';
+  address: Address;
+}
+
+interface addShippingAddressId {
+  action: 'addShippingAddressId';
+  addressId: string;
+}
+
+interface addBillingAddressId {
+  action: 'addBillingAddressId';
+  addressId: string;
+}
+
 export type Actions = (
   | EmailRequest
   | setFirstName
@@ -44,4 +59,7 @@ export type Actions = (
   | updateAddress
   | setDefaultBillingAddress
   | setDefaultShippingAddress
+  | addNewAddress
+  | addBillingAddressId
+  | addShippingAddressId
 )[];
