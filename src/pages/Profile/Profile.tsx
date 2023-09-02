@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Container from '../components/layout/container/Container';
-import EmailAttribute from '../components/profile/EmailAttribute';
-import AddressComponent from '../components/profile/Address';
-import getCustomerById from '../core/services/getCustomerById';
-import FirstNameAttribute from '../components/profile/FirstNameAttribute';
-import LastNameAttribute from '../components/profile/LastNameAttribute';
-import DateOfBirthAttribute from '../components/profile/DateOfBirthAttribute';
-import { AddressWithID } from '../types/types';
-import NewAddress from '../components/profile/NewAddress';
+import Container from '../../components/layout/container/Container';
+import EmailAttribute from '../../components/profile/EmailAttribute';
+import AddressComponent from '../../components/profile/Address';
+import getCustomerById from '../../core/services/getCustomerById';
+import FirstNameAttribute from '../../components/profile/FirstNameAttribute';
+import LastNameAttribute from '../../components/profile/LastNameAttribute';
+import DateOfBirthAttribute from '../../components/profile/DateOfBirthAttribute';
+import { AddressWithID } from '../../types/types';
+import NewAddress from '../../components/profile/NewAddress';
 
 function Profile() {
   const userID = localStorage.getItem('userID');
