@@ -8,11 +8,11 @@ interface ModalProps {
 
 function Modal({ imageUrl, onClose }: ModalProps) {
   return (
-    <div className={styles.modalWindow}>
-      <div className={styles.modalContent}>
+    <div className={styles.modal__window}>
+      <div className={styles.modal__content}>
         <img src={imageUrl} alt='modal-img' />
-        <button type='button' className={styles.closeButton} onClick={onClose}>
-          Close
+        <button type='button' className={styles.close__btn} onClick={onClose}>
+          &times;
         </button>
       </div>
     </div>

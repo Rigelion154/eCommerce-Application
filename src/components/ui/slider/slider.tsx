@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { FiZoomIn } from 'react-icons/fi';
 import Modal from '../modal/modal';
 import styles from './Slider.module.css';
 
@@ -39,6 +40,7 @@ function Slider({ images }: ImageList) {
   return (
     <div className={styles.slider__container}>
       <button type='button' className={styles.main__img_block} onClick={openModal}>
+        <FiZoomIn className={styles.zoom_icon} />
         <img src={images[activeSlideIndex].url} alt='img' />
       </button>
       {isModalOpen && <Modal imageUrl={images[activeSlideIndex].url} onClose={closeModal} />}

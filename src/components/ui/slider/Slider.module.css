@@ -6,6 +6,7 @@
 }
 
 .main__img_block {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +16,22 @@
   cursor: pointer;
   border: none;
   background-color: transparent;
+}
+
+.zoom_icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.main__img_block:hover .zoom_icon {
+  opacity: 0.4;
 }
 
 .main__img_block img {
