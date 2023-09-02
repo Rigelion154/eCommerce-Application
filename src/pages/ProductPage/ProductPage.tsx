@@ -24,8 +24,12 @@ function ProductPage() {
           <div className={styles.product__info}>
             <h2 className={styles.product__title}>{elem.masterData.current.name['en-US']}</h2>
             <p className={styles.product__price}>
-              {elem.masterData.current.masterVariant.prices[0].value.centAmount}{' '}
-              {elem.masterData.current.masterVariant.prices[0].value.currencyCode}
+              {(
+                elem.masterData.current.masterVariant.prices[0].value.centAmount / 100
+              ).toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })}
             </p>
             <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
           </div>
