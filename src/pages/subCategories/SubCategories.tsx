@@ -6,13 +6,14 @@ import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
 import useSubCategory from '../../core/hooks/useSubCategory';
 import handleProductsBySubCategory from '../../core/services/getProductsFromApi/getProductsBySubCategory';
-import styles from './SubCategories.module.css';
 import ProductCard from '../../components/ui/ProductCard/ProductCard';
 import FilterColorInput from '../../components/ui/FilterInput/FilterColorInput';
 import FilterSizeInput from '../../components/ui/FilterInput/FilterSizeInput';
 import FilerPriceInput from '../../components/ui/FilterInput/FilerPriceInput';
 import handleFormat from '../../core/utils/formatFunctions/handleFormat';
 import handleFormatReset from '../../core/utils/formatFunctions/handleFormatReset';
+import SortBar from '../../components/ui/SortBar/SortBar';
+import styles from './SubCategories.module.css';
 
 function SubCategories() {
   const { current, brand } = useParams();
@@ -21,8 +22,10 @@ function SubCategories() {
   const [products, setProducts] = useState<MasterData[]>([]);
   const [selectedColor, setSelectedColor] = useState('');
   const [minValue, setMinValue] = useState('0');
-  const [maxValue, setMaxValue] = useState('1000');
+  const [maxValue, setMaxValue] = useState('5000');
   const [selectedSize, setSelectedSize] = useState('');
+  const minPrice = (+minValue * 100).toString();
+  const maxPrice = (+maxValue * 100).toString();
 
   useEffect(() => {
     handleProductsBySubCategory(currentSubCategory, setProducts);
@@ -32,50 +35,62 @@ function SubCategories() {
     <div>
       <SubCategoryBar currentCategory={currentCategory} />
       <Container>
-        <div className={styles.products}>
-          {products.map((product) => (
-            <ProductCard current={current} brand={brand} product={product} key={product.id} />
-          ))}
-        </div>
-        <div>
-          <form
-            onSubmit={(e) =>
-              handleFormat(
-                e,
-                currentSubCategory,
-                selectedColor,
-                selectedSize,
-                minValue,
-                maxValue,
-                setProducts,
-              )
-            }
-          >
-            <FilterColorInput selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
-            <FilterSizeInput selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
-            <FilerPriceInput
-              minValue={minValue}
-              maxValue={maxValue}
-              setMinValue={setMinValue}
-              setMaxValue={setMaxValue}
-            />
-            <button type='submit'>Apply</button>
-            <button
-              type='button'
-              onClick={() =>
-                handleFormatReset(
-                  setSelectedColor,
-                  setSelectedSize,
-                  setMinValue,
-                  setMaxValue,
-                  setProducts,
+        <div className={styles.wrapper}>
+          <div className={styles.aside}>
+            <form
+              onSubmit={(e) =>
+                handleFormat(
+                  e,
                   currentSubCategory,
+                  selectedColor,
+                  selectedSize,
+                  minPrice,
+                  maxPrice,
+                  setProducts,
                 )
               }
             >
-              Reset
-            </button>
-          </form>
+              <FilterColorInput selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
+              <FilterSizeInput selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+              <FilerPriceInput
+                minValue={minValue}
+                maxValue={maxValue}
+                setMinValue={setMinValue}
+                setMaxValue={setMaxValue}
+              />
+              <button type='submit'>Apply</button>
+              <button
+                type='button'
+                onClick={() =>
+                  handleFormatReset(
+                    setSelectedColor,
+                    setSelectedSize,
+                    setMinValue,
+                    setMaxValue,
+                    setProducts,
+                    currentSubCategory,
+                  )
+                }
+              >
+                Reset
+              </button>
+            </form>
+          </div>
+          <div className={styles.products}>
+            <SortBar
+              nameTitle='Sort by name'
+              priceTitle='Sort by price'
+              currentSubCategory={currentSubCategory}
+              selectedColor={selectedColor}
+              minValue={minPrice}
+              maxValue={maxPrice}
+              selectedSize={selectedSize}
+              setProducts={setProducts}
+            />
+            {products.map((product) => (
+              <ProductCard current={current} brand={brand} product={product} key={product.id} />
+            ))}
+          </div>
         </div>
       </Container>
     </div>

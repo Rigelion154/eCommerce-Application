@@ -1,30 +1,29 @@
 import React from 'react';
 import formatProductsFromSubcategory from '../../services/formatProductsFromSubcategory';
-import { MasterData } from '../../../types/product-types';
 import { ICategory } from '../../../types/category-types';
+import { MasterData } from '../../../types/product-types';
 
-export default function handleFormat(
-  e: React.FormEvent<HTMLFormElement>,
-  currentCubCategory: ICategory[],
+export default function handleSort(
+  currentSubCategory: ICategory[],
   selectedColor: string,
-  selectedSize: string,
   minValue: string,
   maxValue: string,
+  selectedSize: string,
+  sortType: string,
+  sortValue: string,
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
 ) {
-  e.preventDefault();
-  // const minPrice = (+minValue * 100).toString();
-  // const maxPrice = (+maxValue * 100).toString();
-
   formatProductsFromSubcategory(
-    currentCubCategory[0].id,
+    currentSubCategory[0].id,
     selectedColor,
     minValue,
     maxValue,
     selectedSize,
-    '',
-    '',
+    sortType,
+    sortValue,
   )
-    .then((res) => setProducts(res))
+    .then((res) => {
+      setProducts(res);
+    })
     .catch(() => {});
 }

@@ -18,8 +18,8 @@ function ProductCard({
       className={styles.product}
       key={product.id}
     >
-      <h4>{product.name['en-US']}</h4>
       <img className={styles.product__image} src={product.masterVariant.images[0].url} alt='img' />
+      <h4>{product.name['en-US']}</h4>
       <div>
         <span>Price: </span>
         <span>

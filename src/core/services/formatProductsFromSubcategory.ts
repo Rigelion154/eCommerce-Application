@@ -8,13 +8,20 @@ export default async function formatProductsFromSubcategory(
   minPrice?: string | null,
   maxPrice?: string | null,
   screenSize?: string | null,
+  sortType?: string,
+  sortValue?: string,
 ) {
   const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search`;
   const token = localStorage.getItem('accessToken');
   const filter = [];
+  const sort = [];
+
+  if (sortType && sortValue) {
+    sort.push(`${sortType} ${sortValue}`);
+  }
 
   filter.push(
-    `variants.price.centAmount:range(${minPrice || '*'} to ${
+    `variants.price.centAmount:range(${minPrice || '0'} to ${
       maxPrice && +maxPrice === 0 ? '10000000' : maxPrice
     })`,
   );
@@ -24,8 +31,9 @@ export default async function formatProductsFromSubcategory(
   }
 
   if (color) {
-    filter.push(`variants.attributes.phone_color:"${color}"`);
+    filter.push(`variants.attributes.product_color:"${color}"`);
   }
+
   if (screenSize) {
     filter.push(`variants.attributes.screen_size:"${screenSize}"`);
   }
@@ -36,6 +44,7 @@ export default async function formatProductsFromSubcategory(
     },
     params: {
       filter,
+      sort,
     },
   });
   const { results } = response.data;

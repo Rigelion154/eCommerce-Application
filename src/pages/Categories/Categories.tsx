@@ -26,7 +26,7 @@ function Categories() {
           {products.map((product) => (
             <ProductCard
               current={current}
-              brand={product.name['en-US']}
+              brand={product.key.split('_')[0]}
               product={product}
               key={product.id}
             />

@@ -14,6 +14,6 @@ export default function handleFormatReset(
   setSelectedColor('');
   setSelectedSize('');
   setMinValue('0');
-  setMaxValue('1000');
+  setMaxValue('5000');
   handleProductsBySubCategory(currentCubCategory, setProducts);
 }
