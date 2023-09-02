@@ -32,7 +32,7 @@ function Header() {
               burger ? [styles.header__items, styles.open_burger].join(' ') : styles.header__items
             }
           >
-            <SearchForm />
+            <SearchForm burger={burger} setBurger={setBurger} />
             <NavBar burger={burger} setBurger={setBurger} />
           </div>
           <button type='button' className={styles.header__menu} onClick={() => setBurger(!burger)}>

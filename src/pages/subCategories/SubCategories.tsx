@@ -129,7 +129,7 @@ function SubCategories() {
           </div>
           <div className={styles.products}>
             {isSmallScreen && (
-              <button type='button' onClick={() => setBurger(!burger)}>
+              <button className={styles.button} type='button' onClick={() => setBurger(!burger)}>
                 Filters
               </button>
             )}
