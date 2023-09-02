@@ -4,18 +4,23 @@ import { IProduct } from '../../types/product-types';
 import getProductByKey from '../../core/utils/getProduct/getProductByKey';
 import Slider from '../../components/ui/slider/slider';
 import styles from './ProductPage.module.css';
+import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
+import useCategory from '../../core/hooks/useCategory';
 
 function ProductPage() {
-  const { key } = useParams();
+  const { current, key } = useParams();
   const [product, setProduct] = useState<IProduct[]>([]);
+  const currentCategory = useCategory(current);
 
   useEffect(() => {
     getProductByKey(key)
       .then((res) => setProduct(res))
       .catch(() => {});
   }, [key]);
+
   return (
     <div className={styles.product__page}>
+      <SubCategoryBar currentCategory={currentCategory} />
       {product.map((elem) => (
         <div key={elem.id} className={styles.product__container}>
           <Slider images={elem.masterData.current.masterVariant.images} />
