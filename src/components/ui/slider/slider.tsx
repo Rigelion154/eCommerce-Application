@@ -57,43 +57,45 @@ function Slider({ images }: ImageList) {
         <img src={images[activeSlideIndex].url} alt='img' />
       </button>
       {isModalOpen && <Modal imageUrl={images[activeSlideIndex].url} onClose={closeModal} />}
-      <div className={styles.slider__block}>
-        <button
-          className={`${styles.slider__prev_btn} ${!showControls ? styles.hidden : ''}`}
-          type='button'
-          onClick={() =>
-            changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
-          }
-        >
-          &lt;
-        </button>
-        <div className={styles.gallery__block} ref={galleryBlockRef}>
-          {images.map((image, index) => (
-            <button
-              type='button'
-              key={image.url}
-              onClick={() => changeSlide(index)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  changeSlide(index);
-                }
-              }}
-              className={`${styles.gallery__button} ${
-                index === activeSlideIndex ? styles.activeSlide : ''
-              }`}
-            >
-              <img src={image.url} alt={`Slide-${index}`} className={styles.gallery__img} />
-            </button>
-          ))}
+      {images.length > 1 && (
+        <div className={styles.slider__block}>
+          <button
+            className={`${styles.slider__prev_btn} ${!showControls ? styles.hidden : ''}`}
+            type='button'
+            onClick={() =>
+              changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
+            }
+          >
+            &lt;
+          </button>
+          <div className={styles.gallery__block} ref={galleryBlockRef}>
+            {images.map((image, index) => (
+              <button
+                type='button'
+                key={image.url}
+                onClick={() => changeSlide(index)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    changeSlide(index);
+                  }
+                }}
+                className={`${styles.gallery__button} ${
+                  index === activeSlideIndex ? styles.activeSlide : ''
+                }`}
+              >
+                <img src={image.url} alt={`Slide-${index}`} className={styles.gallery__img} />
+              </button>
+            ))}
+          </div>
+          <button
+            className={`${styles.slider__next_btn} ${!showControls ? styles.hidden : ''}`}
+            type='button'
+            onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
+          >
+            &gt;
+          </button>
         </div>
-        <button
-          className={`${styles.slider__next_btn} ${!showControls ? styles.hidden : ''}`}
-          type='button'
-          onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
-        >
-          &gt;
-        </button>
-      </div>
+      )}
     </div>
   );
 }
