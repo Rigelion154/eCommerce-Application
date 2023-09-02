@@ -154,6 +154,22 @@ function AddressComponent({ ...props }: AddressWithID) {
     changeSaveDisabled(true);
   }
 
+  function tryToDelete() {
+    const actions: Actions = [];
+    actions.push({
+      action: 'removeAddress',
+      addressId: props.id,
+    });
+    updateUserByID(userID, userVersion, actions).then(
+      () => {
+        toggleUpdateSuccess('Address deleted. Please wait until page reloads.');
+      },
+      () => {
+        toggleUpdateSuccess('Error happened during update. Please reload this page and try again');
+      },
+    );
+  }
+
   return (
     <div>
       <p hidden={isNotDefault}>This is default address</p>
@@ -222,6 +238,9 @@ function AddressComponent({ ...props }: AddressWithID) {
           Save
         </button>
       </div>
+      <button type='button' onClick={tryToDelete}>
+        Delete
+      </button>
       <p>{updateSuccess}</p>
     </div>
   );

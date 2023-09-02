@@ -51,6 +51,21 @@ interface addBillingAddressId {
   addressId: string;
 }
 
+interface removeAddress {
+  action: 'removeAddress';
+  addressId: string;
+}
+
+interface removeShippingAddressId {
+  action: 'removeShippingAddressId';
+  addressId: string;
+}
+
+interface removeBillingAddressId {
+  action: 'removeBillingAddressId';
+  addressId: string;
+}
+
 export type Actions = (
   | EmailRequest
   | setFirstName
@@ -62,4 +77,7 @@ export type Actions = (
   | addNewAddress
   | addBillingAddressId
   | addShippingAddressId
+  | removeBillingAddressId
+  | removeShippingAddressId
+  | removeAddress
 )[];
