@@ -27,7 +27,7 @@
   height: 50px;
   color: #fff;
   opacity: 0;
-  transition: opacity .3s;
+  transition: opacity 0.3s;
 }
 
 .main__img_block:hover .zoom_icon {
