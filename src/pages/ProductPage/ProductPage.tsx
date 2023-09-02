@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IProduct } from '../../types/product-types';
-import getProductByKey from '../../core/utils/getProductByKey';
+import getProductByKey from '../../core/utils/getProduct/getProductByKey';
 import Slider from '../../components/ui/slider/slider';
 
 import styles from './ProductPage.module.css';
@@ -15,6 +15,7 @@ function ProductPage() {
       .then((res) => setProduct(res))
       .catch(() => {});
   }, [key]);
+
   return (
     <div className={styles.product__page}>
       {product.map((elem) => (

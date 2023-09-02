@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { IFormatCategory } from '../../types/category-types';
-import getCategories from '../services/getCategories';
-import formatCategoriesResponse from '../utils/formatCategoriesResponse';
+import getCategories from '../services/getCategoriesFromApi/getCategories';
+import formatCategoriesResponse from '../services/getCategoriesFromApi/formatCategoriesResponse';
 
 export default function useCategory(slug: string | undefined) {
   const [currentCategory, setCurrentCategory] = useState<IFormatCategory[]>([]);
-
   useEffect(() => {
     getCategories()
       .then((res) => {
