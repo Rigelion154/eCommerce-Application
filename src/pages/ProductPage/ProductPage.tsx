@@ -6,6 +6,7 @@ import Slider from '../../components/ui/slider/slider';
 import styles from './ProductPage.module.css';
 import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
+import PriceBar from '../../components/ui/PriceBar/PriceBar';
 
 function ProductPage() {
   const { current, key } = useParams();
@@ -25,14 +26,12 @@ function ProductPage() {
           <Slider images={elem.masterData.current.masterVariant.images} />
           <div className={styles.product__info}>
             <h2 className={styles.product__title}>{elem.masterData.current.name['en-US']}</h2>
-            <p className={styles.product__price}>
-              {(
-                elem.masterData.current.masterVariant.prices[0].value.centAmount / 100
-              ).toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}
-            </p>
+            <PriceBar
+              price={product[0].masterData.current.masterVariant.prices[0].value.centAmount}
+              discountPrice={
+                product[0].masterData.current.masterVariant.prices[0].discounted?.value.centAmount
+              }
+            />
             {elem.masterData.current.description && (
               <p className={styles.product__desc}>{elem.masterData.current.description['en-US']}</p>
             )}
