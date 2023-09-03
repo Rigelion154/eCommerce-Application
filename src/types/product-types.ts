@@ -8,18 +8,6 @@ interface Image {
   url: string;
 }
 
-// interface PriceValue {
-//   type: string;
-//   fractionDigits: number;
-//   centAmount: number;
-//   currencyCode: string;
-// }
-//
-// interface Price {
-//   value: PriceValue;
-//   id: string;
-// }
-
 export type Price = {
   id: string;
   value: {
