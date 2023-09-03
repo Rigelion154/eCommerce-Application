@@ -1,0 +1,10 @@
+.discount__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: red;
+}
+
+.discount_price {
+  text-decoration-line: line-through;
+}

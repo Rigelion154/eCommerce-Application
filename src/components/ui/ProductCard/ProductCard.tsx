@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MasterData } from '../../../types/product-types';
 import styles from './ProductCard.module.css';
+import PriceBar from '../PriceBar/PriceBar';
 
 function ProductCard({
   current,
@@ -14,8 +15,6 @@ function ProductCard({
 }) {
   const price = product.masterVariant.prices[0].value.centAmount;
   const discountPrice = product.masterVariant.prices[0].discounted?.value.centAmount;
-
-  // console.log(price, discountPrice);
 
   return (
     <Link
@@ -31,28 +30,7 @@ function ProductCard({
           alt='img'
         />
       </div>
-      <div>
-        <div>
-          <span>Price: </span>
-          <span className={discountPrice ? styles.discount_price : ''}>
-            {(price / 100).toLocaleString('en-US', {
-              style: 'currency',
-              currency: 'USD',
-            })}
-          </span>
-        </div>
-        {discountPrice && (
-          <div className={styles.discount__wrapper}>
-            <span>Discount 10%: </span>
-            <span>
-              {((price / 100) * 0.9).toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}
-            </span>
-          </div>
-        )}
-      </div>
+      <PriceBar price={price} discountPrice={discountPrice} />
     </Link>
   );
 }
