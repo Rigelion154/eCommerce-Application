@@ -14,7 +14,7 @@
 }
 
 .nav__item:hover {
-  color: var(--color-primary);
+  color: var(--color-button-hover);
   transition: color 0.5s;
 }
 
