@@ -15,11 +15,12 @@ import handleFormatReset from '../../core/utils/formatFunctions/handleFormatRese
 import SortBar from '../../components/ui/SortBar/SortBar';
 import styles from './SubCategories.module.css';
 import handleResize from '../../core/utils/handleResize';
+import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
 
 function SubCategories() {
   const { current, brand } = useParams();
-  const currentCategory = useCategory(current);
-  const currentSubCategory = useSubCategory(brand);
+  const { currentCategory, status } = useCategory(current);
+  const { currentSubCategory } = useSubCategory(brand);
   const [burger, setBurger] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [products, setProducts] = useState<MasterData[]>([]);
@@ -68,87 +69,97 @@ function SubCategories() {
 
   return (
     <div>
-      <SubCategoryBar currentCategory={currentCategory} />
-      <Container>
-        <div className={styles.wrapper}>
-          <div className={burger ? [styles.aside, styles.open_burger].join(' ') : styles.aside}>
-            <form
-              className={styles.form}
-              onSubmit={(e) => {
-                setBurger(false);
-                handleFormat(
-                  e,
-                  currentSubCategory,
-                  selectedColor,
-                  selectedSize,
-                  minPrice,
-                  maxPrice,
-                  setProducts,
-                );
-              }}
-            >
-              <FilterColorInput
-                selectedColor={selectedColor}
-                setSelectedColor={setSelectedColor}
-                value={colors}
-              />
-              <FilterSizeInput
-                selectedSize={selectedSize}
-                setSelectedSize={setSelectedSize}
-                value={screenSizes}
-              />
-              <FilerPriceInput
-                minValue={minValue}
-                maxValue={maxValue}
-                setMinValue={setMinValue}
-                setMaxValue={setMaxValue}
-              />
-              <div className={styles.buttons}>
-                <button className={styles.button} type='submit'>
-                  Apply
-                </button>
-                <button
-                  className={styles.button}
-                  type='button'
-                  onClick={() => {
+      {status || products.length === 0 ? (
+        <LoaderBar />
+      ) : (
+        <div>
+          <SubCategoryBar currentCategory={currentCategory} />
+          <Container>
+            <div className={styles.wrapper}>
+              <div className={burger ? [styles.aside, styles.open_burger].join(' ') : styles.aside}>
+                <form
+                  className={styles.form}
+                  onSubmit={(e) => {
                     setBurger(false);
-                    handleFormatReset(
-                      setSelectedColor,
-                      setSelectedSize,
-                      setMinValue,
-                      setMaxValue,
-                      setProducts,
+                    handleFormat(
+                      e,
                       currentSubCategory,
+                      selectedColor,
+                      selectedSize,
+                      minPrice,
+                      maxPrice,
+                      setProducts,
                     );
                   }}
                 >
-                  Reset
-                </button>
+                  <FilterColorInput
+                    selectedColor={selectedColor}
+                    setSelectedColor={setSelectedColor}
+                    value={colors}
+                  />
+                  <FilterSizeInput
+                    selectedSize={selectedSize}
+                    setSelectedSize={setSelectedSize}
+                    value={screenSizes}
+                  />
+                  <FilerPriceInput
+                    minValue={minValue}
+                    maxValue={maxValue}
+                    setMinValue={setMinValue}
+                    setMaxValue={setMaxValue}
+                  />
+                  <div className={styles.buttons}>
+                    <button className={styles.button} type='submit'>
+                      Apply
+                    </button>
+                    <button
+                      className={styles.button}
+                      type='button'
+                      onClick={() => {
+                        setBurger(false);
+                        handleFormatReset(
+                          setSelectedColor,
+                          setSelectedSize,
+                          setMinValue,
+                          setMaxValue,
+                          setProducts,
+                          currentSubCategory,
+                        );
+                      }}
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-          <div className={styles.products}>
-            {isSmallScreen && (
-              <button className={styles.button} type='button' onClick={() => setBurger(!burger)}>
-                Filters
-              </button>
-            )}
-            <SortBar
-              nameTitle='Sort by name'
-              priceTitle='Sort by price'
-              currentSubCategory={currentSubCategory}
-              selectedColor={selectedColor}
-              minValue={minPrice}
-              maxValue={maxPrice}
-              selectedSize={selectedSize}
-              setProducts={setProducts}
-            />
-            {products.map((product) => (
-              <ProductCard current={current} brand={brand} product={product} key={product.id} />
-            ))}
-          </div>
+              <div className={styles.products}>
+                {isSmallScreen && (
+                  <button
+                    className={styles.button}
+                    type='button'
+                    onClick={() => setBurger(!burger)}
+                  >
+                    Filters
+                  </button>
+                )}
+                <SortBar
+                  nameTitle='Sort by name'
+                  priceTitle='Sort by price'
+                  currentSubCategory={currentSubCategory}
+                  selectedColor={selectedColor}
+                  minValue={minPrice}
+                  maxValue={maxPrice}
+                  selectedSize={selectedSize}
+                  setProducts={setProducts}
+                />
+                {products.map((product) => (
+                  <ProductCard current={current} brand={brand} product={product} key={product.id} />
+                ))}
+              </div>
+            </div>
+          </Container>
         </div>
-      </Container>
+      )}
     </div>
   );
 }

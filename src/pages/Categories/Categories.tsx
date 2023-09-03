@@ -5,13 +5,14 @@ import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import Container from '../../components/layout/container/Container';
 import { MasterData } from '../../types/product-types';
 import ProductCard from '../../components/ui/ProductCard/ProductCard';
+import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
+import handleProductsByCategory from '../../core/services/getProductsFromApi/getProductsByCategory';
 
 import styles from './Categories.module.css';
-import handleProductsByCategory from '../../core/services/getProductsFromApi/getProductsByCategory';
 
 function Categories() {
   const { current } = useParams();
-  const currentCategory = useCategory(current);
+  const { currentCategory, status } = useCategory(current);
   const [products, setProducts] = useState<MasterData[]>([]);
 
   useEffect(() => {
@@ -20,19 +21,29 @@ function Categories() {
 
   return (
     <div>
-      <SubCategoryBar currentCategory={currentCategory} />
-      <Container>
-        <div className={styles.wrapper}>
-          {products.map((product) => (
-            <ProductCard
-              current={current}
-              brand={product.key.split('_')[0]}
-              product={product}
-              key={product.id}
-            />
-          ))}
-        </div>
-      </Container>
+      {status || products.length === 0 ? (
+        <LoaderBar />
+      ) : (
+        <>
+          <SubCategoryBar currentCategory={currentCategory} />
+          <Container>
+            <div className={styles.wrapper}>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <ProductCard
+                    current={current}
+                    brand={product.key.split('_')[0]}
+                    product={product}
+                    key={product.id}
+                  />
+                ))
+              ) : (
+                <p>No products available</p>
+              )}
+            </div>
+          </Container>
+        </>
+      )}
     </div>
   );
 }

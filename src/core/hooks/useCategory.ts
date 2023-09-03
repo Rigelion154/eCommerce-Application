@@ -5,6 +5,7 @@ import formatCategoriesResponse from '../services/getCategoriesFromApi/formatCat
 
 export default function useCategory(slug: string | undefined) {
   const [currentCategory, setCurrentCategory] = useState<IFormatCategory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     getCategories()
       .then((res) => {
@@ -12,8 +13,9 @@ export default function useCategory(slug: string | undefined) {
         const getCurrentCategory = categories.filter((elem) => elem.slug === slug);
         setCurrentCategory(getCurrentCategory);
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setIsLoading(false));
   }, [slug]);
 
-  return currentCategory;
+  return { currentCategory, status: isLoading };
 }

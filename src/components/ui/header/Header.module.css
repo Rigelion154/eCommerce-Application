@@ -7,9 +7,14 @@
   padding: 20px 0;
 }
 
+.header__logo_home {
+  font-size: 3.2rem;
+  color: white;
+}
+
 .header__logo {
-  font-size: 3rem;
-  color: var(--color-primary);
+  font-size: 3.2rem;
+  color: var(--color-button-hover);
 }
 
 .header__items {

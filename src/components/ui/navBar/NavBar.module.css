@@ -4,17 +4,31 @@
   column-gap: 5px;
 }
 
+.nav__item_home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
+}
+
 .nav__item {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  color: var(--color-text-primary);
   padding: 5px;
+  color: var(--color-button-hover);
+}
+
+.nav__item_home:hover {
+  color: var(--color-primary);
+  transition: color 0.5s;
 }
 
 .nav__item:hover {
-  color: var(--color-button-hover);
+  color: var(--color-primary);
   transition: color 0.5s;
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import styles from './Header.module.css';
 import stylesCategory from '../categotyBar/CategoryBar.module.css';
@@ -11,6 +11,8 @@ import CategoryBar from '../categotyBar/CategoryBar';
 
 function Header() {
   const [burger, setBurger] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     if (burger) {
@@ -25,7 +27,9 @@ function Header() {
       <Container>
         <div className={styles.header}>
           <Link to='/'>
-            <h1 className={styles.header__logo}>Online Store</h1>
+            <h1 className={isHome ? styles.header__logo_home : styles.header__logo}>
+              Online Store
+            </h1>
           </Link>
           <div
             className={
