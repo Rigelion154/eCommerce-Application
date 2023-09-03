@@ -25,7 +25,6 @@ function Slider({ images }: ImageList) {
     if (galleryBlockRef.current) {
       const galleryImages = galleryBlockRef.current.querySelectorAll(`.${styles.gallery__img}`);
       setShowControls(galleryImages.length > 3);
-      console.log(showControls);
       if (!showControls) {
         galleryBlockRef.current.style.overflowX = 'hidden';
       } else {
