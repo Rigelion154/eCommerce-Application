@@ -1,4 +1,5 @@
 import React from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import styles from './Modal.module.css';
 
 interface ModalProps {
@@ -12,7 +13,7 @@ function Modal({ imageUrl, onClose }: ModalProps) {
       <div className={styles.modal__content}>
         <img src={imageUrl} alt='modal-img' />
         <button type='button' className={styles.close__btn} onClick={onClose}>
-          &times;
+          <AiOutlineClose />
         </button>
       </div>
     </div>

@@ -28,6 +28,7 @@ ul {
 body {
   color: var(--color-text-primary);
   font-size: 2rem;
+  font-family: 'Nunito', sans-serif;
 }
 
 .container {

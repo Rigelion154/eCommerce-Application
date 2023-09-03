@@ -6,7 +6,7 @@ import RegistrationForm from '../components/ui/registartionForm/RegistrationForm
 
 function Registration() {
   return (
-    <section>
+    <section style={{ maxWidth: '380px', margin: '0 auto' }}>
       <Container>
         <p style={{ marginTop: '20px' }}>
           Is there an account?{' '}

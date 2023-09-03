@@ -7,6 +7,8 @@ import AppRouter from './routes/appRouter/AppRouter';
 import AuthContext from './core/utils/authContext';
 import getAnonymousToken from './core/services/getAnonymousToken';
 
+import 'typeface-nunito';
+
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
 
