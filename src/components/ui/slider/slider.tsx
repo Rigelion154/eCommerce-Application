@@ -24,6 +24,8 @@ function Slider({ images }: ImageList) {
   useEffect(() => {
     if (images.length > 3) {
       setShowControls(true);
+    } else {
+      setShowControls(false);
     }
   }, [activeSlideIndex, images, showControls]);
 
