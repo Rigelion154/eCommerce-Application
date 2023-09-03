@@ -19,12 +19,13 @@ function Slider({ images }: ImageList) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const galleryBlockRef = useRef<HTMLDivElement | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [showControls, setShowControls] = useState(true);
+  const [showControls, setShowControls] = useState(false);
 
   useEffect(() => {
     if (galleryBlockRef.current) {
       const galleryImages = galleryBlockRef.current.querySelectorAll(`.${styles.gallery__img}`);
       setShowControls(galleryImages.length > 3);
+      console.log(showControls);
       if (!showControls) {
         galleryBlockRef.current.style.overflowX = 'hidden';
       } else {
