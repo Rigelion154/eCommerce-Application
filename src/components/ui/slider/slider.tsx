@@ -60,7 +60,8 @@ function Slider({ images }: ImageList) {
       {images.length > 1 && (
         <div className={styles.slider__block}>
           <button
-            className={`${styles.slider__prev_btn} ${!showControls ? styles.hidden : ''}`}
+            className={styles.slider__prev_btn}
+            style={{ display: !showControls ? 'none' : 'block' }}
             type='button'
             onClick={() =>
               changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
@@ -88,7 +89,8 @@ function Slider({ images }: ImageList) {
             ))}
           </div>
           <button
-            className={`${styles.slider__next_btn} ${!showControls ? styles.hidden : ''}`}
+            className={styles.slider__next_btn}
+            style={{ display: !showControls ? 'none' : 'block' }}
             type='button'
             onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
           >
