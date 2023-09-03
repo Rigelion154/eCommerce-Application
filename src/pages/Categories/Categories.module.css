@@ -5,7 +5,3 @@
   flex-wrap: wrap;
   padding: 20px 0;
 }
-
-.wrapper > * {
-  width: 30%;
-}

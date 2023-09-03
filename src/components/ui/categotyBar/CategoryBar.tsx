@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { AiFillApi, AiOutlineLaptop } from 'react-icons/ai';
+import { AiOutlineLaptop } from 'react-icons/ai';
 import { GiSmartphone } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
 
@@ -19,12 +19,6 @@ const links = [
     name: 'Laptops',
     path: '/categories/laptops',
     icon: <AiOutlineLaptop />,
-  },
-  {
-    id: 3,
-    name: 'Gadgets',
-    path: '/categories/gadgets',
-    icon: <AiFillApi />,
   },
 ];
 

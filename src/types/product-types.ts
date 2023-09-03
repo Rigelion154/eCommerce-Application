@@ -124,6 +124,9 @@ export interface IProduct {
 export interface MasterData {
   id: string;
   version: number;
+  description?: {
+    'en-US': string;
+  };
   productType: {
     typeId: string;
     id: string;

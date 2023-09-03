@@ -18,16 +18,36 @@ function ProductCard({
       className={styles.product}
       key={product.id}
     >
-      <img className={styles.product__image} src={product.masterVariant.images[0].url} alt='img' />
-      <h4>{product.name['en-US']}</h4>
       <div>
-        <span>Price: </span>
-        <span>
-          {(product.masterVariant.prices[0].value.centAmount / 100).toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          })}
-        </span>
+        <h4>{product.name['en-US']}</h4>
+        <img
+          className={styles.product__image}
+          src={product.masterVariant.images[0].url}
+          alt='img'
+        />
+      </div>
+      <div>
+        <div>
+          <span>Price: </span>
+          <span>
+            {(product.masterVariant.prices[0].value.centAmount / 100).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          </span>
+        </div>
+        <div className={styles.discount__wrapper}>
+          <span>Discount 10%: </span>
+          <span>
+            {((product.masterVariant.prices[0].value.centAmount / 100) * 0.9).toLocaleString(
+              'en-US',
+              {
+                style: 'currency',
+                currency: 'USD',
+              },
+            )}
+          </span>
+        </div>
       </div>
     </Link>
   );
