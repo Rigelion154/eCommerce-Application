@@ -9,7 +9,7 @@
 
 .header__logo {
   font-size: 3rem;
-  color: var(--color-button-hover);
+  color: var(--color-primary);
 }
 
 .header__items {
