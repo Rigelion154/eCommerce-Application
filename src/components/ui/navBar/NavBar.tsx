@@ -99,12 +99,14 @@ function NavBar({
   return (
     <nav className={styles.nav}>
       {links.map((link) => (
-        <div className={isHome ? styles.nav__item_home : styles.nav__item} key={link.id}>
-          <Link className={styles.nav__link} to={link.path} onClick={link.callback}>
-            {link.icon}
-          </Link>
+        <Link
+          className={isHome ? styles.nav__item_home : styles.nav__item}
+          key={link.id}
+          to={link.path}
+        >
+          <span className={styles.nav__link}>{link.icon}</span>
           <p className={styles.nav__description}>{link.name}</p>
-        </div>
+        </Link>
       ))}
     </nav>
   );

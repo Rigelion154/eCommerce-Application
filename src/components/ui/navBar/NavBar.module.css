@@ -23,7 +23,7 @@
 }
 
 .nav__item_home:hover {
-  color: var(--color-primary);
+  color: mediumblue;
   transition: color 0.5s;
 }
 
