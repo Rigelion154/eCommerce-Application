@@ -8,6 +8,7 @@ import LastNameAttribute from '../../components/profile/LastNameAttribute';
 import DateOfBirthAttribute from '../../components/profile/DateOfBirthAttribute';
 import { AddressWithID } from '../../types/types';
 import NewAddress from '../../components/profile/NewAddress';
+import styles from './Profile.module.css';
 
 function Profile() {
   const userID = localStorage.getItem('userID');
@@ -57,39 +58,49 @@ function Profile() {
     <div>
       <Container>
         <header>Your profile</header>
-        <EmailAttribute value={email} userID={userID} userVersion={userVersion} />
-        <FirstNameAttribute value={firstName} userID={userID} userVersion={userVersion} />
-        <LastNameAttribute value={lastName} userID={userID} userVersion={userVersion} />
-        <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
-        <div>
+        <div className={styles.wrapper}>
+          <div>
+            <EmailAttribute value={email} userID={userID} userVersion={userVersion} />
+            <button type='button'>Change password</button>
+          </div>
+          <div>
+            <FirstNameAttribute value={firstName} userID={userID} userVersion={userVersion} />
+            <LastNameAttribute value={lastName} userID={userID} userVersion={userVersion} />
+            <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
+          </div>
+        </div>
+        <div className={styles.wrapper}>
+          <div>
+            <header>Shipping addresses</header>
+            {shippingAddresses.map((address) => (
+              <AddressComponent
+                country={address.country}
+                city={address.city}
+                postalCode={address.postalCode}
+                streetName={address.streetName}
+                key={address.id}
+                id={address.id}
+              />
+            ))}
+          </div>
+          <div>
+            <header>Billing addresses</header>
+            {billingAddresses.map((address) => (
+              <AddressComponent
+                country={address.country}
+                city={address.city}
+                postalCode={address.postalCode}
+                streetName={address.streetName}
+                key={address.id}
+                id={address.id}
+              />
+            ))}
+          </div>
           <button type='button' onClick={switchNewAddress}>
             {addNewAddress ? 'Add new address' : 'Cancel'}
           </button>
+          <p />
           <NewAddress userID={userID} userVersion={userVersion} hidden={addNewAddress} />
-          <header>Shipping addresses</header>
-          {shippingAddresses.map((address) => (
-            <AddressComponent
-              country={address.country}
-              city={address.city}
-              postalCode={address.postalCode}
-              streetName={address.streetName}
-              key={address.id}
-              id={address.id}
-            />
-          ))}
-        </div>
-        <div>
-          <header>Billing addresses</header>
-          {billingAddresses.map((address) => (
-            <AddressComponent
-              country={address.country}
-              city={address.city}
-              postalCode={address.postalCode}
-              streetName={address.streetName}
-              key={address.id}
-              id={address.id}
-            />
-          ))}
         </div>
       </Container>
     </div>
