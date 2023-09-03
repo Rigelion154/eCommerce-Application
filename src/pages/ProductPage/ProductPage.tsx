@@ -17,7 +17,6 @@ function ProductPage() {
       .then((res) => setProduct(res))
       .catch(() => {});
   }, [key]);
-
   return (
     <div className={styles.product__page}>
       <SubCategoryBar currentCategory={currentCategory} />

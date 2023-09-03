@@ -8,17 +8,40 @@ interface Image {
   url: string;
 }
 
-interface PriceValue {
-  type: string;
-  fractionDigits: number;
-  centAmount: number;
-  currencyCode: string;
-}
+// interface PriceValue {
+//   type: string;
+//   fractionDigits: number;
+//   centAmount: number;
+//   currencyCode: string;
+// }
+//
+// interface Price {
+//   value: PriceValue;
+//   id: string;
+// }
 
-interface Price {
-  value: PriceValue;
+export type Price = {
   id: string;
-}
+  value: {
+    type: string;
+    currencyCode: string;
+    centAmount: number;
+    fractionDigits: number;
+  };
+  key: string;
+  discounted?: {
+    value: {
+      type: string;
+      currencyCode: string;
+      centAmount: number;
+      fractionDigits: number;
+    };
+    discount: {
+      typeId: string;
+      id: string;
+    };
+  };
+};
 
 interface MasterVariant {
   attributes: Attributes[];
@@ -156,17 +179,7 @@ export interface MasterData {
       };
       label?: string;
     }[];
-    prices: {
-      id: string;
-      value: {
-        type: string;
-        currencyCode: string;
-        centAmount: number;
-        fractionDigits: number;
-      };
-      key: string;
-      country?: string;
-    }[];
+    prices: Price[];
     key: string;
     sku: string;
     id: number;
@@ -185,17 +198,7 @@ export interface MasterData {
       };
       label?: string;
     }[];
-    prices: {
-      id: string;
-      value: {
-        type: string;
-        currencyCode: string;
-        centAmount: number;
-        fractionDigits: number;
-      };
-      key: string;
-      country?: string;
-    }[];
+    prices: Price[];
     key: string;
     sku: string;
     id: number;
