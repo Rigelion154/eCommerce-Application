@@ -22,15 +22,16 @@ function ProductCard({
       className={styles.product}
       key={product.id}
     >
-      <div>
+      <>
         <h4>{product.name['en-US']}</h4>
         <img
+          key={product.id}
           className={styles.product__image}
           src={product.masterVariant.images[0].url}
-          alt='img'
+          alt='omg'
         />
-      </div>
-      <PriceBar price={price} discountPrice={discountPrice} />
+        <PriceBar price={price} discountPrice={discountPrice} />
+      </>
     </Link>
   );
 }

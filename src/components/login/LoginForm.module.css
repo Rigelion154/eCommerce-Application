@@ -56,7 +56,6 @@
 }
 
 .btn {
-  background-color: #319dff;
   background-color: var(--color-primary);
   border: 1px solid transparent;
   border-radius: 5px;
