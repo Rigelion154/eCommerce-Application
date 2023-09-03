@@ -12,6 +12,11 @@ function ProductCard({
   brand: string | undefined;
   product: MasterData;
 }) {
+  const price = product.masterVariant.prices[0].value.centAmount;
+  const discountPrice = product.masterVariant.prices[0].discounted?.value.centAmount;
+
+  // console.log(price, discountPrice);
+
   return (
     <Link
       to={`/categories/${current}/${brand}/${product.key}`}
@@ -29,25 +34,24 @@ function ProductCard({
       <div>
         <div>
           <span>Price: </span>
-          <span>
-            {(product.masterVariant.prices[0].value.centAmount / 100).toLocaleString('en-US', {
+          <span className={discountPrice ? styles.discount_price : ''}>
+            {(price / 100).toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
           </span>
         </div>
-        <div className={styles.discount__wrapper}>
-          <span>Discount 10%: </span>
-          <span>
-            {((product.masterVariant.prices[0].value.centAmount / 100) * 0.9).toLocaleString(
-              'en-US',
-              {
+        {discountPrice && (
+          <div className={styles.discount__wrapper}>
+            <span>Discount 10%: </span>
+            <span>
+              {((price / 100) * 0.9).toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD',
-              },
-            )}
-          </span>
-        </div>
+              })}
+            </span>
+          </div>
+        )}
       </div>
     </Link>
   );

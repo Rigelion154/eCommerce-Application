@@ -13,6 +13,5 @@ export default async function getProducts() {
   });
 
   const { results } = response.data;
-
   return results;
 }
