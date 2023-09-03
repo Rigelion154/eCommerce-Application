@@ -19,17 +19,11 @@ function Slider({ images }: ImageList) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const galleryBlockRef = useRef<HTMLDivElement | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [showControls, setShowControls] = useState(false);
+  const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
-    if (galleryBlockRef.current) {
-      const galleryImages = galleryBlockRef.current.querySelectorAll(`.${styles.gallery__img}`);
-      setShowControls(galleryImages.length > 3);
-      if (!showControls) {
-        galleryBlockRef.current.style.overflowX = 'hidden';
-      } else {
-        galleryBlockRef.current.style.overflowX = 'scroll';
-      }
+    if (images.length > 3) {
+      setShowControls(true);
     }
   }, [activeSlideIndex, images, showControls]);
 
@@ -69,7 +63,11 @@ function Slider({ images }: ImageList) {
           >
             &lt;
           </button>
-          <div className={styles.gallery__block} ref={galleryBlockRef}>
+          <div
+            className={styles.gallery__block}
+            ref={galleryBlockRef}
+            style={{ overflowX: !showControls ? 'hidden' : 'scroll' }}
+          >
             {images.map((image, index) => (
               <button
                 type='button'
