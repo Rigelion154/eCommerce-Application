@@ -100,9 +100,10 @@ function NavBar({
     <nav className={styles.nav}>
       {links.map((link) => (
         <Link
-          className={isHome ? styles.nav__item_home : styles.nav__item}
+          className={isHome && !burger ? styles.nav__item_home : styles.nav__item}
           key={link.id}
           to={link.path}
+          onClick={link.callback}
         >
           <span className={styles.nav__link}>{link.icon}</span>
           <p className={styles.nav__description}>{link.name}</p>
