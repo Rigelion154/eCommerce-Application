@@ -1,6 +1,6 @@
 .wrapper {
   position: sticky;
-  top: 0;
+  top: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
