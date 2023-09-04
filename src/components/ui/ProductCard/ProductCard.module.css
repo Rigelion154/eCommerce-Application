@@ -1,0 +1,26 @@
+.product {
+  position: relative;
+  min-height: 355px;
+  min-width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.product:hover {
+  scale: 1.02;
+  -webkit-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.17);
+  -moz-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.17);
+  box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.17);
+}
+
+.product__image {
+  max-width: 200px;
+  max-height: 200px;
+}

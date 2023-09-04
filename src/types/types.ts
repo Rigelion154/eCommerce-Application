@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 
 export interface IChildren {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ export interface ClientData {
   password: string;
   firstName: string;
   lastName: string;
-  birthDay: string;
+  dateOfBirth: string;
   addresses: Address[];
   shippingAddresses: number[];
   billingAddresses: number[];
@@ -42,4 +42,17 @@ export interface IToken {
   refresh_token: string;
   scope: string;
   token_type: string;
+}
+
+export interface ProfileAttributes extends ComponentPropsWithoutRef<'input'> {
+  userID: string | null;
+  userVersion: number | null;
+}
+
+export interface AddressWithID {
+  streetName: string;
+  id: string;
+  city: string;
+  postalCode: string;
+  country: string;
 }

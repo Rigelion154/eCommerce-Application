@@ -4,13 +4,27 @@
   column-gap: 5px;
 }
 
+.nav__item_home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
+}
+
 .nav__item {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
-  color: var(--color-text-primary);
   padding: 5px;
+  color: var(--color-button-hover);
+}
+
+.nav__item_home:hover {
+  color: mediumblue;
+  transition: color 0.5s;
 }
 
 .nav__item:hover {
@@ -26,5 +40,5 @@
 }
 
 .nav__description {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }

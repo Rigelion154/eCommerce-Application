@@ -28,6 +28,7 @@ ul {
 body {
   color: var(--color-text-primary);
   font-size: 2rem;
+  font-family: 'Nunito', sans-serif;
 }
 
 .container {
@@ -61,7 +62,7 @@ body {
   transition: all 0.5s;
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px) {
   html {
     font-size: 9px;
   }

@@ -42,9 +42,6 @@ function LoginForm() {
     if (!/[0-9]/.test(value)) {
       togglePasswordWarning('Password should contain at least one digit (0-9)');
     }
-    if (!/[^a-zA-Z0-9]/.test(value)) {
-      togglePasswordWarning('Password should contain at least one special character');
-    }
     if (value.trim() !== value) {
       togglePasswordWarning('Password should not have leading or trailing spaces');
     }

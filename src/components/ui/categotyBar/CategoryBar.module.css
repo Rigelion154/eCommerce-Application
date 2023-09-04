@@ -1,12 +1,14 @@
 .container {
   background-color: var(--color-primary);
 }
+
 .items {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
   padding: 15px 0;
+  border-bottom: 1px solid #0077e4;
 }
 
 .item__wrapper {
@@ -24,18 +26,25 @@
   align-items: center;
   column-gap: 10px;
   width: 100%;
+  border: 1px solid transparent;
 }
 
+.active {
+  border-bottom: 1px solid white;
+  width: 50%;
+  margin: 0 auto;
+}
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
   .container {
     position: absolute;
     width: 100%;
     background-color: transparent;
-    left: -100%;
+    left: -110%;
     transition: left 1s;
-    z-index: 2;
+    z-index: 5;
   }
+
   .items {
     flex-direction: column;
     row-gap: 15px;
@@ -49,5 +58,4 @@
   .open_burger {
     left: 0;
   }
-
 }

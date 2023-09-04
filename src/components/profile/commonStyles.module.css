@@ -1,0 +1,104 @@
+.input {
+  border: 2px solid var(--color-primary);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 1.6rem;
+}
+
+.input:disabled {
+  background-color: rgb(197 203 213);
+  border-color: rgb(170, 170, 170);
+  color: rgb(170, 170, 170);
+}
+
+.invalid {
+  margin-left: 10px;
+  width: 30em;
+  color: red;
+  font-size: calc(0.5vw + 0.5vh);
+}
+
+@media only screen and (max-width: 1440px) {
+  .invalid {
+    font-size: calc(0.6vw + 0.6vh);
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .inputWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+  .invalid {
+    position: relative;
+    font-size: calc(0.7vw + 0.7vh);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .inputWrapper {
+    align-items: center;
+  }
+  .invalid {
+    width: 70%;
+    font-size: calc(1vw + 1vh);
+    margin-bottom: 2px;
+  }
+}
+
+.btn {
+  background-color: #319dff;
+  background-color: var(--color-primary);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  min-width: 70px;
+  padding: 5px 10px;
+  margin: 3px;
+}
+
+.btn:disabled {
+  background-color: rgb(142 152 171);
+}
+
+.addressWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.addressLine {
+  margin: 5px;
+}
+
+.deleteBtn {
+  background-color: #d42b25;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  min-width: 70px;
+  padding: 5px 10px;
+  margin: 3px;
+}
+
+.checkbox {
+  margin-left: 5px;
+}
+
+.headerDefault {
+  font-size: 1.2em;
+  text-align: center;
+  color: var(--color-button-hover);
+  margin: 10px;
+}
+
+.success {
+  color: green;
+}
+
+.failure {
+  color: red;
+}

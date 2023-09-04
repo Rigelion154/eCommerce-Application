@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import styles from './Header.module.css';
 import stylesCategory from '../categotyBar/CategoryBar.module.css';
@@ -11,20 +11,32 @@ import CategoryBar from '../categotyBar/CategoryBar';
 
 function Header() {
   const [burger, setBurger] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  useEffect(() => {
+    if (burger) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [burger]);
 
   return (
     <header>
       <Container>
         <div className={styles.header}>
           <Link to='/'>
-            <h1 className={styles.header__logo}>Online Store</h1>
+            <h1 className={isHome ? styles.header__logo_home : styles.header__logo}>
+              Online Store
+            </h1>
           </Link>
           <div
             className={
               burger ? [styles.header__items, styles.open_burger].join(' ') : styles.header__items
             }
           >
-            <SearchForm />
+            <SearchForm burger={burger} setBurger={setBurger} />
             <NavBar burger={burger} setBurger={setBurger} />
           </div>
           <button type='button' className={styles.header__menu} onClick={() => setBurger(!burger)}>

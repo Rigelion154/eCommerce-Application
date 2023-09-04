@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom';
 import Container from '../components/layout/container/Container';
 import ROUTES from '../routes/routes';
 import RegistrationForm from '../components/ui/registartionForm/RegistrationForm';
+import styles from './login/Login.module.css';
 
 function Registration() {
   return (
-    <section>
+    <section style={{ maxWidth: '380px', margin: '0 auto' }}>
       <Container>
-        <p style={{ marginTop: '20px' }}>
-          Is there an account?{' '}
-          <Link className='button' to={ROUTES.LOGIN}>
-            Login
-          </Link>
-        </p>
         <h2 style={{ display: 'inline-block', marginTop: '30px' }}>Registration</h2>
         <RegistrationForm />
+        <div className={styles.register__form}>
+          <span>Have an account?</span>
+          <Link to={ROUTES.LOGIN} className={styles.register__link}>
+            Login
+          </Link>
+        </div>
       </Container>
     </section>
   );

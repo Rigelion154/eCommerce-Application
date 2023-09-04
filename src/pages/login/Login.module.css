@@ -1,5 +1,6 @@
 .register__form {
   display: flex;
+  justify-content: center;
   column-gap: 10px;
   font-size: 1.5rem;
 }
