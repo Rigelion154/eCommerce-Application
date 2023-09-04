@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiZoomIn } from 'react-icons/fi';
-import Modal from '../modal/modal';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styles from './Slider.module.css';
 
 interface Image {
@@ -38,66 +37,101 @@ function Slider({ images }: ImageList) {
     }
   };
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   return (
-    <div className={styles.slider__container}>
-      <button type='button' className={styles.main__img_block} onClick={openModal}>
-        <FiZoomIn className={styles.zoom_icon} />
-        <img src={images[activeSlideIndex].url} alt='img' />
-      </button>
-      {isModalOpen && <Modal imageUrl={images[activeSlideIndex].url} onClose={closeModal} />}
-      {images.length > 1 && (
-        <div className={styles.slider__block}>
+    <div className={isModalOpen ? styles.modal__wrapper : ''}>
+      <div
+        className={
+          isModalOpen
+            ? `${styles.slider__container} ${styles.slider__modal_open}`
+            : styles.slider__container
+        }
+      >
+        {isModalOpen && (
           <button
-            className={styles.slider__prev_btn}
-            style={{ display: !showControls ? 'none' : 'block' }}
+            className={isModalOpen ? styles.modal__close : ''}
             type='button'
-            onClick={() =>
-              changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
+            onClick={() => setModalOpen(false)}
+          >
+            <AiOutlineCloseCircle size={30} />
+          </button>
+        )}
+        <button
+          type='button'
+          className={
+            isModalOpen
+              ? `${styles.main__img_block} ${styles.modal__image}`
+              : styles.main__img_block
+          }
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          <img src={images[activeSlideIndex].url} alt='img' />
+        </button>
+        {images.length > 1 && (
+          <div
+            className={
+              isModalOpen
+                ? `${styles.slider__block} ${styles.modal__sliderbar}`
+                : styles.slider__block
             }
           >
-            &lt;
-          </button>
-          <div
-            className={styles.gallery__block}
-            ref={galleryBlockRef}
-            style={{ overflowX: !showControls ? 'hidden' : 'scroll' }}
-          >
-            {images.map((image, index) => (
-              <button
-                type='button'
-                key={image.url}
-                onClick={() => changeSlide(index)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    changeSlide(index);
-                  }
-                }}
-                className={`${styles.gallery__button} ${
-                  index === activeSlideIndex ? styles.activeSlide : ''
-                }`}
-              >
-                <img src={image.url} alt={`Slide-${index}`} className={styles.gallery__img} />
-              </button>
-            ))}
+            <button
+              className={styles.slider__prev_btn}
+              style={{ display: !showControls ? 'none' : 'block' }}
+              type='button'
+              onClick={() =>
+                changeSlide(activeSlideIndex === 0 ? images.length - 1 : activeSlideIndex - 1)
+              }
+            >
+              &lt;
+            </button>
+            <div
+              className={
+                isModalOpen
+                  ? `${styles.gallery__block} ${styles.gallery__block_modal}`
+                  : styles.gallery__block
+              }
+              ref={galleryBlockRef}
+              style={{ overflowX: !showControls ? 'hidden' : 'scroll' }}
+            >
+              {images.map((image, index) => (
+                <button
+                  type='button'
+                  key={image.url}
+                  onClick={() => changeSlide(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      changeSlide(index);
+                    }
+                  }}
+                  className={`${styles.gallery__button} ${
+                    index === activeSlideIndex ? styles.activeSlide : ''
+                  }`}
+                >
+                  <img
+                    src={image.url}
+                    alt={`Slide-${index}`}
+                    className={
+                      isModalOpen
+                        ? `${styles.gallery__img} ${styles.gallery__img_modal}`
+                        : styles.gallery__img
+                    }
+                  />
+                </button>
+              ))}
+            </div>
+            <button
+              className={styles.slider__next_btn}
+              style={{ display: !showControls ? 'none' : 'block' }}
+              type='button'
+              onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
+            >
+              &gt;
+            </button>
           </div>
-          <button
-            className={styles.slider__next_btn}
-            style={{ display: !showControls ? 'none' : 'block' }}
-            type='button'
-            onClick={() => changeSlide((activeSlideIndex + 1) % images.length)}
-          >
-            &gt;
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
