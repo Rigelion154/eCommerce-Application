@@ -6,7 +6,7 @@ import Home from '../../pages/Home/Home';
 import Cart from '../../pages/Cart';
 import Registration from '../../pages/Registration';
 import NotFound from '../../pages/NotFound';
-import Profile from '../../pages/Profile';
+import Profile from '../../pages/Profile/Profile';
 
 import ROUTES from '../routes';
 import AuthContext from '../../core/utils/authContext';

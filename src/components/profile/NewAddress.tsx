@@ -3,6 +3,7 @@ import { Actions } from '../../types/updatesRequests-types';
 import updateUserByID from '../../core/services/updateCustomerById';
 import { ProfileAttributes } from '../../types/types';
 import { ICustomerGetInfo } from '../../types/customers-types';
+import styles from './commonStyles.module.css';
 
 function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
   const [streetError, setStreetError] = useState('');
@@ -144,48 +145,58 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
 
   return (
     <div hidden={props.hidden}>
-      <span>City:</span>
-      <input
-        onChange={(e) => {
-          setCity(e.target.value);
-          checkCity(e.target.value);
-        }}
-      />
-      <span>{cityError}</span>
+      <div className={styles.addressLine}>
+        <p>City:</p>
+        <input
+          className={styles.input}
+          onChange={(e) => {
+            setCity(e.target.value);
+            checkCity(e.target.value);
+          }}
+        />
+        <p className={styles.invalid}>{cityError}</p>
+      </div>
+      <div className={styles.addressLine}>
+        <p>Street:</p>
+        <input
+          className={styles.input}
+          onChange={(e) => {
+            setStreetName(e.target.value);
+            checkStreet(e.target.value);
+          }}
+        />
+        <p className={styles.invalid}>{streetError}</p>
+      </div>
+      <div className={styles.addressLine}>
+        <p>Postal code:</p>
+        <input
+          className={styles.input}
+          value={postalCodeValue}
+          onChange={(e) => {
+            setPostalCode(e.target.value);
+            setPostalCodeValue(e.target.value);
+            checkPostalCode(e.target.value);
+          }}
+        />
+        <p className={styles.invalid}>{postalCodeError}</p>
+      </div>
+      <div className={styles.addressLine}>
+        <p> Country:</p>
+        <select
+          className={styles.input}
+          onChange={(e) => {
+            changeCountry(e.target.value);
+          }}
+        >
+          <option value='BY'>Belarus</option>
+          <option value='US'>USA</option>
+          <option value='RU'>Russia</option>
+          <option value='CA'>Canada</option>
+        </select>
+      </div>
       <p />
-      <span>Street:</span>
-      <input
-        onChange={(e) => {
-          setStreetName(e.target.value);
-          checkStreet(e.target.value);
-        }}
-      />
-      <span>{streetError}</span>
-      <p />
-      <span>Postal code:</span>
-      <input
-        value={postalCodeValue}
-        onChange={(e) => {
-          setPostalCode(e.target.value);
-          setPostalCodeValue(e.target.value);
-          checkPostalCode(e.target.value);
-        }}
-      />
-      <span>{postalCodeError}</span>
-      <p />
-      <span> Country:</span>
       <select
-        onChange={(e) => {
-          changeCountry(e.target.value);
-        }}
-      >
-        <option value='BY'>Belarus</option>
-        <option value='US'>USA</option>
-        <option value='RU'>Russia</option>
-        <option value='CA'>Canada</option>
-      </select>
-      <p />
-      <select
+        className={styles.input}
         onChange={(e) => {
           changeType(e.target.value);
         }}
@@ -196,19 +207,27 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
       <div>
         <label hidden={notShipping}>
           Set as new default shipping address
-          <input type='checkbox' onChange={(e) => setNewDefaultAddress(e.target.checked)} />
+          <input
+            className={styles.checkbox}
+            type='checkbox'
+            onChange={(e) => setNewDefaultAddress(e.target.checked)}
+          />
         </label>
         <label hidden={notBilling}>
           Set as new default billing address
-          <input type='checkbox' onChange={(e) => setNewDefaultAddress(e.target.checked)} />
+          <input
+            className={styles.checkbox}
+            type='checkbox'
+            onChange={(e) => setNewDefaultAddress(e.target.checked)}
+          />
         </label>
       </div>
       <div>
-        <button type='button' onClick={tryToSave} disabled={saveIsDisabled}>
+        <button className={styles.btn} type='button' onClick={tryToSave} disabled={saveIsDisabled}>
           Save
         </button>
       </div>
-      <p>{updateSuccess}</p>
+      <p className={styles.success}>{updateSuccess}</p>
     </div>
   );
 }

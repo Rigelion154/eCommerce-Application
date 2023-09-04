@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Actions } from '../../types/updatesRequests-types';
 import updateUserByID from '../../core/services/updateCustomerById';
 import { ProfileAttributes } from '../../types/types';
+import styles from './commonStyles.module.css';
 
 function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttributes) {
   const [inputIsDisabled, changeInputDisabled] = useState(true);
@@ -59,6 +60,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
     <div>
       <header>Your date of birth</header>
       <input
+        className={styles.input}
         defaultValue={props.value}
         type='date'
         disabled={inputIsDisabled}
@@ -67,14 +69,19 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
           checkDateOfBirth(e.target.value);
         }}
       />
-      <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
+      <button
+        className={styles.btn}
+        type='button'
+        onClick={enableInput}
+        disabled={updateIsDisabled}
+      >
         Edit
       </button>
-      <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
+      <button className={styles.btn} type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
         Save
       </button>
-      <p>{dateOfBirthWarning}</p>
-      <p>{updateSuccess}</p>
+      <p className={styles.invalid}>{dateOfBirthWarning}</p>
+      <p className={styles.success}>{updateSuccess}</p>
     </div>
   );
 }
