@@ -1,6 +1,7 @@
 .wrapper {
+  width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .btn {
@@ -41,4 +42,13 @@
   .addAddressWrapper {
     align-items: flex-start;
   }
+}
+
+.registration__container {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
+  row-gap: 10px;
+  align-items: flex-start;
 }

@@ -67,53 +67,55 @@ function Profile() {
   return (
     <div>
       <Container>
-        <header className={styles.header}>Your profile</header>
-        <div className={styles.wrapper}>
-          <div>
-            <EmailAttribute value={email} userID={userID} userVersion={userVersion} />
-            <button className={styles.btn} type='button' onClick={switchChangePassword}>
-              {changePassword ? 'Change password' : 'Cancel'}
+        <div className={styles.registration__container}>
+          <header className={styles.header}>Your profile</header>
+          <div className={styles.wrapper}>
+            <div>
+              <EmailAttribute value={email} userID={userID} userVersion={userVersion} />
+              <button className={styles.btn} type='button' onClick={switchChangePassword}>
+                {changePassword ? 'Change password' : 'Cancel'}
+              </button>
+              <NewPassword userID={userID} userVersion={userVersion} hidden={changePassword} />
+            </div>
+            <div>
+              <FirstNameAttribute value={firstName} userID={userID} userVersion={userVersion} />
+              <LastNameAttribute value={lastName} userID={userID} userVersion={userVersion} />
+              <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
+            </div>
+          </div>
+          <div className={styles.addAddressWrapper}>
+            <button className={styles.btn} type='button' onClick={switchNewAddress}>
+              {addNewAddress ? 'Add new address' : 'Cancel'}
             </button>
-            <NewPassword userID={userID} userVersion={userVersion} hidden={changePassword} />
+            <NewAddress userID={userID} userVersion={userVersion} hidden={addNewAddress} />
           </div>
-          <div>
-            <FirstNameAttribute value={firstName} userID={userID} userVersion={userVersion} />
-            <LastNameAttribute value={lastName} userID={userID} userVersion={userVersion} />
-            <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
-          </div>
-        </div>
-        <div className={styles.addAddressWrapper}>
-          <button className={styles.btn} type='button' onClick={switchNewAddress}>
-            {addNewAddress ? 'Add new address' : 'Cancel'}
-          </button>
-          <NewAddress userID={userID} userVersion={userVersion} hidden={addNewAddress} />
-        </div>
-        <div className={styles.wrapper}>
-          <div>
-            <header className={styles.addressHeader}>Shipping addresses</header>
-            {shippingAddresses.map((address) => (
-              <AddressComponent
-                country={address.country}
-                city={address.city}
-                postalCode={address.postalCode}
-                streetName={address.streetName}
-                key={address.id}
-                id={address.id}
-              />
-            ))}
-          </div>
-          <div>
-            <header className={styles.addressHeader}>Billing addresses</header>
-            {billingAddresses.map((address) => (
-              <AddressComponent
-                country={address.country}
-                city={address.city}
-                postalCode={address.postalCode}
-                streetName={address.streetName}
-                key={address.id}
-                id={address.id}
-              />
-            ))}
+          <div className={styles.wrapper}>
+            <div>
+              <header className={styles.addressHeader}>Shipping addresses</header>
+              {shippingAddresses.map((address) => (
+                <AddressComponent
+                  country={address.country}
+                  city={address.city}
+                  postalCode={address.postalCode}
+                  streetName={address.streetName}
+                  key={address.id}
+                  id={address.id}
+                />
+              ))}
+            </div>
+            <div>
+              <header className={styles.addressHeader}>Billing addresses</header>
+              {billingAddresses.map((address) => (
+                <AddressComponent
+                  country={address.country}
+                  city={address.city}
+                  postalCode={address.postalCode}
+                  streetName={address.streetName}
+                  key={address.id}
+                  id={address.id}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </Container>
