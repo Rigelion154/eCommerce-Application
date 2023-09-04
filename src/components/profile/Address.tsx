@@ -164,6 +164,7 @@ function AddressComponent({ ...props }: AddressWithID) {
     updateUserByID(userID, userVersion, actions).then(
       () => {
         toggleUpdateSuccess('Address deleted. Please wait until page reloads.');
+        setTimeout(() => window.location.reload(), 2000);
       },
       () => {
         toggleUpdateSuccess('Error happened during update. Please reload this page and try again');
