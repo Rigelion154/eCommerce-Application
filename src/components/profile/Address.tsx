@@ -3,6 +3,7 @@ import { AddressWithID } from '../../types/types';
 import getCustomerById from '../../core/services/getCustomerById';
 import { Actions } from '../../types/updatesRequests-types';
 import updateUserByID from '../../core/services/updateCustomerById';
+import styles from './commonStyles.module.css';
 
 function AddressComponent({ ...props }: AddressWithID) {
   const [isNotDefault, setIsDefault] = useState(true);
@@ -171,77 +172,106 @@ function AddressComponent({ ...props }: AddressWithID) {
   }
 
   return (
-    <div>
-      <p hidden={isNotDefault}>This is default address</p>
-      <span>City:</span>
-      <input
-        defaultValue={props.city}
-        disabled={inputIsDisabled}
-        onChange={(e) => {
-          setCity(e.target.value);
-          checkCity(e.target.value);
-        }}
-      />
-      <span>{cityError}</span>
-      <p />
-      <span>Street:</span>
-      <input
-        defaultValue={props.streetName}
-        disabled={inputIsDisabled}
-        onChange={(e) => {
-          setStreetName(e.target.value);
-          checkStreet(e.target.value);
-        }}
-      />
-      <span>{streetError}</span>
-      <p />
-      <span>Postal code:</span>
-      <input
-        disabled={inputIsDisabled}
-        value={postalCodeValue}
-        onChange={(e) => {
-          setPostalCode(e.target.value);
-          setPostalCodeValue(e.target.value);
-          checkPostalCode(e.target.value);
-        }}
-      />
-      <span>{postalCodeError}</span>
-      <p />
-      <span> Country:</span>
-      <select
-        defaultValue={props.country}
-        disabled={inputIsDisabled}
-        onChange={(e) => {
-          changeCountry(e.target.value);
-        }}
-      >
-        <option value='BY'>Belarus</option>
-        <option value='US'>USA</option>
-        <option value='RU'>Russia</option>
-        <option value='CA'>Canada</option>
-      </select>
+    <div className={styles.addressWrapper}>
+      <p className={styles.headerDefault} hidden={isNotDefault}>
+        This is default address
+      </p>
+      <div className={styles.addressLine}>
+        <p>City</p>
+        <input
+          className={styles.input}
+          defaultValue={props.city}
+          disabled={inputIsDisabled}
+          onChange={(e) => {
+            setCity(e.target.value);
+            checkCity(e.target.value);
+          }}
+        />
+        <p className={styles.invalid}>{cityError}</p>
+      </div>
+      <div className={styles.addressLine}>
+        <p>Street</p>
+        <input
+          className={styles.input}
+          defaultValue={props.streetName}
+          disabled={inputIsDisabled}
+          onChange={(e) => {
+            setStreetName(e.target.value);
+            checkStreet(e.target.value);
+          }}
+        />
+        <p className={styles.invalid}>{streetError}</p>
+      </div>
+      <div className={styles.addressLine}>
+        <p>Postal code</p>
+        <input
+          className={styles.input}
+          disabled={inputIsDisabled}
+          value={postalCodeValue}
+          onChange={(e) => {
+            setPostalCode(e.target.value);
+            setPostalCodeValue(e.target.value);
+            checkPostalCode(e.target.value);
+          }}
+        />
+        <p className={styles.invalid}>{postalCodeError}</p>
+      </div>
+      <div className={styles.addressLine}>
+        <p>Country</p>
+        <select
+          className={styles.input}
+          defaultValue={props.country}
+          disabled={inputIsDisabled}
+          onChange={(e) => {
+            changeCountry(e.target.value);
+          }}
+        >
+          <option value='BY'>Belarus</option>
+          <option value='US'>USA</option>
+          <option value='RU'>Russia</option>
+          <option value='CA'>Canada</option>
+        </select>
+      </div>
       <div hidden={inputIsDisabled}>
         <label hidden={isNotShipping}>
           Set as new default shipping address
-          <input type='checkbox' onChange={(e) => setNewDefaultAddress(e.target.checked)} />
+          <input
+            className={styles.checkbox}
+            type='checkbox'
+            onChange={(e) => setNewDefaultAddress(e.target.checked)}
+          />
         </label>
         <label hidden={isNotBilling}>
           Set as new default billing address
-          <input type='checkbox' onChange={(e) => setNewDefaultAddress(e.target.checked)} />
+          <input
+            className={styles.checkbox}
+            type='checkbox'
+            onChange={(e) => setNewDefaultAddress(e.target.checked)}
+          />
         </label>
       </div>
       <div>
-        <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
+        <button
+          className={styles.btn}
+          type='button'
+          onClick={enableInput}
+          disabled={updateIsDisabled}
+        >
           Edit
         </button>
-        <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
+        <button
+          className={styles.btn}
+          type='button'
+          onClick={tryToUpdate}
+          disabled={saveIsDisabled}
+        >
           Save
         </button>
       </div>
-      <button type='button' onClick={tryToDelete}>
+      <button className={styles.deleteBtn} type='button' onClick={tryToDelete}>
         Delete
       </button>
-      <p>{updateSuccess}</p>
+      <p className={styles.success}>{updateSuccess}</p>
     </div>
   );
 }

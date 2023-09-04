@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Actions } from '../../types/updatesRequests-types';
 import updateUserByID from '../../core/services/updateCustomerById';
 import { ProfileAttributes } from '../../types/types';
+import styles from './commonStyles.module.css';
 
 function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes) {
   const [inputIsDisabled, changeInputDisabled] = useState(true);
@@ -54,6 +55,7 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
     <div>
       <header>Your last name</header>
       <input
+        className={styles.input}
         defaultValue={props.value}
         type='text'
         disabled={inputIsDisabled}
@@ -62,14 +64,19 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
           checkLastName(e.target.value);
         }}
       />
-      <button type='button' onClick={enableInput} disabled={updateIsDisabled}>
+      <button
+        className={styles.btn}
+        type='button'
+        onClick={enableInput}
+        disabled={updateIsDisabled}
+      >
         Edit
       </button>
-      <button type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
+      <button className={styles.btn} type='button' onClick={tryToUpdate} disabled={saveIsDisabled}>
         Save
       </button>
-      <p>{lastNameWarning}</p>
-      <p>{updateSuccess}</p>
+      <p className={styles.invalid}>{lastNameWarning}</p>
+      <p className={styles.success}>{updateSuccess}</p>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import DateOfBirthAttribute from '../../components/profile/DateOfBirthAttribute'
 import { AddressWithID } from '../../types/types';
 import NewAddress from '../../components/profile/NewAddress';
 import styles from './Profile.module.css';
+import NewPassword from '../../components/profile/NewPassword';
 
 function Profile() {
   const userID = localStorage.getItem('userID');
@@ -20,6 +21,7 @@ function Profile() {
   const [shippingAddresses] = useState<AddressWithID[]>([]);
   const [billingAddresses] = useState<AddressWithID[]>([]);
   const [addNewAddress, setAddNewAddress] = useState(true);
+  const [changePassword, setChangePassword] = useState(true);
 
   useEffect(() => {
     if (userID) {
@@ -54,14 +56,25 @@ function Profile() {
       setAddNewAddress(true);
     }
   }
+
+  function switchChangePassword() {
+    if (changePassword) {
+      setChangePassword(false);
+    } else {
+      setChangePassword(true);
+    }
+  }
   return (
     <div>
       <Container>
-        <header>Your profile</header>
+        <header className={styles.header}>Your profile</header>
         <div className={styles.wrapper}>
           <div>
             <EmailAttribute value={email} userID={userID} userVersion={userVersion} />
-            <button type='button'>Change password</button>
+            <button className={styles.btn} type='button' onClick={switchChangePassword}>
+              {changePassword ? 'Change password' : 'Cancel'}
+            </button>
+            <NewPassword userID={userID} userVersion={userVersion} hidden={changePassword} />
           </div>
           <div>
             <FirstNameAttribute value={firstName} userID={userID} userVersion={userVersion} />
@@ -69,9 +82,15 @@ function Profile() {
             <DateOfBirthAttribute value={dateOfBirth} userID={userID} userVersion={userVersion} />
           </div>
         </div>
+        <div className={styles.addAddressWrapper}>
+          <button className={styles.btn} type='button' onClick={switchNewAddress}>
+            {addNewAddress ? 'Add new address' : 'Cancel'}
+          </button>
+          <NewAddress userID={userID} userVersion={userVersion} hidden={addNewAddress} />
+        </div>
         <div className={styles.wrapper}>
           <div>
-            <header>Shipping addresses</header>
+            <header className={styles.addressHeader}>Shipping addresses</header>
             {shippingAddresses.map((address) => (
               <AddressComponent
                 country={address.country}
@@ -84,7 +103,7 @@ function Profile() {
             ))}
           </div>
           <div>
-            <header>Billing addresses</header>
+            <header className={styles.addressHeader}>Billing addresses</header>
             {billingAddresses.map((address) => (
               <AddressComponent
                 country={address.country}
@@ -96,11 +115,6 @@ function Profile() {
               />
             ))}
           </div>
-          <button type='button' onClick={switchNewAddress}>
-            {addNewAddress ? 'Add new address' : 'Cancel'}
-          </button>
-          <p />
-          <NewAddress userID={userID} userVersion={userVersion} hidden={addNewAddress} />
         </div>
       </Container>
     </div>
