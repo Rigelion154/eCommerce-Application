@@ -8,6 +8,7 @@ import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
 import PriceBar from '../../components/ui/PriceBar/PriceBar';
 import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
+import ToCartButton from '../../components/ui/toCartButton/ToCartButton';
 
 function ProductPage() {
   const { current, key } = useParams();
@@ -16,7 +17,9 @@ function ProductPage() {
 
   useEffect(() => {
     getProductByKey(key)
-      .then((res) => setProduct(res))
+      .then((res) => {
+        setProduct(res);
+      })
       .catch(() => {});
   }, [key]);
 
@@ -38,6 +41,10 @@ function ProductPage() {
                     product[0].masterData.current.masterVariant.prices[0].discounted?.value
                       .centAmount
                   }
+                />
+                <ToCartButton
+                  productId={elem.id}
+                  variantId={elem.masterData.current.masterVariant.id}
                 />
                 {elem.masterData.current.description && (
                   <p className={styles.product__desc}>

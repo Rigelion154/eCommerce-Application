@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
-import { IToken } from '../../types/types';
-import { apiConstants, apiScopes } from '../constants/apiConstants';
+import { apiConstants } from '../../constants/apiConstants';
+import { IToken } from '../../../types/types';
 
-export default async function getAnonymousToken() {
-  const scope = Object.values(apiScopes).join(' ');
+export default async function getTokenDelete() {
+  const scope = 'manage_orders:commerce-shop';
   const authUrl = `${apiConstants.authUrl}/oauth/${apiConstants.projectKey}/anonymous/token`;
-  const authHeader = `Basic ${btoa(`${apiConstants.clientId}:${apiConstants.clientSecret}`)}`;
+  const authHeader = `Basic ${btoa(`i1RFSs2uva20koVlur1Qhwxh:976NjJVnC54kqqDwJmEZApRxgd6avmHE`)}`;
   const authData = `grant_type=client_credentials&scope=${scope}`;
 
   const response: AxiosResponse<IToken> = await axios.post<IToken>(authUrl, authData, {

@@ -1,6 +1,6 @@
 import { ICustomerLogIn } from '../../types/customers-types';
 import { IToken } from '../../types/types';
-import { apiConstants, apiScopes } from './apiConstants';
+import { apiConstants, apiScopes } from '../constants/apiConstants';
 
 export default async function logIn(email: string, password: string) {
   const scope = Object.values(apiScopes).join(' ');

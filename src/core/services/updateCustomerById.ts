@@ -1,5 +1,5 @@
 import { Actions } from '../../types/updatesRequests-types';
-import { apiConstants } from './apiConstants';
+import { apiConstants } from '../constants/apiConstants';
 
 export default async function updateUserByID(
   id: string | null,

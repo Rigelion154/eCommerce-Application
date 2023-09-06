@@ -3,5 +3,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  row-gap: 30px;
+  column-gap: 10px;
   padding: 20px 0;
 }
