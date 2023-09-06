@@ -192,8 +192,9 @@ function RegistrationForm() {
         />
         <div className={styles.checkboxes__block_shipping}>
           <div className={styles.checkbox__default_block}>
-            <label className={styles.checkbox__label} htmlFor='defaultShippingAddress'>
+            <label className={styles.checkbox__label}>
               <input
+                name='1'
                 type='checkbox'
                 checked={shippingDefaultAddress}
                 onChange={(e) => setShippingDefaultAddress(e.target.checked)}
@@ -203,8 +204,9 @@ function RegistrationForm() {
           </div>
 
           <div className={styles.checkbox__show_billing}>
-            <label className={styles.checkbox__label} htmlFor='showBillingAddress'>
+            <label className={styles.checkbox__label}>
               <input
+                name='2'
                 type='checkbox'
                 checked={billingAddress}
                 onChange={(e) => {
@@ -244,8 +246,9 @@ function RegistrationForm() {
               setBillingPostalCodeValid={setBillingPostalCodeValid}
             />
             <div className={styles.checkbox__default_block_shipping}>
-              <label className={styles.checkbox__label} htmlFor='defaultBillingAddress'>
+              <label className={styles.checkbox__label}>
                 <input
+                  name='3'
                   type='checkbox'
                   checked={billingDefaultAddress}
                   onChange={(e) => setBillingDefaultAddress(e.target.checked)}

@@ -164,6 +164,7 @@ function PersonalForm(props: PersonalFormProps) {
     <div className={styles.personal__field}>
       {emailError && !emailValid && <p className={styles.error__message}>{emailError}</p>}
       <input
+        name='111'
         type='email'
         value={email}
         onChange={(e) => {
@@ -187,6 +188,7 @@ function PersonalForm(props: PersonalFormProps) {
       {passwordError && !passwordValid && <p className={styles.error__message}>{passwordError}</p>}
       <div className={styles.password__input_block}>
         <input
+          name='222'
           type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={(e) => {
@@ -219,6 +221,7 @@ function PersonalForm(props: PersonalFormProps) {
         <p className={styles.error__message}>{firstNameError}</p>
       )}
       <input
+        name='333'
         type='text'
         value={firstName}
         onChange={(e) => {
@@ -236,6 +239,7 @@ function PersonalForm(props: PersonalFormProps) {
       />
       {lastNameError && !lastNameValid && <p className={styles.error__message}>{lastNameError}</p>}
       <input
+        name='444'
         type='text'
         value={lastName}
         onChange={(e) => {
@@ -253,6 +257,7 @@ function PersonalForm(props: PersonalFormProps) {
       />
       {birthDayError && !birthDayValid && <p className={styles.error__message}>{birthDayError}</p>}
       <input
+        name='5555'
         type='date'
         value={birthDay}
         onChange={(e) => {

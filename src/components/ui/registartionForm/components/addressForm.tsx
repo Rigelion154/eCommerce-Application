@@ -95,6 +95,7 @@ function AddressForm(props: AddressFormProps) {
     <div className={styles.address__field}>
       {streetError && !streetValid && <p className={styles.error__message}>{streetError}</p>}
       <input
+        name='33'
         type='text'
         value={street}
         onChange={(e) => setStreet(e.target.value)}
@@ -112,6 +113,7 @@ function AddressForm(props: AddressFormProps) {
       />
       {cityError && !cityValid && <p className={styles.error__message}>{cityError}</p>}
       <input
+        name='44'
         type='text'
         value={city}
         onChange={(e) => {
@@ -128,6 +130,7 @@ function AddressForm(props: AddressFormProps) {
         placeholder='City'
       />
       <select
+        name='12312312'
         value={selectedCountry}
         onChange={(e) => {
           setSelectedCountry(e.target.value);
@@ -144,6 +147,7 @@ function AddressForm(props: AddressFormProps) {
         <p className={styles.error__message}>{postalCodeError}</p>
       )}
       <input
+        name='222323'
         type='text'
         value={postalCode}
         onChange={(e) => {

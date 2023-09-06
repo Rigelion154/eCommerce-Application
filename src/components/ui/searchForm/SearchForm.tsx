@@ -38,6 +38,7 @@ function SearchForm({
     <form className={styles.search__form}>
       <div className={styles.search__container}>
         <input
+          name='11'
           className={styles.search__input}
           type='text'
           placeholder='Search from site'
