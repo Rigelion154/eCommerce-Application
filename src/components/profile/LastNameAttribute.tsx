@@ -54,6 +54,7 @@ function LastNameAttribute({ userID, userVersion, ...props }: ProfileAttributes)
     <div>
       <header>Your last name</header>
       <input
+        name='asdaasdasda1231'
         defaultValue={props.value}
         type='text'
         disabled={inputIsDisabled}

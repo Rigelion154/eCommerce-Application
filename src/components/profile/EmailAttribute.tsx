@@ -56,6 +56,7 @@ function EmailAttribute({ userID, userVersion, ...props }: ProfileAttributes) {
     <div>
       <header>Your E-Mail</header>
       <input
+        name='asdaasdasd'
         defaultValue={props.value}
         type='text'
         disabled={inputIsDisabled}
