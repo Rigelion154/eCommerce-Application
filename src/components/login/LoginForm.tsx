@@ -62,6 +62,7 @@ function LoginForm() {
     <form className={classes.form}>
       <div className={classes.inputWrapper}>
         <input
+          name='asda'
           type='text'
           placeholder='Your e-mail'
           className={classes.input}
@@ -75,6 +76,7 @@ function LoginForm() {
       </div>
       <div className={classes.inputWrapper}>
         <input
+          name='aasdsda'
           type={showPassword}
           placeholder='Your password'
           className={classes.input}
