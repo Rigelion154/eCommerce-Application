@@ -146,6 +146,7 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
     <div hidden={props.hidden}>
       <span>City:</span>
       <input
+        name='asdaasdas213123d'
         onChange={(e) => {
           setCity(e.target.value);
           checkCity(e.target.value);
@@ -155,6 +156,7 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
       <p />
       <span>Street:</span>
       <input
+        name='asdaasdasd123123'
         onChange={(e) => {
           setStreetName(e.target.value);
           checkStreet(e.target.value);
@@ -164,6 +166,7 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
       <p />
       <span>Postal code:</span>
       <input
+        name='asdaa1231sdasd'
         value={postalCodeValue}
         onChange={(e) => {
           setPostalCode(e.target.value);
@@ -196,11 +199,19 @@ function NewAddress({ userID, userVersion, ...props }: ProfileAttributes) {
       <div>
         <label hidden={notShipping}>
           Set as new default shipping address
-          <input type='checkbox' onChange={(e) => setNewDefaultAddress(e.target.checked)} />
+          <input
+            name='asda1121asdasd'
+            type='checkbox'
+            onChange={(e) => setNewDefaultAddress(e.target.checked)}
+          />
         </label>
         <label hidden={notBilling}>
           Set as new default billing address
-          <input type='checkbox' onChange={(e) => setNewDefaultAddress(e.target.checked)} />
+          <input
+            name='asda121231asdasd'
+            type='checkbox'
+            onChange={(e) => setNewDefaultAddress(e.target.checked)}
+          />
         </label>
       </div>
       <div>

@@ -59,6 +59,7 @@ function DateOfBirthAttribute({ userID, userVersion, ...props }: ProfileAttribut
     <div>
       <header>Your date of birth</header>
       <input
+        name='asdaasdasd123123'
         defaultValue={props.value}
         type='date'
         disabled={inputIsDisabled}
