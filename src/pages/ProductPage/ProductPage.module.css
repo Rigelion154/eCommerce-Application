@@ -7,6 +7,9 @@
 }
 
 .product__info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
   padding: 10px;
   cursor: default;
 }
@@ -22,7 +25,10 @@
 }
 
 .product__desc {
-  margin-top: 15px;
+  border-top: 1px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
+  padding: 10px 0;
+  /*margin-top: 15px;*/
 }
 
 /* media */

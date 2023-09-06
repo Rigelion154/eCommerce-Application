@@ -13,9 +13,10 @@ function FilerPriceInput({
   setMaxValue: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
-    <div>
+    <div style={{ width: '90%' }}>
       <p>Min Price:</p>
       <input
+        style={{ width: '100%' }}
         className={styles.input}
         type='number'
         value={minValue}
@@ -23,6 +24,7 @@ function FilerPriceInput({
       />
       <p>Max Price:</p>
       <input
+        style={{ width: '100%' }}
         className={styles.input}
         type='number'
         value={maxValue}

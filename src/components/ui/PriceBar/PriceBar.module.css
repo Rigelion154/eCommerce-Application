@@ -1,6 +1,6 @@
 .discount__wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   column-gap: 15px;
   color: red;
 }

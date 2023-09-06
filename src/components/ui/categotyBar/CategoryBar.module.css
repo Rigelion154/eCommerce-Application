@@ -30,9 +30,10 @@
 }
 
 .active {
-  border-bottom: 1px solid white;
-  width: 50%;
+  /*border-bottom: 1px solid white;*/
+  /*width: 50%;*/
   margin: 0 auto;
+  color: mediumblue;
 }
 
 @media screen and (max-width: 768px) {

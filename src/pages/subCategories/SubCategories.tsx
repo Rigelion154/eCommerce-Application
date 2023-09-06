@@ -110,7 +110,7 @@ function SubCategories() {
                   />
                   <div className={styles.buttons}>
                     <button className={styles.button} type='submit'>
-                      Apply
+                      <span>Apply</span>
                     </button>
                     <button
                       className={styles.button}
@@ -127,7 +127,7 @@ function SubCategories() {
                         );
                       }}
                     >
-                      Reset
+                      <span>Reset</span>
                     </button>
                   </div>
                 </form>
@@ -139,7 +139,7 @@ function SubCategories() {
                     type='button'
                     onClick={() => setBurger(!burger)}
                   >
-                    Filters
+                    <span>Filters</span>
                   </button>
                 )}
                 <SortBar
