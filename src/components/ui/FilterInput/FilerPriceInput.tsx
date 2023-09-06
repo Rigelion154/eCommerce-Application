@@ -16,6 +16,7 @@ function FilerPriceInput({
     <div>
       <p>Min Price:</p>
       <input
+        name='asdaasdasd'
         className={styles.input}
         type='number'
         value={minValue}
@@ -23,6 +24,7 @@ function FilerPriceInput({
       />
       <p>Max Price:</p>
       <input
+        name='asda123'
         className={styles.input}
         type='number'
         value={maxValue}

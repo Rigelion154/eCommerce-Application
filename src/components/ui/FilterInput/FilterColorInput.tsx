@@ -14,6 +14,7 @@ function FilterColorInput({
     <div>
       <p>Selected color: {selectedColor}</p>
       <select
+        name='asdaasdasd'
         className={styles.input}
         value={selectedColor}
         onChange={(e) => setSelectedColor(e.target.value)}
