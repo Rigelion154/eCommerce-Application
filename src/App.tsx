@@ -8,6 +8,7 @@ import AppRouter from './routes/appRouter/AppRouter';
 import AuthContext from './core/utils/authContext';
 import getAnonymousToken from './core/services/getAnonymousToken';
 import getCarts from './core/services/Cart/getCarts';
+import Footer from './components/ui/footer/Footer';
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
@@ -49,6 +50,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <AppRouter />
+          <Footer />
         </BrowserRouter>
       </AuthContext.Provider>
     </div>

@@ -1,0 +1,19 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  background-color: #319dff;
+  color: white;
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  background-image: url(http://localhost:3000/static/media/rs_school_js.e664e4b7fc864b0a23ef.svg);
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 32px;
+  top: 0;
+  right: 0;
+}
