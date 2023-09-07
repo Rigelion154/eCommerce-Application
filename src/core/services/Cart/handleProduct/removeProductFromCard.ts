@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { apiConstants } from '../../../constants/apiConstants';
 import getCartById from '../getCartById';
+import { CartType } from '../../../../types/cart-types/cart-types';
 
 export default async function removeProductFromCard(lineItemId: string, quantity?: number) {
   const { version, id: cartId } = await getCartById();
@@ -17,12 +18,11 @@ export default async function removeProductFromCard(lineItemId: string, quantity
     ],
   };
 
-  const response = await axios.post(url, data, {
+  const response: AxiosResponse<CartType> = await axios.post(url, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
   // console.log('удаляем товар', response.data);
-  return response;
-  // console.log(response.data);
+  return response.data;
 }

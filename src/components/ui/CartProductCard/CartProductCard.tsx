@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from 'react-icons/io';
 import PriceBar from '../PriceBar/PriceBar';
-import { LineItemType } from '../../../types/cart-types/cart-types';
+import { CartType, LineItemType } from '../../../types/cart-types/cart-types';
 import styles from './CartProductCard.module.css';
 import removeProductFromCard from '../../../core/services/Cart/handleProduct/removeProductFromCard';
 import addProductToCart from '../../../core/services/Cart/handleProduct/addProductToCart';
+import getCartById from '../../../core/services/Cart/getCartById';
 
-function CartProductCard({ lineItem }: { lineItem: LineItemType }) {
+function CartProductCard({
+  lineItem,
+  getTotalPrice,
+}: {
+  lineItem: LineItemType;
+  getTotalPrice: (total: CartType) => void;
+}) {
   const [currentQuantity, setCurrentQuantity] = useState(lineItem.quantity);
   const [price, setPrice] = useState(lineItem.price.value.centAmount / 100);
   const [discount, setDiscount] = useState(
@@ -34,7 +41,9 @@ function CartProductCard({ lineItem }: { lineItem: LineItemType }) {
               type='button'
               onClick={() => {
                 removeProductFromCard(lineItem.id, currentQuantity)
-                  .then(() => {})
+                  .then((res) => {
+                    getTotalPrice(res);
+                  })
                   .catch(() => {});
                 setCurrentQuantity(0);
               }}
@@ -62,7 +71,9 @@ function CartProductCard({ lineItem }: { lineItem: LineItemType }) {
                   type='button'
                   onClick={() => {
                     removeProductFromCard(lineItem.id, 1)
-                      .then(() => {})
+                      .then((res) => {
+                        getTotalPrice(res);
+                      })
                       .catch(() => {});
                     setCurrentQuantity(currentQuantity - 1);
                     setTotalPrice(price * (currentQuantity - 1));
@@ -76,7 +87,13 @@ function CartProductCard({ lineItem }: { lineItem: LineItemType }) {
                   type='button'
                   onClick={() => {
                     addProductToCart(lineItem.productId, lineItem.variant.id, 1)
-                      .then(() => {})
+                      .then(() => {
+                        getCartById()
+                          .then((res) => {
+                            getTotalPrice(res);
+                          })
+                          .catch(() => {});
+                      })
                       .catch(() => {});
                     setCurrentQuantity(currentQuantity + 1);
                     setTotalPrice(price * (currentQuantity + 1));

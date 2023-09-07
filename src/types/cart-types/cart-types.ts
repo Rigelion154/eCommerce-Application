@@ -36,6 +36,7 @@ export type CartType = {
   taxRoundingMode: string;
   taxCalculationMode: string;
   deleteDaysAfterLastModification: number;
+  totalLineItemQuantity: number;
   // refusedGifts: any[];
   origin: string;
   // itemShippingAddresses: any[];
