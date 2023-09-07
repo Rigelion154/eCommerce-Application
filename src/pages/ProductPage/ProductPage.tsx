@@ -22,7 +22,7 @@ function ProductPage() {
       })
       .catch(() => {});
   }, [key]);
-
+  // console.log(product);
   return (
     <div>
       {status || product.length === 0 ? (

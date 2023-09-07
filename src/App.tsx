@@ -8,6 +8,8 @@ import AppRouter from './routes/appRouter/AppRouter';
 import AuthContext from './core/utils/authContext';
 import getAnonymousToken from './core/services/getAnonymousToken';
 import getCarts from './core/services/Cart/getCarts';
+// import deleteCart from "./core/services/testCart/deleteCart";
+// import getCarts from './core/services/Cart/getCarts';
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
@@ -19,19 +21,13 @@ function App() {
   useEffect(() => {
     getCarts()
       .then(() => {
-        // // @ts-ignore
-        // res.forEach((data) => {
-        //   deleteCart(data.id, data.version);
-        // });
+        //   res.forEach((data) => {
+        //     deleteCart(data.id, data.version)
+        //       .then(() => {})
+        //       .catch(() => {});
+        //   });
       })
       .catch(() => {});
-
-    // getTokenDelete()
-    //   .then((res) => {
-    //     if (!localStorage.getItem('delete')) localStorage.setItem('delete', res.accessToken);
-    //     if (!localStorage.getItem('delete1')) localStorage.setItem('delete1', res.refreshToken);
-    //   })
-    //   .catch(() => {});
 
     getAnonymousToken()
       .then((res) => {

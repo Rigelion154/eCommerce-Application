@@ -1,15 +1,13 @@
 import axios from 'axios';
 import { apiConstants } from '../../constants/apiConstants';
 
-export default async function deleteCart(id: string, vers: number) {
-  const token = localStorage.getItem('delete');
-  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/carts/${id}?version=${vers}`;
+export default async function deleteCart(id: string, version: number) {
+  const token = localStorage.getItem('accessToken');
+  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/me/carts/${id}?version=${version}`;
 
-  const response = await axios.delete(url, {
+  await axios.delete(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response;
-  // console.log(response);
 }

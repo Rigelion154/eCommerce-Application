@@ -1,4 +1,4 @@
-import { Asset } from '../product-types';
+import { Asset, Price } from '../product-types';
 
 export type CartType = {
   type: string;
@@ -60,16 +60,7 @@ export type LineItemType = {
     id: number;
     sku: string;
     key: string;
-    prices: {
-      id: string;
-      value: {
-        type: string;
-        currencyCode: string;
-        centAmount: number;
-        fractionDigits: number;
-      };
-      key: string;
-    }[];
+    prices: Price[];
     images: {
       url: string;
       dimensions: {
@@ -90,6 +81,18 @@ export type LineItemType = {
       currencyCode: string;
       centAmount: number;
       fractionDigits: number;
+    };
+    discounted?: {
+      discount: {
+        typeId: string;
+        id: string;
+      };
+      value: {
+        type: string;
+        currencyCode: string;
+        centAmount: number;
+        fractionDigits: number;
+      };
     };
     key: string;
   };

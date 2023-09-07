@@ -22,6 +22,7 @@ export default async function removeProductFromCard(lineItemId: string, quantity
       Authorization: `Bearer ${token}`,
     },
   });
+  // console.log('удаляем товар', response.data);
   return response;
   // console.log(response.data);
 }
