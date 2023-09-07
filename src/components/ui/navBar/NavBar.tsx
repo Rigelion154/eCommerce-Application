@@ -78,6 +78,7 @@ function NavBar({
             .then((res) => {
               localStorage.setItem('accessToken', res.accessToken);
               localStorage.setItem('refreshToken', res.refreshToken);
+              localStorage.setItem('cartId', '');
             })
             .catch(() => {});
           setIsAuth(localStorage.getItem('isAuth'));
