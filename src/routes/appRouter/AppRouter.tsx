@@ -13,6 +13,7 @@ import AuthContext from '../../core/utils/authContext';
 import Categories from '../../pages/Categories/Categories';
 import SubCategories from '../../pages/subCategories/SubCategories';
 import ProductPage from '../../pages/ProductPage/ProductPage';
+import AboutUs from '../../pages/AboutUs/AboutUs';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
@@ -28,6 +29,7 @@ function AppRouter() {
         <Route path={ROUTES.CATEGORIES} element={<Categories />} />
         <Route path={ROUTES.SUBCATEGORIES} element={<SubCategories />} />
         <Route path={ROUTES.PRODUCT} element={<ProductPage />} />
+        <Route path={ROUTES.ABOUTUS} element={<AboutUs />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </div>

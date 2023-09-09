@@ -10,10 +10,8 @@
 
 .logo {
   position: absolute;
-  background-image: url(http://localhost:3000/static/media/rs_school_js.e664e4b7fc864b0a23ef.svg);
-  background-repeat: no-repeat;
   width: 64px;
   height: 32px;
-  top: 0;
+  top: -3px;
   right: 0;
 }
