@@ -1,6 +1,6 @@
 import React from 'react';
 import axios, { AxiosResponse } from 'axios';
-import { apiConstants } from '../apiConstants';
+import { apiConstants } from '../../constants/apiConstants';
 import { IMasterDataResponse, MasterData } from '../../../types/product-types';
 import { IFormatCategory } from '../../../types/category-types';
 

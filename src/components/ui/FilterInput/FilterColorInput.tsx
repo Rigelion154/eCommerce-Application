@@ -11,7 +11,7 @@ function FilterColorInput({
   value: string[];
 }) {
   return (
-    <div>
+    <div style={{ width: '90%' }}>
       <p>Selected color: {selectedColor}</p>
       <select
         className={styles.input}

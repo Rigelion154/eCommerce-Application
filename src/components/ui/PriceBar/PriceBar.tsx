@@ -17,7 +17,7 @@ function PriceBar({ price, discountPrice }: { price: number; discountPrice: numb
         <div className={styles.discount__wrapper}>
           <span>Discount 10%: </span>
           <span>
-            {((price / 100) * 0.9).toLocaleString('en-US', {
+            {(discountPrice / 100).toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica&family=Roboto&display=swap');
+
 :root {
   --color-light: #eef0f4;
   --color-primary: #319dff;
@@ -60,6 +62,18 @@ body {
   color: var(--color-button-hover);
   background-color: var(--color-light);
   transition: all 0.5s;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Roboto', sans-serif;
+}
+
+p,
+span,
+a {
+  font-family: 'Geologica', sans-serif;
 }
 
 @media screen and (max-width: 800px) {

@@ -1,6 +1,6 @@
 import { ICustomerLogIn } from '../../types/customers-types';
 import { IToken } from '../../types/types';
-import { apiConstants, apiScopes } from './apiConstants';
+import { apiConstants, apiScopes } from '../constants/apiConstants';
 
 export default async function logIn(email: string, password: string) {
   const scope = Object.values(apiScopes).join(' ');
@@ -36,6 +36,7 @@ export default async function logIn(email: string, password: string) {
       const userData = await (res.json() as Promise<ICustomerLogIn>);
       localStorage.setItem('userID', userData.customer.id);
       localStorage.setItem('isAuth', 'true');
+      localStorage.setItem('cartId', '');
     }
   }
   if (response.status === 400) {

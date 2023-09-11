@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { apiConstants } from './apiConstants';
+import { apiConstants } from '../constants/apiConstants';
 import { IProductResponse } from '../../types/product-types';
 
 export default async function getProducts() {

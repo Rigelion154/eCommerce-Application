@@ -1,7 +1,7 @@
 .discount__wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  column-gap: 15px;
   color: red;
 }
 
