@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from 'react-icons/io';
-import PriceBar from '../PriceBar/PriceBar';
+
 import { CartType, LineItemType } from '../../../types/cart-types/cart-types';
-import styles from './CartProductCard.module.css';
-import removeProductFromCard from '../../../core/services/Cart/handleProduct/removeProductFromCard';
+
 import addProductToCart from '../../../core/services/Cart/handleProduct/addProductToCart';
-import getCartById from '../../../core/services/Cart/getCartById';
+import removeProductFromCard from '../../../core/services/Cart/handleProduct/removeProductFromCard';
+
+import PriceBar from '../PriceBar/PriceBar';
+
+import styles from './CartProductCard.module.css';
 
 function CartProductCard({
   lineItem,
@@ -16,10 +19,9 @@ function CartProductCard({
 }) {
   const [currentQuantity, setCurrentQuantity] = useState(lineItem.quantity);
   const [price, setPrice] = useState(lineItem.price.value.centAmount / 100);
-  const [discount, setDiscount] = useState(
-    lineItem.price.discounted && lineItem.price.discounted.value.centAmount / 100,
-  );
+  const [discount, setDiscount] = useState<number | undefined>(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     setPrice(lineItem.price.value.centAmount / 100);
@@ -29,6 +31,24 @@ function CartProductCard({
   useEffect(() => {
     setTotalPrice(discount ? discount * currentQuantity : price * currentQuantity);
   }, [currentQuantity, discount, price]);
+
+  const handleAddToCart = async () => {
+    setIsButtonDisabled(true);
+    const addedCart = await addProductToCart(lineItem.productId, lineItem.variant.id, 1);
+    getTotalPrice(addedCart);
+    setCurrentQuantity(currentQuantity + 1);
+    setTotalPrice(price * (currentQuantity + 1));
+    setIsButtonDisabled(false);
+  };
+
+  const handleRemoveFromCart = async () => {
+    setIsButtonDisabled(true);
+    const removedCart = await removeProductFromCard(lineItem.id, 1);
+    getTotalPrice(removedCart);
+    setCurrentQuantity(currentQuantity - 1);
+    setTotalPrice(price * (currentQuantity - 1));
+    setIsButtonDisabled(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -67,37 +87,19 @@ function CartProductCard({
             <div className={styles.total__bar}>
               <div className={styles.total__wrapper}>
                 <button
+                  disabled={isButtonDisabled}
                   className={styles.button__quantity}
                   type='button'
-                  onClick={() => {
-                    removeProductFromCard(lineItem.id, 1)
-                      .then((res) => {
-                        getTotalPrice(res);
-                      })
-                      .catch(() => {});
-                    setCurrentQuantity(currentQuantity - 1);
-                    setTotalPrice(price * (currentQuantity - 1));
-                  }}
+                  onClick={handleRemoveFromCart}
                 >
                   -
                 </button>
                 <span className={styles.total_quantity}>{currentQuantity}</span>
                 <button
+                  disabled={isButtonDisabled}
                   className={styles.button__quantity}
                   type='button'
-                  onClick={() => {
-                    addProductToCart(lineItem.productId, lineItem.variant.id, 1)
-                      .then(() => {
-                        getCartById()
-                          .then((res) => {
-                            getTotalPrice(res);
-                          })
-                          .catch(() => {});
-                      })
-                      .catch(() => {});
-                    setCurrentQuantity(currentQuantity + 1);
-                    setTotalPrice(price * (currentQuantity + 1));
-                  }}
+                  onClick={handleAddToCart}
                 >
                   +
                 </button>

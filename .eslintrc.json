@@ -28,6 +28,7 @@
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "ignorePatterns": ["jest.config.js", "*.css", "*.svg"],
   "rules": {
+    "@typescript-eslint/no-misused-promises": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-explicit-any": ["error"],
     "@typescript-eslint/no-use-before-define": ["error"],

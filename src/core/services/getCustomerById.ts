@@ -11,5 +11,6 @@ export default async function getCustomerById(id: string) {
     },
   });
   const userData = await (res.json() as Promise<ICustomerGetInfo>);
+  // console.log(userData);
   return userData;
 }

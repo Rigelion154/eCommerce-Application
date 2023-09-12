@@ -16,6 +16,7 @@ async function getProductsByCategory(categoryId: string) {
       filter: `categories.id: subtree ("${categoryId}")`,
     },
   });
+  // console.log(response);
   const { results } = response.data;
   return results;
 }

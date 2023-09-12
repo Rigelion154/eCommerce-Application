@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Container from '../../components/layout/container/Container';
-import getCartById from '../../core/services/Cart/getCartById';
+
 import { CartType } from '../../types/cart-types/cart-types';
-import CartProductCard from '../../components/ui/CartProductCard/CartProductCard';
+
 import deleteCart from '../../core/services/testCart/deleteCart';
+import getCartById from '../../core/services/Cart/getCartById';
+
+import Container from '../../components/layout/container/Container';
+import CartProductCard from '../../components/ui/CartProductCard/CartProductCard';
+
 import styles from './Cart.module.css';
 
 function Cart() {
@@ -24,7 +28,7 @@ function Cart() {
       })
       .catch(() => {});
   }, []);
-
+  // console.log(cart);
   return (
     <section>
       <Container>

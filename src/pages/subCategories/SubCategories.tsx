@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { MasterData } from '../../types/product-types';
 import Container from '../../components/layout/container/Container';
@@ -6,7 +6,7 @@ import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
 import useSubCategory from '../../core/hooks/useSubCategory';
 import handleProductsBySubCategory from '../../core/services/getProductsFromApi/getProductsBySubCategory';
-import ProductCard from '../../components/ui/ProductCard/ProductCard';
+// import ProductCard from '../../components/ui/ProductCard/ProductCard';
 import FilterColorInput from '../../components/ui/FilterInput/FilterColorInput';
 import FilterSizeInput from '../../components/ui/FilterInput/FilterSizeInput';
 import FilerPriceInput from '../../components/ui/FilterInput/FilerPriceInput';
@@ -16,6 +16,10 @@ import SortBar from '../../components/ui/SortBar/SortBar';
 import styles from './SubCategories.module.css';
 import handleResize from '../../core/utils/handleResize';
 import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
+import { LineItemType } from '../../types/cart-types/cart-types';
+import getCartById from '../../core/services/Cart/getCartById';
+
+const LazyProductCard = lazy(() => import('../../components/ui/ProductCard/ProductCard'));
 
 function SubCategories() {
   const { current, brand } = useParams();
@@ -33,6 +37,7 @@ function SubCategories() {
   const maxPrice = (+maxValue * 100).toString();
   const screenSizes: string[] = [];
   const colors: string[] = [];
+  const [lineItems, setLineItems] = useState<LineItemType[]>([]);
   currentProducts.forEach((prod) => {
     prod.masterVariant.attributes
       .filter((atr) => atr.name === 'screen_size')
@@ -48,6 +53,16 @@ function SubCategories() {
         if (!colors.includes(atr.value.toString())) colors.push(atr.value.toString());
       });
   });
+
+  useEffect(() => {
+    if (localStorage.getItem('cartId')) {
+      getCartById()
+        .then((res) => {
+          setLineItems(res.lineItems);
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     handleProductsBySubCategory(currentSubCategory, setProducts);
@@ -153,7 +168,15 @@ function SubCategories() {
                   setProducts={setProducts}
                 />
                 {products.map((product) => (
-                  <ProductCard current={current} brand={brand} product={product} key={product.id} />
+                  <Suspense key={product.id} fallback={<LoaderBar />}>
+                    <LazyProductCard
+                      lineItems={lineItems}
+                      current={current}
+                      brand={brand}
+                      product={product}
+                      key={product.id}
+                    />
+                  </Suspense>
                 ))}
               </div>
             </div>
