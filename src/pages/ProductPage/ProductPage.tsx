@@ -9,11 +9,14 @@ import useCategory from '../../core/hooks/useCategory';
 import PriceBar from '../../components/ui/PriceBar/PriceBar';
 import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
 import ToCartButton from '../../components/ui/toCartButton/ToCartButton';
+import getCartById from '../../core/services/Cart/getCartById';
+import { LineItemType } from '../../types/cart-types/cart-types';
 
 function ProductPage() {
   const { current, key } = useParams();
   const [product, setProduct] = useState<IProduct[]>([]);
   const { currentCategory, status } = useCategory(current);
+  const [lineItems, setLineItems] = useState<LineItemType[]>([]);
 
   useEffect(() => {
     getProductByKey(key)
@@ -22,6 +25,16 @@ function ProductPage() {
       })
       .catch(() => {});
   }, [key]);
+
+  useEffect(() => {
+    if (localStorage.getItem('cartId')) {
+      getCartById()
+        .then((res) => {
+          setLineItems(res.lineItems);
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   return (
     <div>
@@ -43,6 +56,7 @@ function ProductPage() {
                   }
                 />
                 <ToCartButton
+                  lineItems={lineItems}
                   productId={elem.id}
                   variantId={elem.masterData.current.masterVariant.id}
                 />

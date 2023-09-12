@@ -3,26 +3,30 @@ import { BsFillCartDashFill, BsFillCartPlusFill } from 'react-icons/bs';
 import styles from './ToCartButton.module.css';
 import removeProductFromCard from '../../../core/services/Cart/handleProduct/removeProductFromCard';
 import createCartByToken from '../../../core/services/Cart/createCartByToken';
-import getCartById from '../../../core/services/Cart/getCartById';
 import addToCartHandler from '../../../core/utils/Cart/addToCartHandler';
+import { LineItemType } from '../../../types/cart-types/cart-types';
 
-function ToCartButton({ productId, variantId }: { productId: string; variantId: number }) {
+function ToCartButton({
+  productId,
+  variantId,
+  lineItems,
+}: {
+  productId: string;
+  variantId: number;
+  lineItems: LineItemType[];
+}) {
   const [productInCart, setProductInCart] = useState<boolean>(false);
   const [currentLineItemId, setCurrentLineItemId] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem('cartId')) {
-      getCartById()
-        .then((res) => {
-          const [lineItem] = res.lineItems.filter((item) => item.productId === productId);
-          setCurrentLineItemId(lineItem.id);
-          setProductInCart(true);
-        })
-        .catch(() => {
-          setProductInCart(false);
-        });
+    if (lineItems.length > 0) {
+      const [lineItem] = lineItems.filter((item) => item.productId === productId);
+      if (lineItem) {
+        setCurrentLineItemId(lineItem.id);
+        setProductInCart(true);
+      }
     }
-  }, [productId]);
+  }, [lineItems, productId]);
 
   const handleAddToCart = () => {
     if (productInCart) {

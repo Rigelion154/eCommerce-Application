@@ -2,6 +2,7 @@ import { Asset, Price } from '../product-types';
 
 export type CartType = {
   type: string;
+  anonymousId: string;
   id: string;
   version: number;
   versionModifiedAt: string;

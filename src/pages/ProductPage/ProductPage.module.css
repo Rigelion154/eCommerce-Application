@@ -1,5 +1,4 @@
 .product__container {
-  position: relative;
   display: flex;
   padding: 0 10px;
   margin: 20px auto 0;
@@ -7,6 +6,7 @@
 }
 
 .product__info {
+  position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
