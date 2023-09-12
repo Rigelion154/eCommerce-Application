@@ -11,7 +11,7 @@ function AboutUs() {
         one who reached out to me and Anton, created Discord-server for us and set up our first
         voice conference. After that we had voice discussions at the start of each development
         sprint and additional ones, if necessary, with all or two team members, depending on which
-        task was discussed. We also used Trello for the purpose of tracking out progress.
+        task was discussed. We also used Trello for the purpose of tracking our progress.
       </p>
       <p className={styles.text}>
         Our mutual work and thus, this project as whole, were only possible thanks to RSSchool
