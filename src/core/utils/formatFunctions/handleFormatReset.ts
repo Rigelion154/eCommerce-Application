@@ -10,10 +10,12 @@ export default function handleFormatReset(
   setMaxValue: React.Dispatch<React.SetStateAction<string>>,
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
   currentCubCategory: ICategory[],
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
 ) {
   setSelectedColor('');
   setSelectedSize('');
   setMinValue('0');
   setMaxValue('5000');
+  setCurrentPage(3);
   handleProductsBySubCategory(currentCubCategory, setProducts);
 }

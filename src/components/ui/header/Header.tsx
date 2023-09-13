@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineCloseCircle, AiOutlineMenu } from 'react-icons/ai';
 import styles from './Header.module.css';
@@ -8,19 +8,14 @@ import NavBar from '../navBar/NavBar';
 import SearchForm from '../searchForm/SearchForm';
 import Container from '../../layout/container/Container';
 import CategoryBar from '../categotyBar/CategoryBar';
+import useBurger from '../../../core/hooks/useBurger';
 
 function Header() {
   const [burger, setBurger] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  useEffect(() => {
-    if (burger) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  }, [burger]);
+  useBurger(burger);
 
   return (
     <header>

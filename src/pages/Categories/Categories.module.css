@@ -13,3 +13,9 @@
   width: 350px;
   height: 420px;
 }
+
+@media screen and (max-width: 500px) {
+  .wrapper {
+    flex-direction: unset;
+  }
+}

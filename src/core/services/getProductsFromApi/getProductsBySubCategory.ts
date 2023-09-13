@@ -5,7 +5,7 @@ import { IMasterDataResponse, MasterData } from '../../../types/product-types';
 import { ICategory } from '../../../types/category-types';
 
 async function getProductsBySubCategory(subcategoryId: string) {
-  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search`;
+  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search?limit=3&sort=id+asc`;
   const token = localStorage.getItem('accessToken');
 
   const response: AxiosResponse<IMasterDataResponse> = await axios.get(url, {

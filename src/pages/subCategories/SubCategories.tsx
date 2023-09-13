@@ -1,23 +1,32 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { MasterData } from '../../types/product-types';
-import Container from '../../components/layout/container/Container';
-import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
+import { LineItemType } from '../../types/cart-types/cart-types';
+
 import useCategory from '../../core/hooks/useCategory';
 import useSubCategory from '../../core/hooks/useSubCategory';
 import handleProductsBySubCategory from '../../core/services/getProductsFromApi/getProductsBySubCategory';
-// import ProductCard from '../../components/ui/ProductCard/ProductCard';
+import handleFormat from '../../core/utils/formatFunctions/handleFormat';
+import handleFormatReset from '../../core/utils/formatFunctions/handleFormatReset';
+import useScrollEvent from '../../core/hooks/useScrollEvent';
+import useSetLineItems from '../../core/hooks/useSetLineItems';
+import useResize from '../../core/hooks/useResize';
+
+import Container from '../../components/layout/container/Container';
+import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import FilterColorInput from '../../components/ui/FilterInput/FilterColorInput';
 import FilterSizeInput from '../../components/ui/FilterInput/FilterSizeInput';
 import FilerPriceInput from '../../components/ui/FilterInput/FilerPriceInput';
-import handleFormat from '../../core/utils/formatFunctions/handleFormat';
-import handleFormatReset from '../../core/utils/formatFunctions/handleFormatReset';
 import SortBar from '../../components/ui/SortBar/SortBar';
-import styles from './SubCategories.module.css';
-import handleResize from '../../core/utils/handleResize';
 import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
-import { LineItemType } from '../../types/cart-types/cart-types';
-import getCartById from '../../core/services/Cart/getCartById';
+
+import styles from './SubCategories.module.css';
+import useFetchScroll from '../../core/hooks/useFetchScroll';
+import useBurger from '../../core/hooks/useBurger';
+import infinitySubCategories from '../../core/services/infinityScroll/infinitySubCategories';
+import getFormatColor from '../../core/utils/formatFunctions/getFormatColor';
+import getFormatScreenSize from '../../core/utils/formatFunctions/getFormatScreenSize';
 
 const LazyProductCard = lazy(() => import('../../components/ui/ProductCard/ProductCard'));
 
@@ -25,6 +34,7 @@ function SubCategories() {
   const { current, brand } = useParams();
   const { currentCategory, status } = useCategory(current);
   const { currentSubCategory } = useSubCategory(brand);
+
   const [burger, setBurger] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [products, setProducts] = useState<MasterData[]>([]);
@@ -33,54 +43,40 @@ function SubCategories() {
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('5000');
   const [selectedSize, setSelectedSize] = useState('');
+  const [lineItems, setLineItems] = useState<LineItemType[]>([]);
+  const [currentPage, setCurrentPage] = useState(3);
+  const [fetching, setFetching] = useState(false);
+
   const minPrice = (+minValue * 100).toString();
   const maxPrice = (+maxValue * 100).toString();
-  const screenSizes: string[] = [];
-  const colors: string[] = [];
-  const [lineItems, setLineItems] = useState<LineItemType[]>([]);
-  currentProducts.forEach((prod) => {
-    prod.masterVariant.attributes
-      .filter((atr) => atr.name === 'screen_size')
-      .forEach((atr) => {
-        if (!screenSizes.includes(atr.value.toString())) screenSizes.push(atr.value.toString());
-      });
-  });
-
-  currentProducts.forEach((prod) => {
-    prod.masterVariant.attributes
-      .filter((atr) => atr.name === 'product_color')
-      .forEach((atr) => {
-        if (!colors.includes(atr.value.toString())) colors.push(atr.value.toString());
-      });
-  });
-
-  useEffect(() => {
-    if (localStorage.getItem('cartId')) {
-      getCartById()
-        .then((res) => {
-          setLineItems(res.lineItems);
-        })
-        .catch(() => {});
-    }
-  }, []);
+  const screenSizes = getFormatScreenSize(currentProducts);
+  const colors = getFormatColor(currentProducts);
 
   useEffect(() => {
     handleProductsBySubCategory(currentSubCategory, setProducts);
     handleProductsBySubCategory(currentSubCategory, setCurrentProducts);
-    handleResize(setIsSmallScreen);
-    window.addEventListener('resize', () => handleResize(setIsSmallScreen));
-    return () => {
-      window.removeEventListener('resize', () => handleResize(setIsSmallScreen));
-    };
   }, [currentSubCategory]);
 
+  useScrollEvent(setFetching);
+  useSetLineItems(setLineItems);
+  useResize(setIsSmallScreen);
+  useBurger(burger);
+  useFetchScroll(
+    currentSubCategory,
+    currentPage,
+    setCurrentPage,
+    fetching,
+    setFetching,
+    products,
+    setProducts,
+    infinitySubCategories,
+  );
+
   useEffect(() => {
-    if (burger) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  }, [burger]);
+    setProducts([]);
+    setFetching(false);
+    setCurrentPage(3);
+  }, [brand]);
 
   return (
     <div>
@@ -139,6 +135,7 @@ function SubCategories() {
                           setMaxValue,
                           setProducts,
                           currentSubCategory,
+                          setCurrentPage,
                         );
                       }}
                     >
