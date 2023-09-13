@@ -7,7 +7,7 @@ import Header from './components/ui/header/Header';
 import AppRouter from './routes/appRouter/AppRouter';
 import AuthContext from './core/utils/authContext';
 import getAnonymousToken from './core/services/getAnonymousToken';
-// import getCarts from './core/services/Cart/getCarts';
+import getCarts from './core/services/Cart/getCarts';
 // import deleteCart from "./core/services/testCart/deleteCart";
 // import getCarts from './core/services/Cart/getCarts';
 
@@ -19,15 +19,15 @@ function App() {
   }, [isAuth, setIsAuth]);
 
   useEffect(() => {
-    // getCarts()
-    //   .then(() => {
-    //     //   res.forEach((data) => {
-    //     //     deleteCart(data.id, data.version)
-    //     //       .then(() => {})
-    //     //       .catch(() => {});
-    //     //   });
-    //   })
-    //   .catch(() => {});
+    getCarts()
+      .then(() => {
+        //   res.forEach((data) => {
+        //     deleteCart(data.id, data.version)
+        //       .then(() => {})
+        //       .catch(() => {});
+        //   });
+      })
+      .catch(() => {});
 
     getAnonymousToken()
       .then((res) => {

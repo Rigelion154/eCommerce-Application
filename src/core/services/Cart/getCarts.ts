@@ -5,7 +5,6 @@ import { CartType } from '../../../types/cart-types/cart-types';
 export default async function getCarts() {
   const token = localStorage.getItem('accessToken');
   const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/carts?limit=50`;
-
   const response = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -13,6 +12,5 @@ export default async function getCarts() {
   });
 
   const { results } = response.data as { results: CartType[] };
-
   return results;
 }

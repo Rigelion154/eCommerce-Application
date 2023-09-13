@@ -13,6 +13,7 @@ import Container from '../../components/layout/container/Container';
 import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
 
 import styles from './Categories.module.css';
+import infinityCategories from '../../core/services/infinityScroll/infinityCategories';
 
 const LazyProductCard = lazy(() => import('../../components/ui/ProductCard/ProductCard'));
 
@@ -21,10 +22,58 @@ function Categories() {
   const { currentCategory, status } = useCategory(current);
   const [products, setProducts] = useState<MasterData[]>([]);
   const [lineItems, setLineItems] = useState<LineItemType[]>([]);
+  const [currentPage, setCurrentPage] = useState(3);
+  const [fetching, setFetching] = useState(false);
+
+  useEffect(() => {
+    setProducts([]);
+    setFetching(false);
+    setCurrentPage(3);
+  }, [current]);
 
   useEffect(() => {
     handleProductsByCategory(currentCategory, setProducts);
   }, [currentCategory]);
+
+  useEffect(() => {
+    if (fetching) {
+      if (currentCategory.length > 0) {
+        infinityCategories(currentCategory[0].id, currentPage)
+          .then((res) => {
+            setProducts([...products, ...res]);
+            setCurrentPage((prevState) => prevState + 3);
+          })
+          .catch(() => {})
+          .finally(() => setFetching(false));
+      }
+    }
+  }, [fetching, currentCategory, currentPage, products]);
+
+  const scrollHandler = (e: Event) => {
+    const target = e.target as Document;
+    const pageHeight = target.documentElement.scrollHeight;
+    const pageTop = target.documentElement.scrollTop;
+    const { innerHeight } = window;
+    // console.log('full', pageHeight);
+    // console.log('topscroll', pageTop);
+    // console.log('inner', innerHeight);
+    // console.log(fetching);
+    if (pageHeight - (pageTop + innerHeight) < 100) {
+      // console.log('scroll');
+      // console.log('full', pageHeight);
+      // console.log('topscroll', pageTop);
+      // console.log('inner', innerHeight);
+      // console.log('fet', fetching);
+      setFetching(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+    return function remove() {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem('cartId')) {

@@ -5,7 +5,7 @@ import { IMasterDataResponse, MasterData } from '../../../types/product-types';
 import { IFormatCategory } from '../../../types/category-types';
 
 async function getProductsByCategory(categoryId: string) {
-  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search`;
+  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search?limit=3&sort=id+asc`;
   const token = localStorage.getItem('accessToken');
 
   const response: AxiosResponse<IMasterDataResponse> = await axios.get(url, {
@@ -16,7 +16,6 @@ async function getProductsByCategory(categoryId: string) {
       filter: `categories.id: subtree ("${categoryId}")`,
     },
   });
-  // console.log(response);
   const { results } = response.data;
   return results;
 }
@@ -24,6 +23,10 @@ async function getProductsByCategory(categoryId: string) {
 export default function handleProductsByCategory(
   currentCubCategory: IFormatCategory[],
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
+  // page: number,
+  // setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+  // setFetching: React.Dispatch<React.SetStateAction<boolean>>,
+  // products: MasterData[],
 ) {
   if (currentCubCategory.length > 0) {
     getProductsByCategory(currentCubCategory[0].id)
