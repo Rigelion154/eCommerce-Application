@@ -1,0 +1,104 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  font-family: 'Geologica', sans-serif;
+  color: #0077e4;
+  margin: 5px;
+}
+
+.text {
+  margin: 10px;
+  font-size: 2rem;
+  color: #319dff;
+  text-align: center;
+}
+
+.logo {
+  width: 200px;
+  height: 80px;
+  margin-top: 15px;
+  filter: invert(58%) sepia(73%) saturate(3415%) hue-rotate(187deg) brightness(100%) contrast(103%);
+}
+
+.dev {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px;
+  font-size: 2rem;
+  color: #319dff;
+}
+
+.ilya,
+.vlad,
+.anton {
+  background-size: contain;
+  background-repeat: no-repeat;
+  align-self: center;
+  width: 35%;
+  height: 25vw;
+}
+
+.ilya {
+  background-image: url('../../assets/images/Ilya.jpg');
+}
+
+.vlad {
+  background-image: url('../../assets/images/Vlad.jpg');
+}
+
+.anton {
+  background-image: url('../../assets/images/Anton.jpg');
+}
+
+.dev__individual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.list {
+  align-self: baseline;
+  list-style: disc;
+  font-family: 'Geologica', sans-serif;
+}
+
+@media only screen and (max-width: 1280px) {
+  .ilya,
+  .vlad,
+  .anton {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .text,
+  .dev {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .dev {
+    flex-direction: column;
+    align-items: center;
+  }
+  .dev__individual {
+    width: 80%;
+  }
+  .ilya,
+  .vlad,
+  .anton {
+    width: 80%;
+    height: 45vw;
+  }
+  .text,
+  .dev {
+    font-size: 2rem;
+  }
+}

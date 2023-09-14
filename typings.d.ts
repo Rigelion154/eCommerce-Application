@@ -3,3 +3,8 @@ declare module '*.module.css' {
   export default classes;
 }
 // Описание css модуля
+
+declare module '*.svg' {
+  const content: string;
+  export default content;
+}
