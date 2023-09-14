@@ -7,7 +7,7 @@ import { IFormatCategory } from '../../../types/category-types';
 async function getProductsByCategory(categoryId: string, page: number) {
   const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search`;
   const token = localStorage.getItem('accessToken');
-  const limit = 2;
+  const limit = 6;
   const offset = (page - 1) * limit;
 
   const response: AxiosResponse<IMasterDataResponse> = await axios.get(url, {
