@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { MasterData } from '../../types/product-types';
 import { LineItemType } from '../../types/cart-types/cart-types';
 
@@ -21,9 +22,15 @@ function Categories() {
   const { currentCategory, status } = useCategory(current);
   const [products, setProducts] = useState<MasterData[]>([]);
   const [lineItems, setLineItems] = useState<LineItemType[]>([]);
+  const [fetching, setFetching] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    handleProductsByCategory(currentCategory, setProducts);
+    setProducts([]);
+    setLineItems([]);
+    setFetching(true);
+    setPage(1);
+    handleProductsByCategory(currentCategory, 1, setProducts);
   }, [currentCategory]);
 
   useEffect(() => {
@@ -36,6 +43,18 @@ function Categories() {
     }
   }, []);
 
+  const fetchMoreProducts = () => {
+    const nextPage = page + 1;
+    handleProductsByCategory(currentCategory, nextPage, (newProducts) => {
+      if (newProducts.length === 0) {
+        setFetching(false);
+      } else {
+        setProducts((prevProducts) => [...prevProducts, ...(newProducts as MasterData[])]);
+        setPage(nextPage);
+      }
+    });
+  };
+
   return (
     <div>
       {status || products.length === 0 ? (
@@ -46,17 +65,24 @@ function Categories() {
           <Container>
             <div className={styles.wrapper}>
               {products.length > 0 ? (
-                products.map((product) => (
-                  <Suspense fallback={<LoaderBar />} key={product.id}>
-                    <LazyProductCard
-                      lineItems={lineItems}
-                      current={current}
-                      brand={product.key.split('_')[0]}
-                      product={product}
-                      key={product.id}
-                    />
-                  </Suspense>
-                ))
+                <InfiniteScroll
+                  dataLength={products.length}
+                  next={fetchMoreProducts}
+                  hasMore={fetching}
+                  loader={<LoaderBar />}
+                >
+                  {products.map((product) => (
+                    <Suspense fallback={<LoaderBar />}>
+                      <LazyProductCard
+                        lineItems={lineItems}
+                        current={current}
+                        brand={product.key.split('_')[0]}
+                        product={product}
+                        key={product.id}
+                      />
+                    </Suspense>
+                  ))}
+                </InfiniteScroll>
               ) : (
                 <p>No products available</p>
               )}
