@@ -12,6 +12,5 @@ export default async function getCartById() {
       Authorization: `Bearer ${token}`,
     },
   });
-
   return response.data as CartType;
 }

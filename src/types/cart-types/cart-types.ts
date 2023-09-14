@@ -1,7 +1,8 @@
-import { Asset } from '../product-types';
+import { Asset, Price } from '../product-types';
 
 export type CartType = {
   type: string;
+  anonymousId: string;
   id: string;
   version: number;
   versionModifiedAt: string;
@@ -36,6 +37,7 @@ export type CartType = {
   taxRoundingMode: string;
   taxCalculationMode: string;
   deleteDaysAfterLastModification: number;
+  totalLineItemQuantity: number;
   // refusedGifts: any[];
   origin: string;
   // itemShippingAddresses: any[];
@@ -60,16 +62,7 @@ export type LineItemType = {
     id: number;
     sku: string;
     key: string;
-    prices: {
-      id: string;
-      value: {
-        type: string;
-        currencyCode: string;
-        centAmount: number;
-        fractionDigits: number;
-      };
-      key: string;
-    }[];
+    prices: Price[];
     images: {
       url: string;
       dimensions: {
@@ -90,6 +83,18 @@ export type LineItemType = {
       currencyCode: string;
       centAmount: number;
       fractionDigits: number;
+    };
+    discounted?: {
+      discount: {
+        typeId: string;
+        id: string;
+      };
+      value: {
+        type: string;
+        currencyCode: string;
+        centAmount: number;
+        fractionDigits: number;
+      };
     };
     key: string;
   };

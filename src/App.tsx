@@ -7,7 +7,9 @@ import Header from './components/ui/header/Header';
 import AppRouter from './routes/appRouter/AppRouter';
 import AuthContext from './core/utils/authContext';
 import getAnonymousToken from './core/services/getAnonymousToken';
-import getCarts from './core/services/Cart/getCarts';
+// import getCarts from './core/services/Cart/getCarts';
+// import deleteCart from "./core/services/testCart/deleteCart";
+// import getCarts from './core/services/Cart/getCarts';
 import Footer from './components/ui/footer/Footer';
 
 function App() {
@@ -18,19 +20,13 @@ function App() {
   }, [isAuth, setIsAuth]);
 
   useEffect(() => {
-    getCarts()
-      .then(() => {
-        // // @ts-ignore
-        // res.forEach((data) => {
-        //   deleteCart(data.id, data.version);
-        // });
-      })
-      .catch(() => {});
-
-    // getTokenDelete()
-    //   .then((res) => {
-    //     if (!localStorage.getItem('delete')) localStorage.setItem('delete', res.accessToken);
-    //     if (!localStorage.getItem('delete1')) localStorage.setItem('delete1', res.refreshToken);
+    // getCarts()
+    //   .then(() => {
+    //     //   res.forEach((data) => {
+    //     //     deleteCart(data.id, data.version)
+    //     //       .then(() => {})
+    //     //       .catch(() => {});
+    //     //   });
     //   })
     //   .catch(() => {});
 

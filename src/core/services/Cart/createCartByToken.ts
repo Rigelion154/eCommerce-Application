@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { apiConstants } from '../../constants/apiConstants';
 import { CartType } from '../../../types/cart-types/cart-types';
 
@@ -10,15 +10,11 @@ export default async function createCartByToken() {
     country: 'US',
   };
 
-  const response = await axios.post(url, data, {
+  const response: AxiosResponse<CartType> = await axios.post(url, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  const cart = response.data as CartType;
-
-  const { id: cartId } = cart;
-
-  return cartId;
+  // console.log('создаём корзину', response.data);
+  return response.data;
 }

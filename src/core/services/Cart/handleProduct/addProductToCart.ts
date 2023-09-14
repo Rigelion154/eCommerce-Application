@@ -1,24 +1,14 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { apiConstants } from '../../../constants/apiConstants';
-// import getCartById from '../getCartById';
-import getCarts from '../getCarts';
-import createCartByToken from '../createCartByToken';
+import getCartById from '../getCartById';
+import { CartType } from '../../../../types/cart-types/cart-types';
 
 export default async function addProductToCart(
   productId: string,
   variantId: number,
   quantity?: number,
 ) {
-  if (!localStorage.getItem('cartId')) {
-    createCartByToken()
-      .then((res) => {
-        if (!localStorage.getItem('cartId')) localStorage.setItem('cartId', res);
-      })
-      .catch(() => {});
-  }
-
-  const [cart] = await getCarts();
-  // const { version, id: cartId } = await getCartById();
+  const cart = await getCartById();
   const { version, id: cartId } = cart;
   const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/me/carts/${cartId}`;
   const token = localStorage.getItem('accessToken');
@@ -34,11 +24,12 @@ export default async function addProductToCart(
     ],
   };
 
-  const response = await axios.post(url, data, {
+  const response: AxiosResponse<CartType> = await axios.post(url, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response;
-  // console.log(response.data);
+
+  // console.log('добавляем товар', response.data);
+  return response.data;
 }

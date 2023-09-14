@@ -36,6 +36,7 @@ export default async function logIn(email: string, password: string) {
       const userData = await (res.json() as Promise<ICustomerLogIn>);
       localStorage.setItem('userID', userData.customer.id);
       localStorage.setItem('isAuth', 'true');
+      localStorage.setItem('cartId', '');
     }
   }
   if (response.status === 400) {
