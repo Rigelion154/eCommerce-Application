@@ -8,16 +8,51 @@
 .footer__wrapper {
   width: 80%;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.promo__wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px 0;
+}
+
+.promo__input {
+  border: 2px solid var(--color-primary);
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.promo__error {
+  color: red;
+  font-size: 1.5rem;
+}
+
+.footer__price {
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 0;
 }
 
 .total__wrapper {
-  width: 20%;
   display: flex;
   align-items: center;
   column-gap: 10px;
+}
+
+.total__after_discount {
+  text-decoration-line: line-through;
+  color: red;
+}
+
+.total__new {
+  color: green;
 }
 
 .button_clear {

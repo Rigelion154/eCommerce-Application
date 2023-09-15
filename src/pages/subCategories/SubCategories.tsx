@@ -38,7 +38,6 @@ function SubCategories() {
   const [burger, setBurger] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [products, setProducts] = useState<MasterData[]>([]);
-  const [currentProducts, setCurrentProducts] = useState<MasterData[]>([]);
   const [selectedColor, setSelectedColor] = useState('');
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('5000');
@@ -46,16 +45,21 @@ function SubCategories() {
   const [lineItems, setLineItems] = useState<LineItemType[]>([]);
   const [currentPage, setCurrentPage] = useState(3);
   const [fetching, setFetching] = useState(false);
+  const [colors, setColors] = useState<string[]>([]);
+  const [screenSizes, setScreenSizes] = useState<string[]>([]);
 
   const minPrice = (+minValue * 100).toString();
   const maxPrice = (+maxValue * 100).toString();
-  const screenSizes = getFormatScreenSize(currentProducts);
-  const colors = getFormatColor(currentProducts);
+  // const screenSizes = getFormatScreenSize(currentProducts);
 
   useEffect(() => {
     handleProductsBySubCategory(currentSubCategory, setProducts);
-    handleProductsBySubCategory(currentSubCategory, setCurrentProducts);
   }, [currentSubCategory]);
+
+  useEffect(() => {
+    setColors(getFormatColor(products));
+    setScreenSizes(getFormatScreenSize(products));
+  }, [products]);
 
   useScrollEvent(setFetching);
   useSetLineItems(setLineItems);

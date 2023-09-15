@@ -17,6 +17,10 @@ function Home() {
               Get <span className={styles.accent_primary}>10% Off</span> <br />
               on <span className={styles.accent_primary}>All Items</span> Over $500
             </h2>
+            <h4>
+              Enter promo code <span className={styles.accent_primary}>ABOBA</span> <br /> and get a
+              <span className={styles.accent_primary}> 5% discount</span> on all items!
+            </h4>
           </div>
         </div>
       </Container>

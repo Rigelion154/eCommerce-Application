@@ -30,7 +30,7 @@ export type CartType = {
   shippingMode: string;
   // shipping: any[];
   // customLineItems: any[];
-  // discountCodes: any[];
+  discountCodes?: DiscountType[];
   // directDiscounts: any[];
   inventoryMode: string;
   taxMode: string;
@@ -41,6 +41,14 @@ export type CartType = {
   // refusedGifts: any[];
   origin: string;
   // itemShippingAddresses: any[];
+};
+
+export type DiscountType = {
+  discountCode: {
+    id: string;
+    typeId: string;
+  };
+  state: string;
 };
 
 export type LineItemType = {
