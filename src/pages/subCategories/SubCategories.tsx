@@ -7,6 +7,7 @@ import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
 import useSubCategory from '../../core/hooks/useSubCategory';
 import handleProductsBySubCategory from '../../core/services/getProductsFromApi/getProductsBySubCategory';
+import handleAllProductsBySubCategory from '../../core/services/getProductsFromApi/getAllProductsBySubCategory';
 // import ProductCard from '../../components/ui/ProductCard/ProductCard';
 import FilterColorInput from '../../components/ui/FilterInput/FilterColorInput';
 import FilterSizeInput from '../../components/ui/FilterInput/FilterSizeInput';
@@ -29,7 +30,7 @@ function SubCategories() {
   const [burger, setBurger] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [products, setProducts] = useState<MasterData[]>([]);
-  const [currentProducts, setCurrentProducts] = useState<MasterData[]>([]);
+  const [allCurrentProducts, setAllCurrentProducts] = useState<MasterData[]>([]);
   const [selectedColor, setSelectedColor] = useState('');
   const [minValue, setMinValue] = useState('0');
   const [maxValue, setMaxValue] = useState('5000');
@@ -54,7 +55,7 @@ function SubCategories() {
     });
   };
 
-  currentProducts.forEach((prod) => {
+  allCurrentProducts.forEach((prod) => {
     prod.masterVariant.attributes
       .filter((atr) => atr.name === 'screen_size')
       .forEach((atr) => {
@@ -62,7 +63,7 @@ function SubCategories() {
       });
   });
 
-  currentProducts.forEach((prod) => {
+  allCurrentProducts.forEach((prod) => {
     prod.masterVariant.attributes
       .filter((atr) => atr.name === 'product_color')
       .forEach((atr) => {
@@ -86,7 +87,7 @@ function SubCategories() {
     setFetching(true);
     setPage(1);
     handleProductsBySubCategory(currentSubCategory, 1, setProducts);
-    handleProductsBySubCategory(currentSubCategory, 1, setCurrentProducts);
+    handleAllProductsBySubCategory(currentSubCategory, setAllCurrentProducts);
     handleResize(setIsSmallScreen);
     window.addEventListener('resize', () => handleResize(setIsSmallScreen));
     return () => {
