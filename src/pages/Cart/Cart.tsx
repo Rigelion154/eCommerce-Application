@@ -76,6 +76,9 @@ function Cart() {
                   >
                     Apply
                   </button>
+                  {!!oldPrice && (
+                    <span style={{ color: '#008000', fontSize: '1.5rem' }}>ABOBA is here!</span>
+                  )}
                   {promoError && <span className={styles.promo__error}>{promoError}</span>}
                 </div>
               </div>
