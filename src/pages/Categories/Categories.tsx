@@ -27,7 +27,7 @@ function Categories() {
 
   useEffect(() => {
     setProducts([]);
-    setLineItems([]);
+    // setLineItems([]);
     setFetching(true);
     setPage(1);
     handleProductsByCategory(currentCategory, 1, setProducts);
@@ -72,13 +72,13 @@ function Categories() {
                   loader={<LoaderBar />}
                 >
                   {products.map((product) => (
-                    <Suspense fallback={<LoaderBar />}>
+                    <Suspense key={product.id} fallback={<LoaderBar />}>
                       <LazyProductCard
                         lineItems={lineItems}
                         current={current}
                         brand={product.key.split('_')[0]}
                         product={product}
-                        key={product.id}
+                        // key={product.id}
                       />
                     </Suspense>
                   ))}

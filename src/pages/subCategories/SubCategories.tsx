@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { MasterData } from '../../types/product-types';
 import Container from '../../components/layout/container/Container';
 import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
@@ -38,6 +39,21 @@ function SubCategories() {
   const screenSizes: string[] = [];
   const colors: string[] = [];
   const [lineItems, setLineItems] = useState<LineItemType[]>([]);
+  const [fetching, setFetching] = useState(true);
+  const [page, setPage] = useState(1);
+
+  const fetchMoreProducts = () => {
+    const nextPage = page + 1;
+    handleProductsBySubCategory(currentSubCategory, nextPage, (newProducts) => {
+      if (newProducts.length === 0) {
+        setFetching(false);
+      } else {
+        setProducts((prevProducts) => [...prevProducts, ...(newProducts as MasterData[])]);
+        setPage(nextPage);
+      }
+    });
+  };
+
   currentProducts.forEach((prod) => {
     prod.masterVariant.attributes
       .filter((atr) => atr.name === 'screen_size')
@@ -65,8 +81,12 @@ function SubCategories() {
   }, []);
 
   useEffect(() => {
-    handleProductsBySubCategory(currentSubCategory, setProducts);
-    handleProductsBySubCategory(currentSubCategory, setCurrentProducts);
+    setProducts([]);
+    // setLineItems([]);
+    setFetching(true);
+    setPage(1);
+    handleProductsBySubCategory(currentSubCategory, 1, setProducts);
+    handleProductsBySubCategory(currentSubCategory, 1, setCurrentProducts);
     handleResize(setIsSmallScreen);
     window.addEventListener('resize', () => handleResize(setIsSmallScreen));
     return () => {
@@ -138,6 +158,8 @@ function SubCategories() {
                           setMinValue,
                           setMaxValue,
                           setProducts,
+                          setFetching,
+                          setPage,
                           currentSubCategory,
                         );
                       }}
@@ -167,17 +189,28 @@ function SubCategories() {
                   selectedSize={selectedSize}
                   setProducts={setProducts}
                 />
-                {products.map((product) => (
-                  <Suspense key={product.id} fallback={<LoaderBar />}>
-                    <LazyProductCard
-                      lineItems={lineItems}
-                      current={current}
-                      brand={brand}
-                      product={product}
-                      key={product.id}
-                    />
-                  </Suspense>
-                ))}
+                {products.length > 0 ? (
+                  <InfiniteScroll
+                    dataLength={products.length}
+                    next={fetchMoreProducts}
+                    hasMore={fetching}
+                    loader={<LoaderBar />}
+                  >
+                    {products.map((product) => (
+                      <Suspense key={product.id} fallback={<LoaderBar />}>
+                        <LazyProductCard
+                          lineItems={lineItems}
+                          current={current}
+                          brand={brand}
+                          product={product}
+                          // key={product.id}
+                        />
+                      </Suspense>
+                    ))}
+                  </InfiniteScroll>
+                ) : (
+                  <p>No products available</p>
+                )}
               </div>
             </div>
           </Container>
