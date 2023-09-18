@@ -88,17 +88,20 @@ function Cart() {
                         currency: 'USD',
                       })}
                 </span>
-                <span
-                  style={{
-                    textDecoration: promoApplied ? 'line-through' : 'none',
-                    color: promoApplied ? 'red' : 'black',
-                  }}
-                >
-                  {(totalPrice / 100).toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}
-                </span>
+                {promoApplied && (
+                  <span
+                    style={{
+                      textDecoration: 'line-through',
+                      color: 'red',
+                      marginLeft: '10px',
+                    }}
+                  >
+                    {(totalPrice / 100).toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    })}
+                  </span>
+                )}
               </div>
             </div>
             <div className={styles.promo__container}>
@@ -109,7 +112,7 @@ function Cart() {
                   Apply
                 </button>
               </div>
-              <div style={{ color: 'red', fontSize: '1.8rem' }}>{promoError}</div>
+              <div className={styles.promo__error}>{promoError}</div>
             </div>
           </div>
         ) : (
