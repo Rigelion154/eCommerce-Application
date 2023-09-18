@@ -28,10 +28,14 @@ function Categories() {
   const [currentPage, setCurrentPage] = useState(3);
   const [fetching, setFetching] = useState(false);
 
+  // useEffect(() => {
+  //   setProducts([]);
+  //   // setLineItems([]);
+  //   setFetching(true);
+  //   handleProductsByCategory(currentCategory, setProducts);
+  // }, [currentCategory]);
+
   useEffect(() => {
-    setProducts([]);
-    // setLineItems([]);
-    setFetching(true);
     handleProductsByCategory(currentCategory, setProducts);
   }, [currentCategory]);
 
