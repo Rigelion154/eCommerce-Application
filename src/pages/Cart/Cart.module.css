@@ -49,21 +49,24 @@
   color: var(--color-primary);
 }
 
-.promo__container {
-  width: 80%;
+.promo__conatiner {
+}
+
+.promo__block {
+  /* width: 80%; */
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.promo__container input {
+.promo__block input {
   padding: 3px 10px;
   margin: 0 10px;
   border: 2px solid var(--color-primary);
   border-radius: 5px;
 }
 
-.promo__container button {
+.promo__block button {
   padding: 3px 10px;
   border: none;
   background-color: var(--color-primary);

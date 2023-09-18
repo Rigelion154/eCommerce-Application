@@ -102,13 +102,15 @@ function Cart() {
               </div>
             </div>
             <div className={styles.promo__container}>
-              <h5>Enter promo</h5>
-              <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
-              <button type='button' onClick={applyPromo}>
-                Apply
-              </button>
+              <div className={styles.promo__block}>
+                <h5>Enter promo</h5>
+                <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
+                <button type='button' onClick={applyPromo}>
+                  Apply
+                </button>
+              </div>
+              <div style={{ color: 'red', fontSize: '1.8rem' }}>{promoError}</div>
             </div>
-            <div style={{ color: 'red', fontSize: '1.8rem' }}>{promoError}</div>
           </div>
         ) : (
           <div className={styles.empty__wrapper}>
