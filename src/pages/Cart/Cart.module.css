@@ -15,6 +15,7 @@
 
 .total__wrapper {
   width: 20%;
+  margin-right: 140px;
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -57,7 +58,7 @@
 }
 
 .promo__block input {
-  padding: 3px 10px;
+  padding: 3px 5px;
   margin: 0 10px;
   border: 2px solid var(--color-primary);
   border-radius: 5px;

@@ -106,7 +106,7 @@ function Cart() {
             </div>
             <div className={styles.promo__container}>
               <div className={styles.promo__block}>
-                <h5>Enter promo</h5>
+                <h5>promo</h5>
                 <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
                 <button type='button' onClick={applyPromo}>
                   Apply
