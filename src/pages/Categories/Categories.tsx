@@ -24,11 +24,15 @@ function Categories() {
   const { currentCategory, status } = useCategory(current);
   const [products, setProducts] = useState<MasterData[]>([]);
   const [lineItems, setLineItems] = useState<LineItemType[]>([]);
+
   const [currentPage, setCurrentPage] = useState(3);
   const [fetching, setFetching] = useState(false);
 
   useEffect(() => {
-    handleProductsByCategory(currentCategory, setProducts);
+    setProducts([]);
+    // setLineItems([]);
+    setFetching(true);
+    handleProductsByCategory(currentCategory, 1, setProducts);
   }, [currentCategory]);
 
   useEffect(() => {
@@ -59,21 +63,18 @@ function Categories() {
           <SubCategoryBar currentCategory={currentCategory} />
           <Container>
             <div className={styles.wrapper}>
-              {products.length > 0 ? (
-                products.map((product) => (
-                  <Suspense fallback={<LoaderBar />} key={product.id}>
-                    <LazyProductCard
-                      lineItems={lineItems}
-                      current={current}
-                      brand={product.key.split('_')[0]}
-                      product={product}
-                      key={product.id}
-                    />
-                  </Suspense>
-                ))
-              ) : (
-                <p>No products available</p>
-              )}
+              {products.map((product) => (
+                <Suspense key={product.id} fallback={<LoaderBar />}>
+                  <LazyProductCard
+                    lineItems={lineItems}
+                    current={current}
+                    brand={product.key.split('_')[0]}
+                    product={product}
+                    // key={product.id}
+                  />
+                </Suspense>
+              ))}
+              ) : (<p>No products available</p>
             </div>
           </Container>
         </>

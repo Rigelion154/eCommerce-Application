@@ -41,7 +41,6 @@ function Cart() {
     }
   }, [cart, totalPrice]);
 
-  // console.log(cart);
   return (
     <section>
       <Container>

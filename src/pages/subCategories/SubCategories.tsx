@@ -7,6 +7,7 @@ import { LineItemType } from '../../types/cart-types/cart-types';
 import useCategory from '../../core/hooks/useCategory';
 import useSubCategory from '../../core/hooks/useSubCategory';
 import handleProductsBySubCategory from '../../core/services/getProductsFromApi/getProductsBySubCategory';
+
 import handleFormat from '../../core/utils/formatFunctions/handleFormat';
 import handleFormatReset from '../../core/utils/formatFunctions/handleFormatReset';
 import useScrollEvent from '../../core/hooks/useScrollEvent';
@@ -15,6 +16,7 @@ import useResize from '../../core/hooks/useResize';
 
 import Container from '../../components/layout/container/Container';
 import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
+
 import FilterColorInput from '../../components/ui/FilterInput/FilterColorInput';
 import FilterSizeInput from '../../components/ui/FilterInput/FilterSizeInput';
 import FilerPriceInput from '../../components/ui/FilterInput/FilerPriceInput';
@@ -138,6 +140,7 @@ function SubCategories() {
                           setMinValue,
                           setMaxValue,
                           setProducts,
+                          setFetching,
                           currentSubCategory,
                           setCurrentPage,
                         );
@@ -175,7 +178,7 @@ function SubCategories() {
                       current={current}
                       brand={brand}
                       product={product}
-                      key={product.id}
+                      // key={product.id}
                     />
                   </Suspense>
                 ))}

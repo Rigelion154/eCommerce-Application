@@ -9,6 +9,7 @@ export default function handleFormatReset(
   setMinValue: React.Dispatch<React.SetStateAction<string>>,
   setMaxValue: React.Dispatch<React.SetStateAction<string>>,
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
+  setFetching: React.Dispatch<React.SetStateAction<boolean>>,
   currentCubCategory: ICategory[],
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
 ) {
@@ -18,4 +19,6 @@ export default function handleFormatReset(
   setMaxValue('5000');
   setCurrentPage(3);
   handleProductsBySubCategory(currentCubCategory, setProducts);
+  setProducts([]);
+  setFetching(true);
 }

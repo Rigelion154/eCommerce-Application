@@ -4,8 +4,8 @@ import { apiConstants } from '../../constants/apiConstants';
 import { IMasterDataResponse, MasterData } from '../../../types/product-types';
 import { ICategory } from '../../../types/category-types';
 
-async function getProductsBySubCategory(subcategoryId: string) {
-  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search?limit=3&sort=id+asc`;
+async function getAllProductsBySubCategory(subcategoryId: string) {
+  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search`;
   const token = localStorage.getItem('accessToken');
 
   const response: AxiosResponse<IMasterDataResponse> = await axios.get(url, {
@@ -21,12 +21,12 @@ async function getProductsBySubCategory(subcategoryId: string) {
   return results;
 }
 
-export default function handleProductsBySubCategory(
+export default function handleAllProductsBySubCategory(
   currentSubCategory: ICategory[],
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
 ) {
   if (currentSubCategory.length > 0) {
-    getProductsBySubCategory(currentSubCategory[0].id)
+    getAllProductsBySubCategory(currentSubCategory[0].id)
       .then((res) => {
         setProducts(res);
       })

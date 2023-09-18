@@ -38,9 +38,7 @@ export type CartType = {
   taxCalculationMode: string;
   deleteDaysAfterLastModification: number;
   totalLineItemQuantity: number;
-  // refusedGifts: any[];
   origin: string;
-  // itemShippingAddresses: any[];
 };
 
 export type DiscountType = {
@@ -107,8 +105,6 @@ export type LineItemType = {
     key: string;
   };
   quantity: number;
-  // discountedPricePerQuantity: any[];
-  // perMethodTaxRate: any[];
   addedAt: string;
   lastModifiedAt: string;
   state: {
@@ -126,5 +122,4 @@ export type LineItemType = {
     centAmount: number;
     fractionDigits: number;
   };
-  // taxedPricePortions: any[];
 };

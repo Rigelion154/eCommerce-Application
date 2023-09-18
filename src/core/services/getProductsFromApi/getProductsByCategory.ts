@@ -16,12 +16,14 @@ async function getProductsByCategory(categoryId: string) {
       filter: `categories.id: subtree ("${categoryId}")`,
     },
   });
+
   const { results } = response.data;
   return results;
 }
 
 export default function handleProductsByCategory(
   currentCubCategory: IFormatCategory[],
+  page: number,
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
   // page: number,
   // setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
@@ -30,9 +32,7 @@ export default function handleProductsByCategory(
 ) {
   if (currentCubCategory.length > 0) {
     getProductsByCategory(currentCubCategory[0].id)
-      .then((res) => {
-        setProducts(res);
-      })
+      .then((res) => setProducts(res))
       .catch(() => {});
   }
 }
