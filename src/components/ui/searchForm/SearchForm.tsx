@@ -19,11 +19,13 @@ function SearchForm({
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    searchProductsByWord(searchedProducts)
-      .then((res) => {
-        setProducts(res);
-      })
-      .catch(() => {});
+    if (localStorage.getItem('accessToken')) {
+      searchProductsByWord(searchedProducts)
+        .then((res) => {
+          setProducts(res);
+        })
+        .catch(() => {});
+    }
   }, [searchedProducts]);
 
   useEffect(() => {

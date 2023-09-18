@@ -8,17 +8,33 @@ import SubCategoryBar from '../../components/ui/subCategoryBar/SubCategoryBar';
 import useCategory from '../../core/hooks/useCategory';
 import PriceBar from '../../components/ui/PriceBar/PriceBar';
 import LoaderBar from '../../components/ui/LoaderBar/LoaderBar';
+import ToCartButton from '../../components/ui/toCartButton/ToCartButton';
+import getCartById from '../../core/services/Cart/getCartById';
+import { LineItemType } from '../../types/cart-types/cart-types';
 
 function ProductPage() {
   const { current, key } = useParams();
   const [product, setProduct] = useState<IProduct[]>([]);
   const { currentCategory, status } = useCategory(current);
+  const [lineItems, setLineItems] = useState<LineItemType[]>([]);
 
   useEffect(() => {
     getProductByKey(key)
-      .then((res) => setProduct(res))
+      .then((res) => {
+        setProduct(res);
+      })
       .catch(() => {});
   }, [key]);
+
+  useEffect(() => {
+    if (localStorage.getItem('cartId')) {
+      getCartById()
+        .then((res) => {
+          setLineItems(res.lineItems);
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   return (
     <div>
@@ -38,6 +54,11 @@ function ProductPage() {
                     product[0].masterData.current.masterVariant.prices[0].discounted?.value
                       .centAmount
                   }
+                />
+                <ToCartButton
+                  lineItems={lineItems}
+                  productId={elem.id}
+                  variantId={elem.masterData.current.masterVariant.id}
                 />
                 {elem.masterData.current.description && (
                   <p className={styles.product__desc}>

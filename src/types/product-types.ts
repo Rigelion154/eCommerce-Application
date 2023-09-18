@@ -60,7 +60,7 @@ export interface IMasterDataResponse {
   results: MasterData[];
 }
 
-interface Asset {
+export interface Asset {
   id: string;
   key?: string;
   sources: {

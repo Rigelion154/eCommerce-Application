@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { IToken } from '../../types/types';
-import { apiConstants, apiScopes } from './apiConstants';
+import { apiConstants, apiScopes } from '../constants/apiConstants';
 
 export default async function getAnonymousToken() {
   const scope = Object.values(apiScopes).join(' ');

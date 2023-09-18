@@ -1,5 +1,5 @@
 import { ICustomerGetInfo } from '../../types/customers-types';
-import { apiConstants } from './apiConstants';
+import { apiConstants } from '../constants/apiConstants';
 
 export default async function getCustomerById(id: string) {
   const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/customers/${id}`;
@@ -11,5 +11,6 @@ export default async function getCustomerById(id: string) {
     },
   });
   const userData = await (res.json() as Promise<ICustomerGetInfo>);
+  // console.log(userData);
   return userData;
 }

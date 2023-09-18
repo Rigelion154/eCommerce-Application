@@ -11,7 +11,7 @@ function FilterSizeInput({
   value: string[];
 }) {
   return (
-    <div>
+    <div style={{ width: '90%' }}>
       <p>Selected size: {selectedSize}</p>
       <select
         className={styles.input}
