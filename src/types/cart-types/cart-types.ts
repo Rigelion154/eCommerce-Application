@@ -28,19 +28,22 @@ export type CartType = {
     fractionDigits: number;
   };
   shippingMode: string;
-  // shipping: any[];
-  // customLineItems: any[];
-  // discountCodes: any[];
-  // directDiscounts: any[];
+  discountCodes?: DiscountType[];
   inventoryMode: string;
   taxMode: string;
   taxRoundingMode: string;
   taxCalculationMode: string;
   deleteDaysAfterLastModification: number;
   totalLineItemQuantity: number;
-  // refusedGifts: any[];
   origin: string;
-  // itemShippingAddresses: any[];
+};
+
+export type DiscountType = {
+  discountCode: {
+    id: string;
+    typeId: string;
+  };
+  state: string;
 };
 
 export type LineItemType = {
@@ -99,8 +102,6 @@ export type LineItemType = {
     key: string;
   };
   quantity: number;
-  // discountedPricePerQuantity: any[];
-  // perMethodTaxRate: any[];
   addedAt: string;
   lastModifiedAt: string;
   state: {
@@ -118,5 +119,4 @@ export type LineItemType = {
     centAmount: number;
     fractionDigits: number;
   };
-  // taxedPricePortions: any[];
 };

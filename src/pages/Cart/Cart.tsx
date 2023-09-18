@@ -8,6 +8,7 @@ import getCartById from '../../core/services/Cart/getCartById';
 
 import Container from '../../components/layout/container/Container';
 import CartProductCard from '../../components/ui/CartProductCard/CartProductCard';
+import PromoCodeForm from '../../components/ui/promoCodeForm/PromoCodeForm';
 
 import styles from './Cart.module.css';
 
@@ -38,6 +39,7 @@ function Cart() {
               <CartProductCard lineItem={item} key={item.id} getTotalPrice={getTotalPrice} />
             ))}
             <div className={styles.footer__wrapper}>
+              <PromoCodeForm />
               <button
                 className={styles.button_clear}
                 type='button'
