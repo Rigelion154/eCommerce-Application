@@ -83,3 +83,14 @@
 .empty_link {
   color: var(--color-primary);
 }
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+    align-items: center;
+  }
+
+  .footer__wrapper {
+    width: 100%;
+  }
+}

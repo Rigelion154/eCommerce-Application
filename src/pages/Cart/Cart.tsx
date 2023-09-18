@@ -25,12 +25,14 @@ function Cart() {
   }, []);
 
   useEffect(() => {
-    getCartById()
-      .then((res) => {
-        setCart(res);
-        setTotalPrice(res.totalPrice.centAmount);
-      })
-      .catch(() => {});
+    if (localStorage.getItem('cartId')) {
+      getCartById()
+        .then((res) => {
+          setCart(res);
+          setTotalPrice(res.totalPrice.centAmount);
+        })
+        .catch(() => {});
+    }
   }, []);
 
   useEffect(() => {

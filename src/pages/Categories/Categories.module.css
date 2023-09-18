@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   row-gap: 30px;
   column-gap: 10px;
-  padding: 20px 0;
+  padding: 20px 0 60px;
 }
 
 .wrapper > * {
