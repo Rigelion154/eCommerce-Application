@@ -8,18 +8,37 @@ import getCartById from '../../core/services/Cart/getCartById';
 
 import Container from '../../components/layout/container/Container';
 import CartProductCard from '../../components/ui/CartProductCard/CartProductCard';
-import PromoCodeForm from '../../components/ui/promoCodeForm/PromoCodeForm';
 
 import styles from './Cart.module.css';
+import sendPromoCode from '../../core/services/Cart/sendPromoCode';
 
 function Cart() {
   const [cart, setCart] = useState<CartType>();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [promoCode, setPromoCode] = useState('');
+  const [promoApplied, setPromoApplied] = useState(false);
+  const [promoError, setPromoError] = useState('');
 
   const getTotalPrice = useCallback((newCart: CartType) => {
     setTotalPrice(newCart.totalPrice.centAmount);
     setCart(newCart);
   }, []);
+
+  const handlePromoCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPromoCode(event.target.value);
+  };
+
+  const applyPromo = useCallback(async () => {
+    try {
+      const newCart = await sendPromoCode(promoCode);
+      getTotalPrice(newCart);
+      setPromoApplied(true);
+      setPromoError('');
+    } catch (error) {
+      setPromoApplied(false);
+      setPromoError('This promo code does not exist');
+    }
+  }, [getTotalPrice, promoCode]);
 
   useEffect(() => {
     getCartById()
@@ -29,7 +48,6 @@ function Cart() {
       })
       .catch(() => {});
   }, []);
-  // console.log(cart);
   return (
     <section>
       <Container>
@@ -39,7 +57,13 @@ function Cart() {
               <CartProductCard lineItem={item} key={item.id} getTotalPrice={getTotalPrice} />
             ))}
             <div className={styles.footer__wrapper}>
-              <PromoCodeForm />
+              <div>
+                <p>Enter promo</p>
+                <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
+                <button type='button' onClick={applyPromo}>
+                  Apply
+                </button>
+              </div>
               <button
                 className={styles.button_clear}
                 type='button'
@@ -60,13 +84,30 @@ function Cart() {
               </button>
               <div className={styles.total__wrapper}>
                 <span>Total:</span>
-                <span>
+                <span style={{ color: promoApplied ? 'green' : 'black' }}>
+                  {promoApplied
+                    ? ((totalPrice * 0.95) / 100).toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      })
+                    : (totalPrice / 100).toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      })}
+                </span>
+                <span
+                  style={{
+                    textDecoration: promoApplied ? 'line-through' : 'none',
+                    color: promoApplied ? 'red' : 'black',
+                  }}
+                >
                   {(totalPrice / 100).toLocaleString('en-US', {
                     style: 'currency',
                     currency: 'USD',
                   })}
                 </span>
               </div>
+              <div style={{ color: 'red' }}>{promoError}</div>
             </div>
           </div>
         ) : (

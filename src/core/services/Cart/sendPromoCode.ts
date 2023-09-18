@@ -3,7 +3,7 @@ import { apiConstants } from '../../constants/apiConstants';
 import { CartType } from '../../../types/cart-types/cart-types';
 import getCartById from './getCartById';
 
-async function applyPromoCode(promoCode: string) {
+async function sendPromoCode(promoCode: string) {
   const cart = await getCartById();
   const cartId = cart.id;
   const cartVersion = cart.version;
@@ -30,4 +30,4 @@ async function applyPromoCode(promoCode: string) {
   return response.data;
 }
 
-export default applyPromoCode;
+export default sendPromoCode;
