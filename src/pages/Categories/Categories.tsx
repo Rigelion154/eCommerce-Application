@@ -32,7 +32,7 @@ function Categories() {
     setProducts([]);
     // setLineItems([]);
     setFetching(true);
-    handleProductsByCategory(currentCategory, 1, setProducts);
+    handleProductsByCategory(currentCategory, setProducts);
   }, [currentCategory]);
 
   useEffect(() => {
@@ -74,7 +74,6 @@ function Categories() {
                   />
                 </Suspense>
               ))}
-              ) : (<p>No products available</p>
             </div>
           </Container>
         </>

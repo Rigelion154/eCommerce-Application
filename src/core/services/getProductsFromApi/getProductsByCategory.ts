@@ -23,7 +23,6 @@ async function getProductsByCategory(categoryId: string) {
 
 export default function handleProductsByCategory(
   currentCubCategory: IFormatCategory[],
-  page: number,
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
   // page: number,
   // setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
