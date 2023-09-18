@@ -1,14 +1,18 @@
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { AiOutlineLogin, AiOutlineLogout, AiOutlineShoppingCart } from 'react-icons/ai';
 import { MdAppRegistration } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { Link, useLocation } from 'react-router-dom';
 
-import ROUTES from '../../../routes/routes';
-import styles from './NavBar.module.css';
-import AuthContext from '../../../core/utils/authContext';
 import { INavLink } from '../../../types/types';
+
+import ROUTES from '../../../routes/routes';
+
+import useResize from '../../../core/hooks/useResize';
+import AuthContext from '../../../core/utils/authContext';
 import getAnonymousToken from '../../../core/services/getAnonymousToken';
+
+import styles from './NavBar.module.css';
 
 function NavBar({
   burger,
@@ -22,21 +26,7 @@ function NavBar({
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  const handleResize = () => {
-    if (window.innerWidth < 768) {
-      setIsSmallScreen(true);
-    } else {
-      setIsSmallScreen(false);
-    }
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  useResize(setIsSmallScreen);
 
   const links: INavLink[] = [
     {

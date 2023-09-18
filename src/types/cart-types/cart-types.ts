@@ -28,7 +28,10 @@ export type CartType = {
     fractionDigits: number;
   };
   shippingMode: string;
+  // shipping: any[];
+  // customLineItems: any[];
   discountCodes?: DiscountType[];
+  // directDiscounts: any[];
   inventoryMode: string;
   taxMode: string;
   taxRoundingMode: string;

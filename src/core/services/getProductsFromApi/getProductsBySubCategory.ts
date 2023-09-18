@@ -4,11 +4,9 @@ import { apiConstants } from '../../constants/apiConstants';
 import { IMasterDataResponse, MasterData } from '../../../types/product-types';
 import { ICategory } from '../../../types/category-types';
 
-async function getProductsBySubCategory(subcategoryId: string, page: number) {
-  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search`;
+async function getProductsBySubCategory(subcategoryId: string) {
+  const url = `${apiConstants.apiUrl}/${apiConstants.projectKey}/product-projections/search?limit=3&sort=id+asc`;
   const token = localStorage.getItem('accessToken');
-  const limit = 2;
-  const offset = (page - 1) * limit;
 
   const response: AxiosResponse<IMasterDataResponse> = await axios.get(url, {
     headers: {
@@ -16,8 +14,6 @@ async function getProductsBySubCategory(subcategoryId: string, page: number) {
     },
     params: {
       filter: `categories.id:"${subcategoryId}"`,
-      limit,
-      offset,
     },
   });
   const { results } = response.data;
@@ -27,11 +23,10 @@ async function getProductsBySubCategory(subcategoryId: string, page: number) {
 
 export default function handleProductsBySubCategory(
   currentSubCategory: ICategory[],
-  page: number,
   setProducts: React.Dispatch<React.SetStateAction<MasterData[]>>,
 ) {
   if (currentSubCategory.length > 0) {
-    getProductsBySubCategory(currentSubCategory[0].id, page)
+    getProductsBySubCategory(currentSubCategory[0].id)
       .then((res) => {
         setProducts(res);
       })

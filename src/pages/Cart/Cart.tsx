@@ -10,38 +10,19 @@ import Container from '../../components/layout/container/Container';
 import CartProductCard from '../../components/ui/CartProductCard/CartProductCard';
 
 import styles from './Cart.module.css';
-import sendPromoCode from '../../core/services/Cart/sendPromoCode';
+import addDiscountCart from '../../core/services/Cart/discountCart/addDiscountCart';
 
 function Cart() {
   const [cart, setCart] = useState<CartType>();
   const [totalPrice, setTotalPrice] = useState(0);
-  const [promoCode, setPromoCode] = useState('');
-  const [promoApplied, setPromoApplied] = useState(false);
   const [promoError, setPromoError] = useState('');
-  const [isPromoCodeApplied, setIsPromoCodeApplied] = useState(false);
+  const [promo, setPromo] = useState('');
+  const [oldPrice, setOldPrice] = useState(0);
 
   const getTotalPrice = useCallback((newCart: CartType) => {
     setTotalPrice(newCart.totalPrice.centAmount);
     setCart(newCart);
   }, []);
-
-  const handlePromoCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPromoCode(event.target.value);
-  };
-
-  const applyPromo = useCallback(async () => {
-    try {
-      const newCart = await sendPromoCode(promoCode);
-      getTotalPrice(newCart);
-      setPromoApplied(true);
-      setPromoError('');
-      setIsPromoCodeApplied(true);
-      setPromoCode('');
-    } catch (error) {
-      setPromoApplied(false);
-      setPromoError('This promo code does not exist');
-    }
-  }, [getTotalPrice, promoCode]);
 
   useEffect(() => {
     if (localStorage.getItem('cartId')) {
@@ -53,6 +34,13 @@ function Cart() {
         .catch(() => {});
     }
   }, []);
+
+  useEffect(() => {
+    if (cart && cart.discountCodes && cart.discountCodes.length > 0) {
+      setOldPrice((totalPrice / 100) * (1 / 0.95));
+    }
+  }, [cart, totalPrice]);
+
   return (
     <section>
       <Container>
@@ -62,67 +50,76 @@ function Cart() {
               <CartProductCard lineItem={item} key={item.id} getTotalPrice={getTotalPrice} />
             ))}
             <div className={styles.footer__wrapper}>
-              <button
-                className={styles.button_clear}
-                type='button'
-                onClick={() => {
-                  getCartById()
-                    .then((res) => {
-                      deleteCart(res.id, res.version)
-                        .then(() => {
-                          setCart(undefined);
-                          localStorage.setItem('cartId', '');
-                        })
-                        .catch(() => {});
-                    })
-                    .catch(() => {});
-                }}
-              >
-                Clear cart
-              </button>
-              <div className={styles.total__wrapper}>
-                <span>Total:</span>
-                <span style={{ color: promoApplied ? 'green' : 'black' }}>
-                  {promoApplied
-                    ? ((totalPrice * 0.95) / 100).toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
+              <div>
+                <h5>Have a promo code?</h5>
+                <div className={styles.promo__wrapper}>
+                  <input
+                    className={styles.promo__input}
+                    type='text'
+                    value={promo}
+                    onChange={(e) => setPromo(e.target.value)}
+                  />
+                  <button
+                    className={styles.button_clear}
+                    type='button'
+                    onClick={() => {
+                      if (cart.discountCodes && cart.discountCodes.length === 0) {
+                        addDiscountCart(promo)
+                          .then((res) => {
+                            setTotalPrice(res.totalPrice.centAmount);
+                            setOldPrice((res.totalPrice.centAmount / 100) * (1 / 0.95));
+                            setPromoError('');
+                            setPromo('');
+                          })
+                          .catch(() => setPromoError('Invalid promo'));
+                      }
+                    }}
+                  >
+                    Apply
+                  </button>
+                  {!!oldPrice && (
+                    <span style={{ color: '#008000', fontSize: '1.5rem' }}>ABOBA is here!</span>
+                  )}
+                  {promoError && <span className={styles.promo__error}>{promoError}</span>}
+                </div>
+              </div>
+              <div className={styles.footer__price}>
+                <button
+                  className={styles.button_clear}
+                  type='button'
+                  onClick={() => {
+                    getCartById()
+                      .then((res) => {
+                        deleteCart(res.id, res.version)
+                          .then(() => {
+                            setCart(undefined);
+                            localStorage.setItem('cartId', '');
+                          })
+                          .catch(() => {});
                       })
-                    : (totalPrice / 100).toLocaleString('en-US', {
+                      .catch(() => {});
+                  }}
+                >
+                  Clear cart
+                </button>
+                <div className={styles.total__wrapper}>
+                  <span>Total:</span>
+                  {!!oldPrice && (
+                    <span className={oldPrice ? styles.total__after_discount : ''}>
+                      {oldPrice.toLocaleString('en-US', {
                         style: 'currency',
                         currency: 'USD',
                       })}
-                </span>
-                {promoApplied && (
-                  <span
-                    style={{
-                      textDecoration: 'line-through',
-                      color: 'red',
-                      marginLeft: '10px',
-                    }}
-                  >
+                    </span>
+                  )}
+                  <span className={oldPrice ? styles.total__new : ''}>
                     {(totalPrice / 100).toLocaleString('en-US', {
                       style: 'currency',
                       currency: 'USD',
                     })}
                   </span>
-                )}
-              </div>
-            </div>
-            <div className={styles.promo__container}>
-              <div className={styles.promo__block}>
-                <h5>promo</h5>
-                <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
-                <button type='button' onClick={applyPromo} disabled={isPromoCodeApplied}>
-                  Apply
-                </button>
-              </div>
-              <div className={styles.promo__error}>{promoError}</div>
-              {isPromoCodeApplied && (
-                <div style={{ color: 'green', textAlign: 'center', fontSize: '1.8rem' }}>
-                  ABOBA applied
                 </div>
-              )}
+              </div>
             </div>
           </div>
         ) : (

@@ -1,5 +1,4 @@
 .container {
-  /*margin: 0 auto;*/
   width: 80%;
 }
 
@@ -74,4 +73,10 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
 }
