@@ -57,13 +57,6 @@ function Cart() {
               <CartProductCard lineItem={item} key={item.id} getTotalPrice={getTotalPrice} />
             ))}
             <div className={styles.footer__wrapper}>
-              <div>
-                <p>Enter promo</p>
-                <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
-                <button type='button' onClick={applyPromo}>
-                  Apply
-                </button>
-              </div>
               <button
                 className={styles.button_clear}
                 type='button'
@@ -107,8 +100,15 @@ function Cart() {
                   })}
                 </span>
               </div>
-              <div style={{ color: 'red' }}>{promoError}</div>
             </div>
+            <div className={styles.promo__container}>
+              <h5>Enter promo</h5>
+              <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
+              <button type='button' onClick={applyPromo}>
+                Apply
+              </button>
+            </div>
+            <div style={{ color: 'red', fontSize: '1.8rem' }}>{promoError}</div>
           </div>
         ) : (
           <div className={styles.empty__wrapper}>
