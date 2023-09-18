@@ -15,6 +15,7 @@
 
 .total__wrapper {
   width: 20%;
+  margin-right: 140px;
   display: flex;
   align-items: center;
   column-gap: 10px;
@@ -47,4 +48,34 @@
 
 .empty_link {
   color: var(--color-primary);
+}
+
+.promo__block {
+  /* width: 80%; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.promo__block input {
+  padding: 3px 5px;
+  margin: 0 10px;
+  border: 2px solid var(--color-primary);
+  border-radius: 5px;
+}
+
+.promo__block button {
+  padding: 3px 10px;
+  border: none;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.promo__error {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: red;
 }
