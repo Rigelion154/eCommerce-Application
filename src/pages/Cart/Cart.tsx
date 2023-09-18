@@ -18,6 +18,7 @@ function Cart() {
   const [promoCode, setPromoCode] = useState('');
   const [promoApplied, setPromoApplied] = useState(false);
   const [promoError, setPromoError] = useState('');
+  const [isPromoCodeApplied, setIsPromoCodeApplied] = useState(false);
 
   const getTotalPrice = useCallback((newCart: CartType) => {
     setTotalPrice(newCart.totalPrice.centAmount);
@@ -34,6 +35,8 @@ function Cart() {
       getTotalPrice(newCart);
       setPromoApplied(true);
       setPromoError('');
+      setIsPromoCodeApplied(true);
+      setPromoCode('');
     } catch (error) {
       setPromoApplied(false);
       setPromoError('This promo code does not exist');
@@ -41,12 +44,14 @@ function Cart() {
   }, [getTotalPrice, promoCode]);
 
   useEffect(() => {
-    getCartById()
-      .then((res) => {
-        setCart(res);
-        setTotalPrice(res.totalPrice.centAmount);
-      })
-      .catch(() => {});
+    if (localStorage.getItem('cartId')) {
+      getCartById()
+        .then((res) => {
+          setCart(res);
+          setTotalPrice(res.totalPrice.centAmount);
+        })
+        .catch(() => {});
+    }
   }, []);
   return (
     <section>
@@ -108,11 +113,16 @@ function Cart() {
               <div className={styles.promo__block}>
                 <h5>promo</h5>
                 <input type='text' onChange={handlePromoCodeChange} value={promoCode} />
-                <button type='button' onClick={applyPromo}>
+                <button type='button' onClick={applyPromo} disabled={isPromoCodeApplied}>
                   Apply
                 </button>
               </div>
               <div className={styles.promo__error}>{promoError}</div>
+              {isPromoCodeApplied && (
+                <div style={{ color: 'green', textAlign: 'center', fontSize: '1.8rem' }}>
+                  ABOBA applied
+                </div>
+              )}
             </div>
           </div>
         ) : (
