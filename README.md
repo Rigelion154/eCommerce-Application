@@ -3,11 +3,18 @@
 ### Development team: [Anton](https://github.com/AntonLeshkovich), [Ilya](https://github.com/rigelion154), [Vladislav](https://github.com/v154254)
 
 ## About eCommerce Application
-
-The project is being developed with [React](https://react.dev/).
-In the "eCommerce Application" project, we are creating an application for purchasing products using CommerceTools (to create an API client).
-In the first part of the "eCommerce-Application" task, we set up a project repository, set up a development environment with React (TypeScript, ESLint, Prettier., Husky and Jest for testing).
-
+The project is developed using [React](https://react.dev/). In the eCommerce Application project, we created an application for purchasing goods using CommerceTools (to create an API client). During the development of the "E-Commerce Application", we set up a development environment. The following pages were created: registration, profile login, product categories and subcategories, product, shopping cart, “About us”, profile, home page.
+## Stack
+* React
+* TypeScript
+* CSS
+* REST API
+* axios
+* Prettier
+* Husky
+* Jest
+* Eslint
+* Commercetools
 ## Install and usage project
 
 1. Clone the repository
