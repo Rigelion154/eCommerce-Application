@@ -74,7 +74,6 @@ function Categories() {
                     current={current}
                     brand={product.key.split('_')[0]}
                     product={product}
-                    // key={product.id}
                   />
                 </Suspense>
               ))}
