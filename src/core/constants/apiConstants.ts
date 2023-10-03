@@ -1,9 +1,13 @@
 const apiConstants = {
-  clientId: 'HyqlWRDM7abPP4M3OK662tm0',
-  clientSecret: 'fyQvqZbvB2ALNbeDwKasYwYtVbhmsEOl',
+  // clientId: 'HyqlWRDM7abPP4M3OK662tm0',
+  clientId: 'poFit2sVUdV3U57AASZRiDCV',
+  // clientSecret: 'fyQvqZbvB2ALNbeDwKasYwYtVbhmsEOl',
+  clientSecret: 'u5mzdrto-ZUf019j6PiXha7Ck-BuIYzi',
   projectKey: 'commerce-shop',
-  authUrl: 'https://auth.us-central1.gcp.commercetools.com',
-  apiUrl: 'https://api.us-central1.gcp.commercetools.com',
+  // authUrl: 'https://auth.us-central1.gcp.commercetools.com',
+  authUrl: 'https://auth.europe-west1.gcp.commercetools.com',
+  // apiUrl: 'https://api.us-central1.gcp.commercetools.com',
+  apiUrl: 'https://api.europe-west1.gcp.commercetools.com',
 };
 
 const apiScopes = {

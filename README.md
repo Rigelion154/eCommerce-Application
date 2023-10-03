@@ -2,7 +2,7 @@
 
 ### Development team: [Anton](https://github.com/AntonLeshkovich), [Ilya](https://github.com/rigelion154), [Vladislav](https://github.com/v154254)
 
-## About eCommerce Application
+## Skills eCommerce Application
 
 The project is being developed with [React](https://react.dev/).
 In the "eCommerce Application" project, we are creating an application for purchasing products using CommerceTools (to create an API client).
